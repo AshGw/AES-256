@@ -1,5 +1,6 @@
 import qrcode
 from typing import Union
+
 def makeqr(text : str) -> Union [int,tuple] :
     try:
         with open(text,'r') as f :
@@ -11,7 +12,6 @@ def makeqr(text : str) -> Union [int,tuple] :
         img.save(("qrv40.png"))
         img.show()
         return 1
-    
     except Exception as e :
         return (0,e)
 
