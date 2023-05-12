@@ -1,8 +1,8 @@
 # Cryptography
 If you're running Python 3.7 or newer you're good to go. 
-Simply hit the terminal and run the command :
+Simply hit the terminal and run the command in the terminal:
 
-$ pip install -r Requirements.txt
+  pip install -r Requirements.txt 
 
 all the necessary libraries should be installed.
 
