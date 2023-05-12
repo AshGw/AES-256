@@ -1,6 +1,8 @@
 # Cryptography
 If you're running Python 3.7 or newer you're good to go. 
-Simply hit the terminal and run the command "pip install -r Requirements.txt" all the necessary libraries should be installed.
+Simply hit the terminal and run the command : 
+$ pip install -r Requirements.txt
+all the necessary libraries should be installed.
 
 Simple and easy to use just follow through, you can either encrypt/decrypt texts or files, by default it accepts UTF-8 encoded strings but you can modify 
 AshFileCrypt to read files in binary mode and encrypt/decrypt binary data.
