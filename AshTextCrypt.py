@@ -5,7 +5,6 @@ import base64
 import secrets
 
 
-
 class Crypt():
     def __init__(self,text,key):
         self.text = text
