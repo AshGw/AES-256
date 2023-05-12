@@ -90,9 +90,9 @@ class CryptFiles():
         return f'{self.__class__.__name__}({self.filename},{self.key})'
 
 if __name__ == '__main__':
-    key_byt = b'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef='  # bytes objects can be used directly ( verify first )
-    key_str = 'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeef'               # Strings need to get ready ( verify first )
+    key_byt = b'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef='  # Bytes can be used directly (verify first)
+    key_str = 'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeef'               # Strings need to get ready (verify first)
 
     key_str = CryptFiles.getready(key_str)
-    target = CryptFiles('test1', key_str)
+    target = CryptFiles('test1.txt', key_str)
     target.decrypt()
