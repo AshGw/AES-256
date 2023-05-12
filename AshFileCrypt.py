@@ -5,7 +5,6 @@ import base64
 import secrets
 
 
-
 class CryptFiles():
     def __init__(self,filename,key):
         self.filename = filename
