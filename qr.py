@@ -1,5 +1,7 @@
 import qrcode
 from typing import Union
+
+
 def fqr(text : str) -> Union [int,tuple] : 
     try:
         with open(text,'r') as f :
