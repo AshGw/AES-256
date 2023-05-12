@@ -6,7 +6,7 @@ k = b'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef='
 
 def encryption():
     m = inputfield1_1.get()
-    if len(m) > 176 :
+    if len(m) > 200 :
         outputvar1.set('Too Long')
     else :
         a = Crypt(m, k)
