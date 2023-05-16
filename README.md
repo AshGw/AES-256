@@ -74,7 +74,8 @@ instance1.decrypt()
 ```
 
 The same applies for AshTextCrypt.
-Thats it, if you follow the steps above then everything should work just fine. 
+
+That's it, if you follow the steps above then everything should work just fine. 
 
 
 
