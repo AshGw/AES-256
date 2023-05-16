@@ -39,8 +39,8 @@ NOTE again that only works if the key is in BYTES format.
 I recommend using key_gen() function ALL THE TIME to generate randomly secure keys since AES-256 is considered secure against brute-force attacks, given the key is generated randomly and has sufficient entropy. The security of AES-256 lies in the strength of the key and the inability to efficiently search through the vast keyspace, it takes 2^256 attempts to run through all the possible combinations. If a brute force attacker runs through 1 trillion combos a second it will 
 still take 10^46 years to run through every possible combination.
 
-Im using  the bytes key :  b'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef=' / string key : 'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeef'   for demonstartion purposes only,  
-it doesnt take 2 seconds to guess a key based on my name. So ALWAYS USE A RANDOMLY GENERATED KEY.  
+Im using  the bytes key :  b'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef=' / string key : 'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeef'   for demonstartion purposes only. 
+It doesnt take 2 seconds to guess a key based on my name. So ALWAYS USE A RANDOMLY GENERATED KEY.  
 
 Follow these 2 simple steps to work a key: 
 1) Generate a random string key : 
@@ -51,7 +51,7 @@ The output should be something like this :
 ```python
 EcQJTaIHLx0lbWLnz8K28moOEywjJwPx
 ```
-2) Use the getready() function to get it ready for use otherwise it will raise a TypeError
+2) Use the getready() function to get it ready for use, otherwise it will raise a TypeError
 ```python
 key = CryptFiles.getready(key)
 ```
@@ -75,7 +75,7 @@ target.decrypt()
 ```
 
 The same applies for AshTextCrypt.
-
+Thats it, if you follow the steps above then everything should work just fine. 
 
 
 
