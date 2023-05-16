@@ -21,7 +21,7 @@ def fqr(text : str) -> Union [int,tuple] :
 def tqr(text : str) -> Union [int,tuple] :
     try:
         x = text.strip()
-        qr = qrcode.QRCode(version = 40,error_correction=qrcode.constants.ERROR_CORRECT_L,box_size=20,border=1)
+        qr = qrcode.QRCode(version = 10,error_correction=qrcode.constants.ERROR_CORRECT_L,box_size=20,border=1)
         qr.add_data(x)
         qr.make(fit=True)
         img = qr.make_image(fill_color = "black", back_color="white")
