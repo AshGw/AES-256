@@ -23,7 +23,7 @@ You can use the AshCryptGUI.py , it's merely a GUI to encrypt and decrypt a text
 of the text post encryption.
 
 NOTE : the key is not specified in the GUI its hard-coded, if you want to change the key make sure to change it from within the file AshCryptGUI.py itself, 
-by defaliut it uses the key in bytes : 
+by default it uses the key in bytes : 
 ```python
 k = b'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef='
 ```
