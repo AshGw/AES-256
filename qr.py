@@ -25,7 +25,7 @@ def tqr(text : str) -> Union [int,tuple] :
         qr.add_data(x)
         qr.make(fit=True)
         img = qr.make_image(fill_color = "black", back_color="white")
-        img.save(("qrv40.png"))
+        img.save(("qrv10.png"))
         img.show()
         return 1
 
