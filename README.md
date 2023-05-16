@@ -69,7 +69,6 @@ instance1 = CryptFiles('target.txt', key)
 ```python
 instance1.encrypt()
 ```
-or 
 ```python
 target.decrypt()
 ```
