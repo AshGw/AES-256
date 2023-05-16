@@ -45,7 +45,7 @@ It doesnt take 2 seconds to guess a key based on my name. So ALWAYS USE A RANDOM
 Follow these 2 simple steps to work a key: 
 1) Generate a random string key : 
 ```python
-key = CryptFiles.genkey()
+key = CryptFiles.key_gen()
 ```
 The output should be something like this : 
 ```python
@@ -61,7 +61,7 @@ These steps work for all the modules I provided.
 
 If you want to encrypt a file : 
 1) Follow the steps above to set the key up.
-2) Create an instance of the class CryptFiles and pass 2 arguments, the first one being the target file and the second argument is the key : 
+2) Create an instance of the class CryptFiles and pass 2 arguments, the first one being the target file and the second argument being the key : 
 ```python
 instance1 = CryptFiles('target.txt', key)
 ```
