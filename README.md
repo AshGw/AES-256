@@ -70,7 +70,7 @@ instance1 = CryptFiles('target.txt', key)
 instance1.encrypt()
 ```
 ```python
-target.decrypt()
+instance1.decrypt()
 ```
 
 The same applies for AshTextCrypt.
