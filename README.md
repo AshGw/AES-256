@@ -40,7 +40,7 @@ I recommend using key_gen() function ALL THE TIME to generate randomly secure ke
 still take 10^46 years to run through every possible combination.
 
 Im using  the bytes key :  b'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef=' / string key : 'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeef'   for demonstartion purposes only. 
-It doesnt take 2 seconds to guess a key based on my name. So ALWAYS USE A RANDOMLY GENERATED KEY.  
+It takes no time to guess a key based on my name. So ALWAYS USE A RANDOMLY GENERATED KEY.  
 
 Follow these 2 simple steps to work a key: 
 1) Generate a random string key : 
