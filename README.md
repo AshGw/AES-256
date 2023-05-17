@@ -36,7 +36,7 @@ If the output is 1 then the specified key can be used.
 
 NOTE again that only works if the key is in BYTES format.
 
-I recommend using key_gen() function ALL THE TIME to generate randomly secure keys since AES-256 is considered secure against brute-force attacks, given the key is generated randomly and has sufficient entropy. The security of AES-256 lies in the strength of the key and the inability to efficiently search through the vast keyspace, it takes 2^256 attempts to run through all the possible combinations. If a brute force attacker runs through 1 trillion combos a second it will 
+I recommend using genkey() function ALL THE TIME to generate randomly secure keys since AES-256 is considered secure against brute-force attacks, given the key is generated randomly and has sufficient entropy. The security of AES-256 lies in the strength of the key and the inability to efficiently search through the vast keyspace, it takes 2^256 attempts to run through all the possible combinations. If a brute force attacker runs through 1 trillion combos a second it will 
 still take 10^46 years to run through every possible combination.
 
 Im using  the bytes key :  b'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef=' / string key : 'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeef'   for demonstartion purposes only. 
@@ -45,7 +45,7 @@ It takes no time to guess a key based on my name. So ALWAYS USE A RANDOMLY GENER
 Follow these 2 simple steps to work a key: 
 1) Generate a random string key : 
 ```python
-key = CryptFiles.key_gen()
+key = CryptFiles.genkey()
 ```
 The output should be something like this : 
 ```python
