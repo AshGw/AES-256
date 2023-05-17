@@ -11,7 +11,7 @@ class Crypt():
         self.key = key
 
     @staticmethod
-    def key_gen() -> string:
+    def genkey() -> string:
         key = ''
         for _ in range(32):
             mysequence = string.ascii_letters + string.digits
