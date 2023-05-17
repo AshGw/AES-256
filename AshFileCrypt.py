@@ -11,7 +11,7 @@ class CryptFiles():
         self.key = key
 
     @staticmethod
-    def key_gen() -> string:
+    def genkey() -> string:
         key = ''
         for _ in range(32):
             mysequence = string.ascii_letters + string.digits
@@ -93,5 +93,5 @@ if __name__ == '__main__':
     key_str = 'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeef'               # Strings need to get ready (verify first)
 
     key_str = CryptFiles.getready(key_str)
-    target = CryptFiles('test1.txt', key_str)
+    target = CryptFiles('target.txt', key_str)
     target.decrypt()
