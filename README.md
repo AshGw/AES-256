@@ -1,6 +1,9 @@
 # Cryptography w/ AES-256 Algorithm
 ## Overview
-This project implements AES-256 cryptography to ensure secure data encryption and decryption. It also includes a simple graphical user interface (GUI) for easy interaction with the application. The project incorporates a database module that allows for the management and storage of classified content securely.
+This project implements AES-256 cryptography to ensure secure data encryption and decryption (Files/Text). It also includes a simple graphical user interface (GUI) for easy interaction with the application. The project incorporates a database module that allows for the management and storage of classified content securely.
+
+Simple and easy to use just follow through, by default it accepts UTF-8 encoded strings but you can modify 
+AshFileCrypt.py to read files in binary mode and encrypt or decrypt binary data.
 
 ## Installation
 
@@ -12,9 +15,6 @@ pip install -r Requirements.txt
 ```
 
 All the necessary libraries should be installed.
-
-Simple and easy to use just follow through, you can either encrypt/decrypt texts or files, by default it accepts UTF-8 encoded strings but you can modify 
-AshFileCrypt to read files in binary mode and encrypt/decrypt binary data.
 
 ## Database Module
 To support efficient content management, the project integrates a database module. This module enables the storage and retrieval of classified content in a secure manner. The database ensures that the encrypted data remains organized and readily accessible to anyone with the right key.
