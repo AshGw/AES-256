@@ -33,7 +33,7 @@ class CryptFiles():
         except AttributeError :
             return 0
     @staticmethod
-    def bytes_verify(key : bytes) -> int :
+    def bytesverify(key : bytes) -> int :
         try:
             testkey = base64.urlsafe_b64decode(key.strip())
             if len(testkey) == 32:
@@ -42,7 +42,7 @@ class CryptFiles():
             return 0
 
     @staticmethod
-    def str_verify(key: string) -> int:
+    def strverify(key: string) -> int:
         if isinstance(key, str):
             if len(key.strip()) == 32:
                 return 1
