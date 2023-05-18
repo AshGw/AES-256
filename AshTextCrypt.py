@@ -26,7 +26,7 @@ class Crypt():
         except AttributeError :
             return 0
     @staticmethod
-    def strbytes_sanitize(key : string) -> Union [ bytes , int ]:
+    def changeform(key : string) -> Union [ bytes , int ]:
         try :
             sanitized_key = key.strip()[2:-1].encode()
             return sanitized_key
