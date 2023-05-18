@@ -36,6 +36,8 @@ If the output is 1 then the specified key can be used.
 
 NOTE again that only works if the key is in BYTES format.
 
+## Recommendations
+
 I recommend using genkey() function ALL THE TIME to generate randomly secure keys since AES-256 is considered secure against brute-force attacks, given the key is generated randomly and has sufficient entropy. The security of AES-256 lies in the strength of the key and the inability to efficiently search through the vast keyspace, it takes 2^256 attempts to run through all the possible combinations. If a brute force attacker runs through 1 trillion combos a second it will 
 still take 10^46 years to run through every possible combination.
 
@@ -51,6 +53,8 @@ or the string key :
 ```
 they're used for demonstartion purposes only. 
 It takes no time to guess a key based on my name. So ALWAYS use a RANDOMLY generated key.  
+
+## Generate a Key 
 
 Follow these 2 simple steps to work a key: 
 1) Generate a random string key : 
@@ -68,6 +72,8 @@ key = CryptFiles.getready(key)
 Then you can simply pass the key variable to any of the encrypt() or decrypt() functions.
 
 These steps work for all the modules I provided.
+
+## How to Encrypt/Decrypt
 
 If you want to encrypt a file : 
 1) Follow the steps above to set the key up.
@@ -87,6 +93,7 @@ The same applies for AshTextCrypt.
 
 That's it, if you follow the steps above then everything should work just fine. 
 
+## Important Points
 
 There are couple of points I want to touch on : 
 
