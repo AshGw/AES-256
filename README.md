@@ -57,7 +57,9 @@ NOTE again that only works if the key is in BYTES format.
 I recommend using the genkey() function ALL THE TIME to generate randomly secure keys since AES-256 is considered secure against brute-force attacks, given the key is generated randomly and has sufficient entropy. The security of AES-256 lies in the strength of the key and the inability to efficiently search through the vast keyspace, it takes 2^256 attempts to run through all the possible combinations. If a brute force attacker runs through 1 trillion combos a second it will 
 still take 10^46 years to run through every possible combination.
 
-NOTE that securing the key is as important as generating a cryptographically secure one. 
+
+NOTE that securing the key is as important as generating a cryptographically secure one so 
+Implement secure key management practices, including secure key storage, rotation, and exchange when necessary. Protect the confidentiality and integrity of your keys to prevent unauthorized access.
 
 Here you might see me using the bytes key : 
 ```python
