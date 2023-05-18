@@ -30,7 +30,7 @@ k = b'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef='
 if you want to change the key you can directly replace the key by another BYTES key it will automatically work if its the correct form.
 To check if it's in the correct form run this ( replace b'Ashreee...eef=' with your key ) : 
 ```python
-print(CryptFiles.intruder_bytes_key_verification(b'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef='))
+print(CryptFiles.bytesverify(b'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef='))
 ```
 If the output is 1 then the specified key can be used.
 
