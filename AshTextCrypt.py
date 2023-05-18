@@ -26,14 +26,14 @@ class Crypt():
         except AttributeError :
             return 0
     @staticmethod
-    def intruder_strbytes_key_sanitization(key : string) -> Union [ bytes , int ]:
+    def strbytes_sanitize(key : string) -> Union [ bytes , int ]:
         try :
             sanitized_key = key.strip()[2:-1].encode()
             return sanitized_key
         except AttributeError :
             return 0
     @staticmethod
-    def intruder_bytes_key_verification(key : bytes) -> int :
+    def bytes_verify(key : bytes) -> int :
         try:
             testkey = base64.urlsafe_b64decode(key.strip())
             if len(testkey) == 32:
@@ -42,7 +42,7 @@ class Crypt():
             return 0
 
     @staticmethod
-    def intruder_str_key_verification(key: string) -> int:
+    def str_verify(key: string) -> int:
         if isinstance(key, str):
             if len(key.strip()) == 32:
                 return 1
