@@ -88,6 +88,36 @@ The same applies for AshTextCrypt.
 That's it, if you follow the steps above then everything should work just fine. 
 
 
+There are couple of points I want to touch on : 
+
+This function : 
+```python
+changeform(key : string) -> Union [ bytes , int ]
+```
+This fucntion can be used to turn a given string key that looks like bytes into actual bytes , the_given_key.encode() wouldn't work here to get the expected 
+result.
+
+For example if you have a simple user input as  : 
+```python
+b'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef='
+```
+Any time a bytes key like this is given, it is automatically read as a string unless it's hardcoded already, then you dont need to use this function .
+
+Now if it's passed along as string from a GUI or a simple user input, trying to encrypt/decrypt with it would raise an Exception, this is where this function comes in , pass in the key that looks like bytes then it will bring back the same key , same look , but in actual bytes format so it can be used.
+
+After you changeform(key) you need to actually check if it can be used as a bytes key , the key must be a urlsafe base64 endoced, to check use  : 
+```python
+result = bytesverify(key_in_bytes)
+```
+If the result is 1 then the key can be used.
+
+Although you don't have to use bytes keys it is optional my recommendation is always to generate a random key and then get it ready for use as I specified above, 
+although sometimes you need to pass in a key that you've received then in that situation you can verify it using : 
+```python
+result = strverify(string_key)
+```
+If the result is 1 you can use it.
+
 
 
 
