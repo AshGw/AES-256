@@ -29,7 +29,7 @@ On AshDatabase.py I'm using "dataclasses" module which was introduced in Python 
 ## QR Module
 The qr.py module is used to display a qr code of either the key or the encrypted message, here I'm using it to display the encrypted message so it 
 can be quickly scanned and transmitted , you can use qr versions from 1 to 40 , although I recommend using 40 since it can take the maximum number 
-of characters for small files and 10 if you're working with the GUI which is intended for text/short messages,
+of characters for small files , and 10 if you're working with the GUI which is intended for text/short messages,
 
 
 ## GUI
