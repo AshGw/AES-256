@@ -1,4 +1,17 @@
 # Cryptography w/ AES-256 Algorithm
+## Overview
+This project implements AES-256 cryptography to ensure secure data encryption and decryption. It also includes a simple graphical user interface (GUI) for easy interaction with the application. The project incorporates a database module that allows for the management and storage of classified content securely.
+
+
+
+
+
+
+
+
+
+
+
 If you're running Python 3.7 or newer you're good to go. 
 Simply open the terminal and run the command:
 
@@ -11,19 +24,25 @@ All the necessary libraries should be installed.
 Simple and easy to use just follow through, you can either encrypt/decrypt texts or files, by default it accepts UTF-8 encoded strings but you can modify 
 AshFileCrypt to read files in binary mode and encrypt/decrypt binary data.
 
-If you want to save the contents you've enctypted/decrypted and keep a log then use AshDatabase.py module to register your contents with the according keys,
-or you can use this to save various account names with their according passwords.  
-Here Im using "dataclasses" module which was introduced in Python 3.7, so make sure to install it if you have an older version.
+## Database Module
+To support efficient content management, the project integrates a database module. This module enables the storage and retrieval of classified content in a secure manner. The database ensures that the encrypted data remains organized and readily accessible to anyone with the right key.
+Any content going to the database is encouraged to be encrypted with a key that you must keep off grid.
+on AshDatabase.py I'm using "dataclasses" module which was introduced in Python 3.7, so make sure to install it if you have an older version.
 
+
+
+## QR Module
 The qr.py module is used to display a qr code of either the key or the encrypted message, here I'm using it to display the encrypted message so it 
 can be quickly scanned and transmitted , you can use qr versions from 1 to 40 , although I recommend using 40 since it can take the maximum number 
-of characters for files and 10 if you're working with the GUI,
+of characters for small files and 10 if you're working with the GUI which is intended for text/short messages,
 
+
+## GUI
 You can use the AshCryptGUI.py , it's merely a GUI to encrypt and decrypt a text of a maximum of 200 characters and also display the qr representation 
 of the text post encryption.
 
-NOTE : the key is not specified in the GUI its hard-coded, if you want to change the key make sure to change it from within the file AshCryptGUI.py itself, 
-by default it uses the key in bytes : 
+NOTE : the key is not specified in the GUI its hard-coded, if you want to change the key make sure to change it from within the file AshCryptGUI.py itself,
+it's just a security measure. By default it uses the following key in bytes : 
 ```python
 k = b'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef='
 ```
@@ -38,10 +57,10 @@ NOTE again that only works if the key is in BYTES format.
 
 ## Recommendations
 
-I recommend using genkey() function ALL THE TIME to generate randomly secure keys since AES-256 is considered secure against brute-force attacks, given the key is generated randomly and has sufficient entropy. The security of AES-256 lies in the strength of the key and the inability to efficiently search through the vast keyspace, it takes 2^256 attempts to run through all the possible combinations. If a brute force attacker runs through 1 trillion combos a second it will 
+I recommend using the genkey() function ALL THE TIME to generate randomly secure keys since AES-256 is considered secure against brute-force attacks, given the key is generated randomly and has sufficient entropy. The security of AES-256 lies in the strength of the key and the inability to efficiently search through the vast keyspace, it takes 2^256 attempts to run through all the possible combinations. If a brute force attacker runs through 1 trillion combos a second it will 
 still take 10^46 years to run through every possible combination.
 
-NOTE that securing the key is as important. 
+NOTE that securing the key is as important as generating a cryptographically secure one. 
 
 Here you might see me using the bytes key : 
 ```python
