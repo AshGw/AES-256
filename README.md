@@ -104,7 +104,7 @@ Any time a bytes key like this is given, it is automatically read as a string un
 
 Now if it's passed along as string from a GUI or a simple user input, trying to encrypt/decrypt with it would raise an Exception, this is where this function comes in , pass in the key that looks like bytes then it will bring back the same key , same look , but in actual bytes format so it can be used.
 
-After you changeform(key) you need to actually check if it can be used as a bytes key , the key must be a urlsafe base64 endoced, to check it use  : 
+After you changeform(key) you need to actually check if it can be used as a bytes key , it must be a urlsafe base64 endoced key, to check it use  : 
 ```python
 result = bytesverify(key_in_bytes)
 ```
