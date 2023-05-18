@@ -94,8 +94,7 @@ This function :
 ```python
 changeform(key : string) -> Union [ bytes , int ]
 ```
-This fucntion can be used to turn a given string key that looks like bytes into actual bytes , the_given_key.encode() wouldn't work here to get the expected 
-result.
+This fucntion can be used to turn a given string key that looks like bytes but is a string into actual bytes , the_given_key.encode() wouldn't work here to get the expected result.
 
 For example if you have a simple user input as  : 
 ```python
