@@ -58,8 +58,8 @@ I recommend using the genkey() function ALL THE TIME to generate randomly secure
 still take 10^46 years to run through every possible combination.
 
 
-NOTE that securing the key is as important as generating a cryptographically secure one so 
-Implement secure key management practices, including secure key storage, rotation, and exchange when necessary. Protect the confidentiality and integrity of your keys to prevent unauthorized access.
+NOTE that securing the key is as important as generating a cryptographically secure one , so 
+implement secure key management practices, including secure key storage, rotation, and exchange when necessary. Protect the confidentiality and integrity of your keys to prevent unauthorized access.
 
 Here you might see me using the bytes key : 
 ```python
