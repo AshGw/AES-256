@@ -2,8 +2,9 @@
 ## Overview
 This project implements AES-256 cryptography to ensure secure data encryption and decryption (Files/Text). It also includes a simple graphical user interface (GUI) for easy interaction with the application. The project incorporates a database module that allows for the management and storage of classified content securely.
 
-Simple and easy to use just follow through, by default it accepts UTF-8 encoded strings but you can modify 
-AshFileCrypt.py to read files in binary mode and encrypt or decrypt binary data.
+Simple and easy to use just follow through.
+
+If you're already an expert read the last subheader.
 
 ## Installation
 
@@ -54,8 +55,7 @@ NOTE again that only works if the key is in BYTES format.
 
 ## Recommendations
 
-I recommend using the genkey() function ALL THE TIME to generate randomly secure keys since AES-256 is considered secure against brute-force attacks, given the key is generated randomly and has sufficient entropy. The security of AES-256 lies in the strength of the key and the inability to efficiently search through the vast keyspace, it takes 2^256 attempts to run through all the possible combinations. If a brute force attacker runs through 1 trillion combos a second it will 
-still take 10^46 years to run through every possible combination.
+I recommend using the genkey() function ALL THE TIME to generate randomly secure keys since AES-256 is considered secure against brute-force attacks, given the key is generated randomly and has sufficient entropy. The security of AES-256 lies in the strength of the key and the inability to efficiently search through the vast keyspace a brute force attacker can run through 1 trillion combos a second it will still take 10^46 years to run through every possible one.
 
 
 NOTE that securing the key is as important as generating a cryptographically secure one , so 
@@ -92,6 +92,8 @@ Then you can simply pass the key variable to any of the encrypt() or decrypt() f
 These steps work for all the modules I provided.
 
 ## How to Encrypt/Decrypt
+
+I want to state that By default it accepts UTF-8 encoded strings but you can modify AshFileCrypt.py to read files in binary mode and encrypt or decrypt binary data.
 
 If you want to encrypt a file : 
 1) Follow the steps above to set the key up.
@@ -142,7 +144,9 @@ result = strverify(string_key)
 ```
 If the result is 1 you can use it.
 
-
-
-
+## Already an Expert ?
+...
+1) the low-level primitive code AES using CBC mode with PKCS7 padding, HMAC with SHA512
+2)This decision was made to ensure that the encryption remains secure against potential advancements in computing technology in the years to come. thats why I didnt include a timestamp like Fernet's module implementations also i have made the key 512 Bit long 
+3) You can keep using fernet for simplicity but if you want to switch Fernet with Ash you can simply change the name thats it at encrypt() and decrypt() functions after you've imported the module ofc  
 
