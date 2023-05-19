@@ -80,7 +80,7 @@ key = CryptFiles.genkey()
 ```
 The output should be something like this : 
 ```python
-EcQJTaIHLx0lbWLnz8K28moOEywjJwPx
+a5509ade2a431427d20605d73ba80c40
 ```
 2) Use the getready() function to get it ready for use, otherwise it will raise a TypeError
 ```python
