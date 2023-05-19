@@ -1,9 +1,7 @@
 from typing import Union
-import string
 from cryptography.fernet import Fernet
 import base64
-import secrets
-
+import os
 
 class CryptFiles():
     def __init__(self,filename,key):
