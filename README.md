@@ -1,6 +1,6 @@
 # Cryptography w/ AES-256 Algorithm
 ## Overview
-This project implements AES-256 algorithm to ensure secure data encryption and decryption (Files/Text). It also includes a simple graphical user interface (GUI) for easy interaction with the application. The project incorporates a database module that allows for the management and storage of classified content securely.
+This project implements AES-256 algorithm to ensure secure data encryption and decryption (Files/Text). It also includes a simple graphical user interface (GUI) for easy interaction with the application. The project incorporates a database module that allows for the management and storage of classified content in a secure and safe manner.
 
 ## Reason Behind It
 
