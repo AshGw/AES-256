@@ -6,17 +6,6 @@ This project implements AES-256 algorithm to ensure secure data encryption and d
 
 I firmly believe in the power of **Freedom** in a world dominated by control, surveillance, and constant privacy violation , this led me to develop a way to work with a set of tools in Python , levereging the AES-256 algorithm  to make it easier for individuals to safeguard their data without blindly relying on third parties to do it for them , while at the same time making it easy for anyone to use even with a limited programming knowledge.
 
-## Installation
-
-If you're running Python 3.7 or newer you're good to go. 
-Simply open the terminal and run the command:
-
-```shell
-pip install -r Requirements.txt
-```
-
-All the necessary libraries should be installed.
-
 ## Database Module
 To support efficient content management, I have integrated a database module. This module enables the storage and retrieval of classified content in a safe and secure manner. 
 
@@ -72,6 +61,16 @@ or the string key :
 they're used for demonstartion purposes only. 
 It takes no time to guess a key based on my name. So ALWAYS use a RANDOMLY generated key.  
 
+## Installation
+
+If you're running Python 3.7 or newer you're good to go. 
+Simply open the terminal and run the command:
+
+```shell
+pip install -r Requirements.txt
+```
+
+All the necessary libraries should be installed.
 ## Generate a Key 
 
 Follow these 2 simple steps to work a key: 
