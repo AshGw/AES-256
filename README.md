@@ -4,7 +4,7 @@ This project implements AES-256 algorithm to ensure secure data encryption and d
 
 ## Reason Behind It
 
-I firmly believe in the power of **Freedom** in a world dominated by control, surveillance, and constant privacy violation , this led me to develop a way to work with a set of tools in Python , levereging the AES-256 algorithm  to make it easier for individuals to safeguard their data without blindly relying on third parties to do it for them , while at the same time making it easy for anyone to use even with a limited programming knowledge.
+I firmly believe in the power of ***Freedom*** in a world dominated by control, surveillance, and constant privacy violation , this led me to develop a way to work with a set of tools in Python , levereging the AES-256 algorithm  to make it easier for individuals to safeguard their data without blindly relying on third parties to do it for them , while at the same time making it easy for anyone to use even with a limited programming knowledge.
 
 ## Installation
 
@@ -144,9 +144,9 @@ result = strverify(string_key)
 ```
 If the result is 1 you can use it.
 
-## Already an Expert ?
-...
-1) the low-level primitive code AES using CBC mode with PKCS7 padding, HMAC with SHA512
-2)This decision was made to ensure that the encryption remains secure against potential advancements in computing technology in the years to come. thats why I didnt include a timestamp like Fernet's module implementations also i have made the key 512 Bit long 
-3) You can keep using fernet for simplicity but if you want to switch Fernet with Ash you can simply change the name thats it at encrypt() and decrypt() functions after you've imported the module ofc  
+## Familiar with AES ?
+
+1)In Ash.py I'm implementing low-level primitive code for AES using CBC mode with PKCS7 padding, HMAC with SHA512 hashing with a 128 bit randomly generated IV
+2)This decision was made to ensure that the encryption remains secure against potential advancements in computing technology in the years to come. thats why I didnt include a timestamp like Fernet's module implementations also I have made the key 512 bit long , although im using a 256 bit key in the encryption of the ciphertext itself.
+3) You can keep using Fernet for simplicity but if you want to switch Fernet with Ash you can simply change the name thats it at encrypt() and decrypt() functions after you've imported the module ofc  
 
