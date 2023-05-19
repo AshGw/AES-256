@@ -149,5 +149,5 @@ If the result is 1 you can use it.
 
 - This decision was made to ensure that the encryption remains secure against potential advancements in computing technology in the years to come. thats why I didnt include a timestamp like Fernet's module implementations also I have made the key 512 bit long , although im using a 256 bit key in the encryption of the ciphertext itself.
 
--  You can keep using Fernet for simplicity but if you want to switch Fernet with Ash you can simply change the name thats it at encrypt() and decrypt() functions after you've imported the module ofc  
+-  You can keep using Fernet for simplicity but if you want to switch Fernet with Ash you can simply change the name thats it at encrypt() and decrypt() functions.
 
