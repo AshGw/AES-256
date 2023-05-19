@@ -12,11 +12,7 @@ class CryptFiles():
 
     @staticmethod
     def genkey() -> string:
-        key = ''
-        for _ in range(32):
-            mysequence = string.ascii_letters + string.digits
-            key = key + secrets.choice(mysequence)
-        return key
+        return os.urandom(16).hex()
 
     @staticmethod
     def getready(key: string) -> Union [ bytes , int ]:
