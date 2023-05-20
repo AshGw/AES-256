@@ -16,8 +16,10 @@ Any content going to it is encouraged to be encrypted with a key first that you 
 Note that in AshDatabase.py I'm using "dataclasses" module which was introduced in Python 3.7, so make sure to install it if you have an older version.
 
 ### It's Usage 
-In the module I'm providing built in functions to make it easier to perform usual queries on DBMS tables , by default it creates a table 'CLASSIFIED' with two deafult columns : 'content' and 'key'.
+In the module I'm providing built in functions to make it easier to perform usual queries on DBMS tables , by default it creates a table 'CLASSIFIED' with two deafult columns :
+
 **content**  : This can be a single character or a whole movie in binary, that depends on your specific needs.
+
 **key** : This key column wasn't indeed meant to store a key itself but rather store a reference to the actual key. 
 The key itself should be stored somewhere else safe and secure preferrably off-grid. 
 
