@@ -146,7 +146,7 @@ If the result is 1 you can use it.
 
 ## Familiar with AES ?
 
-- In Ash.py I'm implementing low-level primitive code for AES using CBC mode with PKCS7 padding, HMAC with SHA512 hashing with a 128 bit randomly generated IV
+- In Ash.py I'm implementing low-level primitive code for AES using CBC mode with PKCS7 padding,256-bit encryption key,  256-bit HMAC hased w/ SHA512 with a 128 bit randomly generated IV
 
 - This decision was made to ensure that the encryption remains secure against potential advancements in computing technology in the years to come. thats why I didnt include a timestamp like Fernet's module implementations also I have made the key 512 bit long , although im using a 256 bit key in the encryption of the ciphertext itself.
 
