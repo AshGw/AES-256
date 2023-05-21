@@ -4,10 +4,10 @@ This project implements AES-256 algorithm to ensure secure data encryption and d
 
 ## Features
 
-- Uses a 512-bit long key for bcrypt's KDFs.
-- Generates a random salt and pepper for key generation.
-- Generates a 256-bit key for AES encryption.
-- Computes a 256-bit HMAC using SHA512.
+- Uses a 512-bit long key.
+- Generates a random salt and pepper then uses them for bcrypt's KDF for AES key and HMAC generation.
+- 256-bit key for AES encryption.
+- Computes the derived 256-bit HMAC using SHA512.
 - Utilizes a randomly generated Initialization Vector (IV) for AES encryption.
 - Protects against brute force attacks with a configurable number of KDF iterations ( pre-set at a 100 for performance ) 
 
