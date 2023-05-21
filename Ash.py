@@ -18,6 +18,7 @@ class Ash:
         self.iterations = 100
         self.encKey = self.derkey1(self.mainkey, self.salt, self.iterations)
         self.hmac_k = self.derkey2(self.mainkey,self.pepper,self.iterations)
+        
     @staticmethod
     def derkey1(mainkey: str, salt: bytes, iterations: int) -> bytes:
         hmac_k = bcrypt.kdf(
