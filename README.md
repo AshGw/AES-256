@@ -21,7 +21,7 @@ In the module I'm providing built in functions to make it easier to perform usua
 **content**  : This can be a single character or a whole movie in binary, that depends on your specific needs.
 
 **key** : This key column wasn't indeed meant to store a key itself but rather store a reference to the actual key. 
-The key itself should be stored somewhere else safe and secure preferrably off-grid. 
+The key itself should be stored somewhere else safe and secure preferrably off-grid and completely seprerate from any vulnerable devices, heck you can even write it down on a piece of paper, just make sure to rotate your keys from time to time. 
 
 
 ## QR Module
