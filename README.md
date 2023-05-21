@@ -153,7 +153,7 @@ If the result is 1 you can use it.
 
 ## Familiar with AES ?
 
-- In Ash.py, I have implemented primitive code for AES-256 in CBC mode, along with PKCS7 padding. To enhance security, I have incorporated a 256-bit HMAC-SHA3-512 for authentication, using a randomly generated 128-bit IV. Both the HMAC and encryption keys are derived from two Key Derivation Functions (KDF) using bcrypt.
+- Ash.py, here I have implemented primitive code for AES-256 in CBC mode, along with PKCS7 padding. To enhance security, I have incorporated a 256-bit HMAC-SHA3-512 for authentication, using a randomly generated 128-bit IV. Both the HMAC and encryption keys are derived from two Key Derivation Functions (KDF) using bcrypt.
 
 -  The two KDF's use a unique randomly generated salt and pepper, each being 128 bits in length. It is important for the user to input a key/password of at least 512 bits.
 
