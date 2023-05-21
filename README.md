@@ -9,7 +9,7 @@ This project implements AES-256 algorithm to ensure secure data encryption and d
 - 256-bit key for AES encryption.
 - Computes the derived 256-bit HMAC using SHA512.
 - Utilizes a randomly generated Initialization Vector (IV) for AES encryption.
-- Protects against brute force attacks with a configurable number of KDF iterations ( pre-set at a 100 for performance ) 
+- Protects against brute force attacks with a configurable number of KDF iterations ( pre-set at a 500 for performance, can vary according to needs ) 
 
 ## Reason Behind It
 
