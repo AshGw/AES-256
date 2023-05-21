@@ -177,6 +177,4 @@ If the result is 1 you can use it.
 ## Brute Force Attacks
 - bcrypt is intentionally designed to be computationally expensive and slow to protect against brute-force attacks. The number of iterations, along with other factors such as the salt, is used to make the key derivation process more time-consuming.
 - The intended purpose of using a high number of iterations is to strike a balance between security and performance. It should be set based on the desired level of security and the acceptable computational overhead in your specific use case , here Im using pre-set 500 iterations, this is the sweetspot for my use case.
-## License 
-Ash Encryption is licensed under the MIT License.
 
