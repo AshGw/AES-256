@@ -155,7 +155,7 @@ If the result is 1 you can use it.
 
 - In Ash.py, I have implemented primitive code for AES-256 in CBC mode, along with PKCS7 padding. To enhance security, I have incorporated a 256-bit HMAC-SHA3-512 for authentication, using a randomly generated 128-bit IV. Both the HMAC and encryption keys are derived from two Key Derivation Functions (KDF) using bcrypt.
 
--  Each KDF uses a unique randomly generated salt and pepper, each being 128 bits in length. It is important for the user to input a key/password of at least 512 bits.
+-  The two KDF's use a unique randomly generated salt and pepper, each being 128 bits in length. It is important for the user to input a key/password of at least 512 bits.
 
 - The key derived from derkey2 serves as the encryption key, with a length of 32 bytes, while the key derived from derkey1 is used for HMAC. This approach allows for the utilization of 512-bit long keys (or longer) to ensure robust security, even against potential advancements in computing technology in the years to come.
 
