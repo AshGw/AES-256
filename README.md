@@ -153,7 +153,10 @@ If the result is 1 you can use it.
 
 ## Familiar with AES ?
 
-- In Ash.py I'm implementing low-level primitive code for  AES-256 in CBC mode, applying PKCS7 padding , adding HMAC-SHA3-512 for authentication along with a randomly generated 128 bit IV. The that the user has to use is a 512-bit key , the first half of the key is going to be the encryption key while the second half is going to be used for HMAC. so basically it's a walkaround to use a 512-bit key for AES. This decision was made to ensure that the encryption remains secure against potential advancements in computing technology in the years to come.I didnt include a timestamp since the Ash module is meant to store data  for long periods of time and not meant not for instant messaging.
+- In Ash.py I'm implementing primitive code for  AES-256 in CBC mode, applying PKCS7 padding , adding HMAC-SHA3-512 for authentication along with a randomly generated 128 bit IV. The HMAC and the encryption are both derived from the same key derivation function (KDF) using bcrypt. The user is free to input any key or passsword in this sense but it must be atleast 512 bit. 
 
--  You can use Fernet for instant messaging as the module is set by default. but if you want to switch Fernet with Ash you can simply change the name thats it , the rest stays the same. I recommend using Fernet for messages that's quite quicker than Ash module since it uses 128 bit keys and hashes the MAC with sha256 which is lighter and quite faster ,  also Fernet includeds a deadline verification to check if the message is outdated or not that's why it's more oriented towards messaging.
+- the key derived from derkey2 is going to be the encryption key while the key derived  from derkey1 is going to be used for HMAC. so basically it's a way to use a 512-bit long key.
+-  This decision was made to ensure that the encryption remains secure against potential advancements in computing technology in the years to come.
+-  If you feel like the algorithm is quite slow you can lower the number of iterations in both the derkey 1 & 2 functions by default its set at 500 iterations.
+-  If you want to switch Fernet with Ash you can simply change the name thats it , the rest stays the same.
 
