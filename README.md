@@ -8,7 +8,7 @@ I firmly believe in the power of **Freedom** in a world dominated by control, su
 This led me to develop a way to work with a set of tools in Python , levereging the AES-256 algorithm  to make it easier for individuals to safeguard their data without blindly relying on third parties to do it for them , while at the same time making it easy for anyone with a limited programming knowledge to work with.
 
 ## Database Module
-To support efficient content management, I have integrated a database module. This module enables the storage and retrieval of classified content in a safe and secure manner. 
+To support efficient content management, I have integrated a database module. This module enables the storage and retrieval of encrypted content in a safe and secure manner. 
 
 The database ensures that the encrypted data remains organized and readily accessible to anyone with the right key.
 Any content going to it is encouraged to be encrypted with a key first that you must keep off grid.
