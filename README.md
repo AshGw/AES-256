@@ -153,10 +153,11 @@ If the result is 1 you can use it.
 
 ## Familiar with AES ?
 
-- In Ash.py I'm implementing primitive code for  AES-256 in CBC mode, applying PKCS7 padding , adding a 256 bit HMAC-SHA3-512 for authentication along with a randomly generated 128 bit IV. The HMAC and the encryption are both derived from the same key derivation function (KDF) using bcrypt. The user is free to input any key or passsword in this sense but it must be atleast 512 bit. 
+- In Ash.py, I have implemented primitive code for AES-256 in CBC mode, along with PKCS7 padding. To enhance security, I have incorporated a 256-bit HMAC-SHA3-512 for authentication, using a randomly generated 128-bit IV. Both the HMAC and encryption keys are derived from two Key Derivation Functions (KDF) using bcrypt. - -- Each KDF uses a unique randomly generated salt and pepper, each being 128 bits in length. It is important for the user to input a key/password of at least 512 bits.
 
-- the key derived from derkey2 is going to be the encryption key (32 bytes) while the key derived  from derkey1 is going to be used for HMAC. so basically it's a way to use a 512-bit long key.
--  This decision was made to ensure that the encryption remains secure against potential advancements in computing technology in the years to come.
--  If you feel like the algorithm is quite slow you can lower the number of iterations in both the derkey 1 & 2 functions by default its set at 500 iterations.
+- The key derived from derkey2 serves as the encryption key, with a length of 32 bytes, while the key derived from derkey1 is used for HMAC. This approach allows for the utilization of 512-bit long keys (or longer) to ensure robust security, even against potential advancements in computing technology in the years to come.
+
+- By default, the derkey1 and derkey2 functions employ 500 iterations, which can be adjusted if the algorithm is deemed too slow. Lowering the number of iterations may speed up the process, but it is essential to strike a balance between performance and security.
+- Note that bcrypt deliberately introduces a certain level of slowness as a defense against brute-force attacks.
 -  If you want to switch Fernet with Ash you can simply change the name thats it , the rest stays the same.
 
