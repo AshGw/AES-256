@@ -2,6 +2,15 @@
 ## Overview
 This project implements AES-256 algorithm to ensure secure data encryption and decryption (Files/Text). It also includes a simple graphical user interface (GUI) for easy interaction with the application. The project incorporates a database module that allows for the management and storage of classified content in a secure, safe and simple manner.
 
+## Features
+
+- Uses a 512-bit long key for bcrypt's KDFs.
+- Generates a random salt and pepper for key generation.
+- Generates a 256-bit key for AES encryption.
+- Computes a 256-bit HMAC using SHA512.
+- Utilizes a randomly generated Initialization Vector (IV) for AES encryption.
+- Protects against brute force attacks with a configurable number of KDF iterations ( pre-set at a 100 for performance ) 
+
 ## Reason Behind It
 
 I firmly believe in the power of **Freedom** in a world dominated by control, surveillance, and constant privacy violation.
@@ -164,4 +173,10 @@ If the result is 1 you can use it.
 - Note that bcrypt deliberately introduces a certain level of slowness as a defense against brute-force attacks.
 
 -  If you want to switch Fernet with Ash you can simply change the name thats it , the rest stays the same.
+
+## Brute Force Attacks
+- bcrypt is intentionally designed to be computationally expensive and slow to protect against brute-force attacks. The number of iterations, along with other factors such as the salt, is used to make the key derivation process more time-consuming.
+- The intended purpose of using a high number of iterations is to strike a balance between security and performance. It should be set based on the desired level of security and the acceptable computational overhead in your specific use case , here Im using pre-set 500 iterations, this is the sweetspot for my use case.
+## License 
+Ash Encryption is licensed under the MIT License.
 
