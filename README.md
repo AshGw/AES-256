@@ -153,9 +153,9 @@ If the result is 1 you can use it.
 
 ## Familiar with AES ?
 
-- In Ash.py I'm implementing primitive code for  AES-256 in CBC mode, applying PKCS7 padding , adding HMAC-SHA3-512 for authentication along with a randomly generated 128 bit IV. The HMAC and the encryption are both derived from the same key derivation function (KDF) using bcrypt. The user is free to input any key or passsword in this sense but it must be atleast 512 bit. 
+- In Ash.py I'm implementing primitive code for  AES-256 in CBC mode, applying PKCS7 padding , adding a 256 bit HMAC-SHA3-512 for authentication along with a randomly generated 128 bit IV. The HMAC and the encryption are both derived from the same key derivation function (KDF) using bcrypt. The user is free to input any key or passsword in this sense but it must be atleast 512 bit. 
 
-- the key derived from derkey2 is going to be the encryption key while the key derived  from derkey1 is going to be used for HMAC. so basically it's a way to use a 512-bit long key.
+- the key derived from derkey2 is going to be the encryption key (32 bytes) while the key derived  from derkey1 is going to be used for HMAC. so basically it's a way to use a 512-bit long key.
 -  This decision was made to ensure that the encryption remains secure against potential advancements in computing technology in the years to come.
 -  If you feel like the algorithm is quite slow you can lower the number of iterations in both the derkey 1 & 2 functions by default its set at 500 iterations.
 -  If you want to switch Fernet with Ash you can simply change the name thats it , the rest stays the same.
