@@ -20,7 +20,7 @@ This led me to develop a way to work with a set of tools in Python , levereging 
 To support efficient content management, I have integrated a database module. This module enables the storage and retrieval of encrypted content in a safe and secure manner. 
 
 The database ensures that the encrypted data remains organized and readily accessible to anyone with the right key.
-Any content going in is encouraged to be encrypted with a key that you must keep off grid.
+Any content going in must be encrypted with a key that you must keep off grid.
 
 Note that in AshDatabase.py I'm using "dataclasses" module which was introduced in Python 3.7, so make sure to install it if you have an older version.
 
