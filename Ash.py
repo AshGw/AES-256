@@ -123,5 +123,5 @@ class Enc:
         return self.cipher_decryptor().update(self.unpadded_message()) + self.cipher_decryptor().finalize()
 
     def decToStr(self)->str:
-        return (self.palaintext_bytes().decode('UTF-8'))
+        return (self.decToBytes().decode('UTF-8'))
 
