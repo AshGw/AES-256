@@ -1,5 +1,6 @@
 
 ''' STILL IN THE WORKS '''
+
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.backends import default_backend
@@ -10,8 +11,12 @@ import base64
 
 
 class Enc:
-    def __init__(self, message: str, mainkey: str) -> None:
-        self.message = message.strip()
+    def __init__(self, message: Union[str, bytes], mainkey: str) -> None:
+        if isinstance(message, str):
+            self.message = message.encode()
+        elif isinstance(message, bytes):
+            self.message = message
+
         self.mainkey = mainkey
         self.iv = os.urandom(16)
         self.salt = os.urandom(16)
@@ -55,7 +60,7 @@ class Enc:
 
     def padded_message(self) -> bytes:
         padder = padding.PKCS7(128).padder()
-        return padder.update(self.message.encode('UTF-8')) + padder.finalize()
+        return padder.update(self.message) + padder.finalize()
 
     def ciphertext(self):
         return self.cipher_encryptor().update(self.padded_message()) + self.cipher_encryptor().finalize()
@@ -74,7 +79,7 @@ class Enc:
     
     
     
-    class Dec():
+class Dec():
     def __init__(self, message: bytes, key: str):
         self.message = message
         self.key = key
@@ -132,19 +137,21 @@ class Enc:
     
 
 if __name__ == '__main__':
-    ''' The Encryption Testing Phase 1 '''
+    ''' The Encryption Testing Phase I '''
     
-    message = 'Hello there testing if it works'
+    message1 = 'Hello there testing if it works'
+    message2 = b'Hello this is bytes now'
     mainkey = '818b5e3bb5a19e32cf3338c82f94015817bcc605f6ad0025840b3eb64853a2df'
-    ins = Enc(message=message,mainkey=mainkey)
+    ins = Enc(message=message2,mainkey=mainkey)
     a = ins.encToBytes()
     print(a[:64] == ins.HMAC())
     print(a[64:80] == ins.iv)
     print(a[80:96] == ins.salt)
     print(a[96:112] == ins.pepper)
     print(a[112:] == ins.ciphertext())
+    print(ins.encToBytes())
     
-    ''' Now For The Decryption Testing Phase 1 '''
+    ''' Now For The Decryption Testing Phase I '''
     
     rec_mess = b'3\x8c\xfe\xc6\x9a\xce\xd3\xbc\r\x89\xda\x0b\xf2\x8d(\x7f\x05\xcf\x03%\x8e\t"h\x8a7\xf0C\xb3\xdb\xbf\xc6wP\xac\x14\\\x10^\xddw\x84\xf8(?o"\x17\x84\x8e\x0c\xa5n+\x0eo\xe9Y\xf5\x16}\x13"d\xeb\x023R{\xfa\xda\xe2\x1a\xf3\xdd\x83Cur\x022\x06\x96(t\x16<\xf0\xea\xe8\x8d\x83z9y"\x14\xfb\xa5%\x92\xa8\x0eU1\xb0\xb3\xf0\ru\x94\t\xe0\x8c`\xce\xfe \xbbC\x8b \x9a\xcb6\xd6\x90\xd5\x96\x8d?\x84"\xff\xf7O=\xfex\x99#Y\xb0:'
     key = '818b5e3bb5a19e32cf3338c82f94015817bcc605f6ad0025840b3eb64853a2df'
