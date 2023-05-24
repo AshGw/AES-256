@@ -65,10 +65,10 @@ class Enc:
         h.update(self.ciphertext())
         return h.finalize()
 
-    def combined_output(self)->bytes:
+    def encToBytes(self)->bytes:
         return  self.HMAC() + self.iv + self.salt + self.pepper + self.ciphertext()
 
-    def encrypt(self)->str:
+    def encToStr(self)->str:
         return base64.urlsafe_b64encode(self.combined_output()).decode('UTF-8')
     
  class Dec():
@@ -119,9 +119,9 @@ class Enc:
         # return unpadder.update(self.rec_ciphertext) + unpadder.finalize()
         return self.rec_ciphertext
 
-    def palaintext_bytes(self)->bytes:
+    def decToBytes(self)->bytes:
         return self.cipher_decryptor().update(self.unpadded_message()) + self.cipher_decryptor().finalize()
 
-    def decrypt(self)->str:
+    def decToStr(self)->str:
         return (self.palaintext_bytes().decode('UTF-8'))
 
