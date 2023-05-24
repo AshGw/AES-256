@@ -69,7 +69,7 @@ class Enc:
         return  self.HMAC() + self.iv + self.salt + self.pepper + self.ciphertext()
 
     def encToStr(self)->str:
-        return base64.urlsafe_b64encode(self.combined_output()).decode('UTF-8')
+        return base64.urlsafe_b64encode(self.encToBytes()).decode('UTF-8')
     
  class Dec():
     def __init__(self,message : bytes , key : str):
