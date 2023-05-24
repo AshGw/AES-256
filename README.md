@@ -1,6 +1,7 @@
 # Cryptography w/ AES-256 Algorithm
 ## Overview
-This project implements 512-bit key for AES-256 algorithm to ensure secure data encryption and decryption (Files/Text). It also includes a simple graphical user interface (GUI) for easy interaction with the application. The project incorporates a database module that allows for the management and storage of classified content in a secure, safe and simple manner.
+This project implements 512-bit key for AES-256 algorithm to ensure secure data encryption and decryption (Files/Text). It also includes a simple graphical user interface (GUI) for easy interaction with the application. The project also incorporates a database module that allows for the management and storage of classified content in a secure, safe and simple manner.
+( currently working on Ash.py but the rest should work just fine ) 
 
 ## Features
 
@@ -13,7 +14,7 @@ This project implements 512-bit key for AES-256 algorithm to ensure secure data 
 
 ## Reason Behind It
 
-I indeed believe in the power of **Freedom** in a world dominated by control, surveillance, and constant privacy violation.
+I believe in **Freedom** in a world dominated by control, surveillance, and constant privacy violation.
 This led me to develop a way to work with a set of tools in Python , levereging the AES-256 algorithm  to make it easier for individuals to safeguard their data without blindly relying on third parties to do it for them , while at the same time making it easy for anyone with a limited programming knowledge to work with.
 
 ## Database Module
@@ -174,7 +175,6 @@ If the result is 1 you can use it.
 
 -  If you want to switch Fernet with Ash you can simply change the name thats it , the rest stays the same.
 
-## Brute Force Attacks
 - bcrypt is intentionally designed to be computationally expensive and slow to protect against brute-force attacks. The number of iterations, along with other factors such as the salt, is used to make the key derivation process more time-consuming.
-- The intended purpose of using a high number of iterations is to strike a balance between security and performance. It should be set based on the desired level of security and the acceptable computational overhead in your specific use case , here Im using pre-set 500 iterations, this is the sweetspot for my use case.
+- The intended purpose of using a high number of iterations is to strike a balance between security and performance. It should be set based on the desired level of security and the acceptable computational overhead in your specific use case , here Im using pre-set 500 iterations, this is the sweetspot for my use case. So adjust according to your machine capabilities.
 
