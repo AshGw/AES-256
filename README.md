@@ -13,7 +13,7 @@ This project implements 512-bit key for AES-256 algorithm to ensure secure data 
 
 ## Reason Behind It
 
-I firmly believe in the power of **Freedom** in a world dominated by control, surveillance, and constant privacy violation.
+I indeed believe in the power of **Freedom** in a world dominated by control, surveillance, and constant privacy violation.
 This led me to develop a way to work with a set of tools in Python , levereging the AES-256 algorithm  to make it easier for individuals to safeguard their data without blindly relying on third parties to do it for them , while at the same time making it easy for anyone with a limited programming knowledge to work with.
 
 ## Database Module
