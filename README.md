@@ -25,7 +25,7 @@ Any content going in must be encrypted with a key that you must keep off grid.
 Note that in AshDatabase.py I'm using "dataclasses" module which was introduced in Python 3.7, so make sure to install it if you have an older version.
 
 ### It's Usage 
-In the module I'm providing built in functions to make it easier to perform usual queries on MySQL tables , by default it creates a table 'CLASSIFIED' with two deafult columns :
+In the module I'm providing built in functions to make it easier to perform usual queries on Sqlite tables , by default it creates a table 'CLASSIFIED' with two deafult columns :
 
 **content**  : This can be a single character or a whole movie in binary, that depends on your specific needs.
 
