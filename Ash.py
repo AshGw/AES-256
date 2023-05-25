@@ -107,27 +107,18 @@ class Dec:
         if self.rec_iterations < 50 or self.rec_iterations > 100000:
             raise IterationsOutofaRangeErrorD(self.rec_iterations)
         self.rec_ciphertext = self.message[116:]
-        self.decKey = self.derkey(self.key, self.rec_salt, self.rec_iterations)
-        self.hmac_k = self.derkey(self.key, self.rec_pepper, self.rec_iterations)
-
-    @staticmethod
-    def derkey(mainkey: str, salt: bytes, iterations: int) -> bytes:
-        return bcrypt.kdf(
-            password = mainkey.encode('UTF-8'),
-            salt = salt,
-            desired_key_bytes = 32,
-            rounds = iterations)
-
+        self.decKey = Enc.derkey(self.key, self.rec_salt, self.rec_iterations)
+        self.hmac_k = Enc.derkey(self.key, self.rec_pepper, self.rec_iterations)
+        if self.verifyHMAC() is False :
+            raise MessageTamperingError()
     def actualHMAC(self):
         h = self.hmac_k
         h = hmac.HMAC(h, hashes.SHA512())
         h.update(self.rec_ciphertext)
         return h.finalize()
 
-    def verifyHMAC(self):
-        result = hmc.compare_digest(self.actualHMAC(), self.rec_hmac)
-        if result is False :
-            raise MessageTamperingError()
+    def verifyHMAC(self)->bool:
+        return hmc.compare_digest(self.actualHMAC(), self.rec_hmac)
 
     def mode(self):
         return modes.CBC(self.rec_iv)
@@ -155,7 +146,7 @@ class Dec:
 
 if __name__ == '__main__':
 
-    '''ENC'''
+    ''' ENC '''
 
     message1 = 'Hello there testing if it works'
     message2 = b'Hello this is bytes now'
@@ -181,7 +172,7 @@ if __name__ == '__main__':
     print(t2 - t1)
     print(ins.encToStr())
 
-    '''DEC'''
+    ''' DEC '''
 
     msg_b = b'\xf0\x8by\x19\x9cy@\x1c!y\r\xe7\xcf\x99q;5\x15\xb9\xfc\x1f\x12\xac7\xc4\x1f\xfagK_K\xb2\xe1\'YR\xc8\x83W\xf4ck\x07P\x91\xe8\x8fV\xbe\x81M\xda\x9e\xa3\xcbz\x8f\xe0\xba+>MFYX\xf0\x8d\xa8x\x19\xdb\xe4\xc9\xa5\x84\xbc\x1f\x95Mq\xe8T>e\x16[\xfa\x0c\n\x88c\t\xbe\xa6>\xe1\xfa18K\xb0e\x04\xd2\xa3\xed\xe4\xdeA\xb3\xfe\xd4\x00\x00\x002\x06S\xe9\xe2\xb3\xe0\x994\x02:hq\xa8^\x90A\x14K\xb1\x8d\xda"\xee\xaf|\xda\xb6\xad\x07\xa1\xc9H'
     msg_s = 'ewLVzwKCGEQaFlklltFrbKrn-ij63xkreHiFwPPP37omctiGyP6AErj1oEIoEYgPLGHeVUWG9u4kUWw1V_2lGZw8jUQgd3EhncJfoUV9gc6GRTwjA4AdN3vulWkXNlWWtBTsHlw79oIWbQX-GjqLWgAAADLXjpcgBXJqLrPW72RqW49euE5foFvSrTkUxWqsL75fHA=='
