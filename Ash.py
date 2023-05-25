@@ -2,16 +2,16 @@
 ''' STILL IN THE WORKS '''
 
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes, hmac
-from cryptography.hazmat.primitives import padding
 from typing import Union
+import hmac as hmc
 import bcrypt
-import os
 import base64
 import struct
 import time
-import hmac
+import os
 
 class IterationsOutofaRangeErrorE(Exception):
     def __init__(self,num):
@@ -78,7 +78,8 @@ class Enc:
 
     def encToStr(self) -> str:
         return base64.urlsafe_b64encode(self.encToBytes()).decode('UTF-8')
-   
+
+
 
 class IterationsOutofaRangeErrorD(Exception):
     def __init__(self,num):
@@ -90,7 +91,6 @@ class MessageTamperingError(Exception):
         self.display = 'HMAC mismatch ! Message has been tampered with'
         super().__init__(self.display)
 
- 
 class Dec:
     def __init__(self,message: Union[str, bytes], key: str):
         if isinstance(message, str):
@@ -125,7 +125,7 @@ class Dec:
         return h.finalize()
 
     def verifyHMAC(self):
-        result = hmac.compare_digest(self.actualHMAC(), self.rec_hmac)
+        result = hmc.compare_digest(self.actualHMAC(), self.rec_hmac)
         if result is False :
             raise MessageTamperingError()
 
@@ -150,18 +150,23 @@ class Dec:
 
     def decToStr(self) -> str:
         return (self.unpadded_m().decode('UTF-8'))
-    
-    
+
+
+
+
+
 
 if __name__ == '__main__':
-    ''' The Encryption Testing Phase III '''
-    
+
+    '''ENC'''
+
     message1 = 'Hello there testing if it works'
     message2 = b'Hello this is bytes now'
     mainkey = '818b5e3bb5a19e32cf3338c82f94015817bcc605f6ad0025840b3eb64853a2df'
     t1 = time.perf_counter()
-    ins = Enc(message=message2,mainkey=mainkey)
-    a = ins.encToBytes()
+    ins = Enc(message=message1,mainkey=mainkey)
+    a = ins.encToStr()
+    print(a)
     print(a[:64] == ins.HMAC())
     print(a[64:80] == ins.iv)
     print(a[80:96] == ins.salt)
@@ -177,12 +182,12 @@ if __name__ == '__main__':
     print(c == b)
     t2 = time.perf_counter()
     print(t2-t1)
-    
-    ''' Now For The Decryption Testing Phase III '''
-    
-    msg_b = b"\xbf\x16\xa6+\x8f~\xba\x99\x02\xc6BX\xcd+\xbf\x05r\x074\x14\x8a\xf7\xc1\x85\xe9\xb4\x95O-6\xf5;\xf4\xe3,Ge;\xe2NZ\xe7\xfa\xba\xe8\xc8\xee\x9e4\xbd\x8fr\xfe\xc8=`\xe6\xd3pW\xb0\xbe\xdb\x96\xfb]\xcf\xb3g\x08srQ\xd26=\xa0d\x99\xfd\xa9\xa4z\x7f\xda\xc2_0\xb49\xa8R'\xf5\x06^\n\xba\x82\xa8\xb2\x12H\x94\x96f\xe3\x13\xba\x0b\x9c\xa5\xe8T\xd4)k\xbd,\xfa\xc5\xd0\xc6\xba\x18!\xd8\x9a\xb6S\xace\r\xad\x15:\xf4\x18\x10\x14\xb7T;\x81\x00\x00\x002"
-    msg_s = 'G5mXFJ6U_cK-niZNsB02DUznP2OINJ9B5U0wuVWTC7sFykl1u8MqrRgggpfVUqWzuRN7eCa0Dq2-14FC41KLDg0eKczG2D8ogCR_hWSDB8t-y5x8Jpum7tWAJ-MhR5iuTljIG6WOQZ_L9dyD3PJE3zEJbdNmXo3MYqh7WK0-gthBcIu6Kd-MW2LRsNyh4S22AAAAMg=='
+
+    '''DEC'''
+
+    msg_b = b'\xfexE\xe8\xd7\xbf7i\x1c\xe8?\xf7R\xa1xpK\xaf\xc4\xeb\xc0~Mw\xea\xf3]lZ\xe9\x95\xdd\xd9\xed)r\xff\x86\x13#\xa7\xa2U\x92\x82\xd5v\x8a\xb2W\x85\xfd\x1e\x80:S\xe5\x977\x19Q^\xe2\xb9P\xe2\x92\xbf\xcb1\xdf\x9e\xd9C\xd9&\xcdm\x81\xc2\xba\no\xaeT\x9b\xcd\xeb\xfe\x07\xff\x9a\xea\xa7\x83Pb\x92\xf2U-\x08\xd4,\xf5\xa6\x84\x8b\xdf\xad\xfe\xbd\xcd!\x03%\x14Z-K\x8c\xd9zZE\\\xb8\xeb\xb6\x9d\rsRa;B\xd8\xeb8Y\xaf\xc9\x82\x15\x00\x00\x002'
+    msg_s = '_nhF6Ne_N2kc6D_3UqF4cEuvxOvAfk136vNdbFrpld3Z7Sly_4YTI6eiVZKC1XaKsleF_R6AOlPllzcZUV7iuVDikr_LMd-e2UPZJs1tgcK6Cm-uVJvN6_4H_5rqp4NQYpLyVS0I1Cz1poSL363-vc0hAyUUWi1LjNl6WkVcuOu2nQ1zUmE7QtjrOFmvyYIVAAAAMg=='
     key = '818b5e3bb5a19e32cf3338c82f94015817bcc605f6ad0025840b3eb64853a2df'
-    ins = Dec(msg_s,key)
+    ins = Dec(msg_s, key)
     print(ins.decToBytes())
 
