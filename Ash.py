@@ -2,18 +2,21 @@
 ''' STILL IN THE WORKS '''
 
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes, hmac
+from cryptography.hazmat.primitives import padding
+from typing import Union
 import bcrypt
 import os
 import base64
-from typing import Union
 import struct
 import time
+import hmac
 
-class IterationsOutofRangeError(Exception):
-    pass
+class IterationsOutofaRangeErrorE(Exception):
+    def __init__(self,num):
+        self.display = f'Iterations must be between 50 and 100000. RECEIVED : {num} '
+        super().__init__(self.display)
 
 class Enc:
     def __init__(self, message: Union[str, bytes], mainkey: str) -> None:
@@ -26,31 +29,19 @@ class Enc:
         self.iv = os.urandom(16)
         self.salt = os.urandom(16)
         self.pepper = os.urandom(16)
-        self.iterations = 100
+        self.iterations = 50
         if self.iterations < 50 or self.iterations > 100000:
-            raise IterationsOutofRangeError
-        self.encKey = self.derkey1(self.mainkey, self.salt, self.iterations)
-        self.hmac_key = self.derkey2(self.mainkey, self.pepper, self.iterations)
+            raise IterationsOutofaRangeErrorE(self.iterations)
+        self.encKey = self.derkey(self.mainkey, self.salt, self.iterations)
+        self.hmac_key = self.derkey(self.mainkey, self.pepper, self.iterations)
 
     @staticmethod
-    def derkey1(mainkey: str, salt: bytes, iterations: int) -> bytes:
-        encKey = bcrypt.kdf(
-            password=mainkey.encode('UTF-8'),
-            salt=salt,
-            desired_key_bytes=32,
-            rounds=iterations
-        )
-        return encKey
-
-    @staticmethod
-    def derkey2(mainkey: str, pepper: bytes, iterations: int) -> bytes:
-        hmac_key = bcrypt.kdf(
-            password=mainkey.encode('UTF-8'),
-            salt=pepper,
-            desired_key_bytes=32,
-            rounds=iterations
-        )
-        return hmac_key
+    def derkey(mainkey: str, salt_pepper: bytes, iterations: int) -> bytes:
+        return bcrypt.kdf(
+            password = mainkey.encode('UTF-8'),
+            salt = salt_pepper,
+            desired_key_bytes = 32,
+            rounds = iterations)
 
     @staticmethod
     def genMainkey():
@@ -87,6 +78,17 @@ class Enc:
 
     def encToStr(self) -> str:
         return base64.urlsafe_b64encode(self.encToBytes()).decode('UTF-8')
+   
+
+class IterationsOutofaRangeErrorD(Exception):
+    def __init__(self,num):
+        self.display = f'Iterations must be between 50 and 100000. RECEIVED : {num}.\nPossible incomplete message '
+        super().__init__(self.display)
+
+class MessageTamperingError(Exception):
+    def __init__(self):
+        self.display = 'HMAC mismatch ! Message has been tampered with'
+        super().__init__(self.display)
 
  
 class Dec:
@@ -104,29 +106,28 @@ class Dec:
         self.rec_ciphertext = self.message[112:]
         self.rec_iterations = struct.unpack('!I', self.message[-4:])[0]
         if self.rec_iterations < 50 or self.rec_iterations > 100000:
-            raise IterationsOutofaRangeError
-        self.decKey = self.derkey2(self.key, self.rec_salt, self.rec_iterations)
-        self.hmac_k = self.derkey1(self.key, self.rec_pepper, self.rec_iterations)
+            raise IterationsOutofaRangeErrorD(self.rec_iterations)
+        self.decKey = self.derkey(self.key, self.rec_salt, self.rec_iterations)
+        self.hmac_k = self.derkey(self.key, self.rec_pepper, self.rec_iterations)
 
     @staticmethod
-    def derkey1(mainkey: str, salt: bytes, iterations: int) -> bytes:
-        encKey = bcrypt.kdf(
-            password=mainkey.encode('UTF-8'),
-            salt=salt,
-            desired_key_bytes=32,
-            rounds=iterations
-        )
-        return encKey
+    def derkey(mainkey: str, salt: bytes, iterations: int) -> bytes:
+        return bcrypt.kdf(
+            password = mainkey.encode('UTF-8'),
+            salt = salt,
+            desired_key_bytes = 32,
+            rounds = iterations)
 
-    @staticmethod
-    def derkey2(mainkey: str, pepper: bytes, iterations: int) -> bytes:
-        hmac_k = bcrypt.kdf(
-            password=mainkey.encode('UTF-8'),
-            salt=pepper,
-            desired_key_bytes=32,
-            rounds=iterations
-        )
-        return hmac_k
+    def actualHMAC(self):
+        h = self.hmac_k
+        h = hmac.HMAC(h, hashes.SHA512())
+        h.update(self.rec_ciphertext)
+        return h.finalize()
+
+    def verifyHMAC(self):
+        result = hmac.compare_digest(self.actualHMAC(), self.rec_hmac)
+        if result is False :
+            raise MessageTamperingError()
 
     def mode(self):
         return modes.CBC(self.rec_iv)
@@ -149,7 +150,6 @@ class Dec:
 
     def decToStr(self) -> str:
         return (self.unpadded_m().decode('UTF-8'))
-
     
     
 
