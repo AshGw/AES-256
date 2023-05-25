@@ -9,18 +9,18 @@ class CryptFiles():
         self.key = key
 
     @staticmethod
-    def genkey() -> string:
+    def genkey() -> str:
         return os.urandom(16).hex()
 
     @staticmethod
-    def getready(key: string) -> Union [ bytes , int ]:
+    def getready(key: str) -> Union [ bytes , int ]:
         try :
             key = base64.urlsafe_b64encode(key.strip().encode())
             return key
         except AttributeError :
             return 0
     @staticmethod
-    def changeform(key : string) -> Union [ bytes , int ]:
+    def changeform(key : str) -> Union [ bytes , int ]:
         try :
             sanitized_key = key.strip()[2:-1].encode()
             return sanitized_key
@@ -36,7 +36,7 @@ class CryptFiles():
             return 0
 
     @staticmethod
-    def strverify(key: string) -> int:
+    def strverify(key: str) -> int:
         if isinstance(key, str):
             if len(key.strip()) == 32:
                 return 1
