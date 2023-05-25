@@ -147,19 +147,29 @@ class Dec():
     
 
 if __name__ == '__main__':
-    ''' The Encryption Testing Phase I '''
+    ''' The Encryption Testing Phase II '''
     
     message1 = 'Hello there testing if it works'
     message2 = b'Hello this is bytes now'
     mainkey = '818b5e3bb5a19e32cf3338c82f94015817bcc605f6ad0025840b3eb64853a2df'
+    t1 = time.perf_counter()
     ins = Enc(message=message2,mainkey=mainkey)
     a = ins.encToBytes()
     print(a[:64] == ins.HMAC())
     print(a[64:80] == ins.iv)
     print(a[80:96] == ins.salt)
     print(a[96:112] == ins.pepper)
-    print(a[112:] == ins.ciphertext())
+    print(a[112:-4] == ins.ciphertext())
+    print(a[-4:] == ins.setupIterations())
+    print(ins.setupIterations())
+    print(type(ins.setupIterations()))
+    print(ins.setupIterations().__len__())
     print(ins.encToBytes())
+    c = ins.setupIterations()
+    b = ins.encToBytes()[-4:]
+    print(c == b)
+    t2 = time.perf_counter()
+    print(t2-t1)
     
     ''' Now For The Decryption Testing Phase I '''
     
