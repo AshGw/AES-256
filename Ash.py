@@ -88,11 +88,7 @@ class Enc:
     def encToStr(self) -> str:
         return base64.urlsafe_b64encode(self.encToBytes()).decode('UTF-8')
 
-    
-    
-class IterationsOutofaRangeError(Exception):
-    pass
-
+ 
 class Dec:
     def __init__(self,message: Union[str, bytes], key: str):
         if isinstance(message, str):
