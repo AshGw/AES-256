@@ -225,3 +225,4 @@ if __name__ == '__main__':
     a = Database('test.db')
     a.addtable()
     a.show_tables()
+    a.size()
