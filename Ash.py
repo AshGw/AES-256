@@ -74,7 +74,7 @@ class Enc:
         return iters_bytes
 
     def encToBytes(self) -> bytes:
-        return self.HMAC() + self.iv + self.salt + self.pepper + self.ciphertext() + self.setupIterations()
+        return self.HMAC() + self.iv + self.salt + self.pepper + self.setupIterations() + self.ciphertext()
 
     def encToStr(self) -> str:
         return base64.urlsafe_b64encode(self.encToBytes()).decode('UTF-8')
@@ -103,10 +103,10 @@ class Dec:
         self.rec_iv = self.message[64:80]
         self.rec_salt = self.message[80:96]
         self.rec_pepper = self.message[96:112]
-        self.rec_ciphertext = self.message[112:]
-        self.rec_iterations = struct.unpack('!I', self.message[-4:])[0]
+        self.rec_iterations = struct.unpack('!I', self.message[112:116])[0]
         if self.rec_iterations < 50 or self.rec_iterations > 100000:
             raise IterationsOutofaRangeErrorD(self.rec_iterations)
+        self.rec_ciphertext = self.message[116:]
         self.decKey = self.derkey(self.key, self.rec_salt, self.rec_iterations)
         self.hmac_k = self.derkey(self.key, self.rec_pepper, self.rec_iterations)
 
@@ -153,9 +153,6 @@ class Dec:
 
 
 
-
-
-
 if __name__ == '__main__':
 
     '''ENC'''
@@ -164,30 +161,31 @@ if __name__ == '__main__':
     message2 = b'Hello this is bytes now'
     mainkey = '818b5e3bb5a19e32cf3338c82f94015817bcc605f6ad0025840b3eb64853a2df'
     t1 = time.perf_counter()
-    ins = Enc(message=message1,mainkey=mainkey)
+    ins = Enc(message=message1, mainkey=mainkey)
     a = ins.encToBytes()
     print(a)
     print(a[:64] == ins.HMAC())
     print(a[64:80] == ins.iv)
     print(a[80:96] == ins.salt)
     print(a[96:112] == ins.pepper)
-    print(a[112:-4] == ins.ciphertext())
-    print(a[-4:] == ins.setupIterations())
+    print(a[112:116] == ins.setupIterations())
+    print(a[116:] == ins.ciphertext())
     print(ins.setupIterations())
     print(type(ins.setupIterations()))
     print(ins.setupIterations().__len__())
     print(ins.encToBytes())
     c = ins.setupIterations()
-    b = ins.encToBytes()[-4:]
+    b = ins.encToBytes()[112:116]
     print(c == b)
     t2 = time.perf_counter()
-    print(t2-t1)
+    print(t2 - t1)
+    print(ins.encToStr())
 
     '''DEC'''
 
-    msg_b = b'\xfexE\xe8\xd7\xbf7i\x1c\xe8?\xf7R\xa1xpK\xaf\xc4\xeb\xc0~Mw\xea\xf3]lZ\xe9\x95\xdd\xd9\xed)r\xff\x86\x13#\xa7\xa2U\x92\x82\xd5v\x8a\xb2W\x85\xfd\x1e\x80:S\xe5\x977\x19Q^\xe2\xb9P\xe2\x92\xbf\xcb1\xdf\x9e\xd9C\xd9&\xcdm\x81\xc2\xba\no\xaeT\x9b\xcd\xeb\xfe\x07\xff\x9a\xea\xa7\x83Pb\x92\xf2U-\x08\xd4,\xf5\xa6\x84\x8b\xdf\xad\xfe\xbd\xcd!\x03%\x14Z-K\x8c\xd9zZE\\\xb8\xeb\xb6\x9d\rsRa;B\xd8\xeb8Y\xaf\xc9\x82\x15\x00\x00\x002'
-    msg_s = '_nhF6Ne_N2kc6D_3UqF4cEuvxOvAfk136vNdbFrpld3Z7Sly_4YTI6eiVZKC1XaKsleF_R6AOlPllzcZUV7iuVDikr_LMd-e2UPZJs1tgcK6Cm-uVJvN6_4H_5rqp4NQYpLyVS0I1Cz1poSL363-vc0hAyUUWi1LjNl6WkVcuOu2nQ1zUmE7QtjrOFmvyYIVAAAAMg=='
+    msg_b = b'\xf0\x8by\x19\x9cy@\x1c!y\r\xe7\xcf\x99q;5\x15\xb9\xfc\x1f\x12\xac7\xc4\x1f\xfagK_K\xb2\xe1\'YR\xc8\x83W\xf4ck\x07P\x91\xe8\x8fV\xbe\x81M\xda\x9e\xa3\xcbz\x8f\xe0\xba+>MFYX\xf0\x8d\xa8x\x19\xdb\xe4\xc9\xa5\x84\xbc\x1f\x95Mq\xe8T>e\x16[\xfa\x0c\n\x88c\t\xbe\xa6>\xe1\xfa18K\xb0e\x04\xd2\xa3\xed\xe4\xdeA\xb3\xfe\xd4\x00\x00\x002\x06S\xe9\xe2\xb3\xe0\x994\x02:hq\xa8^\x90A\x14K\xb1\x8d\xda"\xee\xaf|\xda\xb6\xad\x07\xa1\xc9H'
+    msg_s = 'ewLVzwKCGEQaFlklltFrbKrn-ij63xkreHiFwPPP37omctiGyP6AErj1oEIoEYgPLGHeVUWG9u4kUWw1V_2lGZw8jUQgd3EhncJfoUV9gc6GRTwjA4AdN3vulWkXNlWWtBTsHlw79oIWbQX-GjqLWgAAADLXjpcgBXJqLrPW72RqW49euE5foFvSrTkUxWqsL75fHA=='
     key = '818b5e3bb5a19e32cf3338c82f94015817bcc605f6ad0025840b3eb64853a2df'
-    ins = Dec(msg_s, key)
+    ins = Dec(msg_b, key)
     print(ins.decToBytes())
 
