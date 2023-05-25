@@ -8,8 +8,12 @@ from cryptography.hazmat.primitives import hashes, hmac
 import bcrypt
 import os
 import base64
+from typing import Union
+import struct
+import time
 
-
+class IterationsOutofRangeError(Exception):
+    pass
 class Enc:
     def __init__(self, message: Union[str, bytes], mainkey: str) -> None:
         if isinstance(message, str):
@@ -22,8 +26,10 @@ class Enc:
         self.salt = os.urandom(16)
         self.pepper = os.urandom(16)
         self.iterations = 100
+        if self.iterations < 50 or self.iterations > 100000:
+            raise IterationsOutofRangeError
         self.encKey = self.derkey1(self.mainkey, self.salt, self.iterations)
-        self.hmac_k = self.derkey2(self.mainkey, self.pepper, self.iterations)
+        self.hmac_key = self.derkey2(self.mainkey, self.pepper, self.iterations)
 
     @staticmethod
     def derkey1(mainkey: str, salt: bytes, iterations: int) -> bytes:
@@ -37,13 +43,13 @@ class Enc:
 
     @staticmethod
     def derkey2(mainkey: str, pepper: bytes, iterations: int) -> bytes:
-        hmac_k = bcrypt.kdf(
+        hmac_key = bcrypt.kdf(
             password=mainkey.encode('UTF-8'),
             salt=pepper,
             desired_key_bytes=32,
             rounds=iterations
         )
-        return hmac_k
+        return hmac_key
 
     @staticmethod
     def genMainkey():
@@ -53,7 +59,7 @@ class Enc:
         return modes.CBC(self.iv)
 
     def cipher(self):
-        return Cipher(algorithms.AES(key=self.encKey), mode=self.mode(), backend=default_backend())
+     return Cipher(algorithms.AES(key=self.encKey), mode=self.mode(), backend=default_backend())
 
     def cipher_encryptor(self):
         return self.cipher().encryptor()
@@ -66,17 +72,21 @@ class Enc:
         return self.cipher_encryptor().update(self.padded_message()) + self.cipher_encryptor().finalize()
 
     def HMAC(self):
-        h = self.hmac_k
+        h = self.hmac_key
         h = hmac.HMAC(h, hashes.SHA512())
         h.update(self.ciphertext())
         return h.finalize()
 
+    def setupIterations(self):
+        iters_bytes = struct.pack('!I',self.iterations)
+        return iters_bytes
+
     def encToBytes(self) -> bytes:
-        return self.HMAC() + self.iv + self.salt + self.pepper + self.ciphertext()
+        return self.HMAC() + self.iv + self.salt + self.pepper + self.ciphertext() + self.setupIterations()
 
     def encToStr(self) -> str:
         return base64.urlsafe_b64encode(self.encToBytes()).decode('UTF-8')
-    
+
     
     
 class Dec():
