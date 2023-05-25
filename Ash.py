@@ -92,13 +92,13 @@ class MessageTamperingError(Exception):
         super().__init__(self.display)
 
 class Dec:
-    def __init__(self,message: Union[str, bytes], key: str):
+    def __init__(self,message: Union[str, bytes], mainkey: str):
         if isinstance(message, str):
             m = message.encode('UTF-8')
             self.message = base64.urlsafe_b64decode(m)
         elif isinstance(message, bytes):
             self.message = message
-        self.key = key
+        self.key = mainkey
         self.rec_hmac = self.message[:64]
         self.rec_iv = self.message[64:80]
         self.rec_salt = self.message[80:96]
