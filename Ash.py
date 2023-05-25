@@ -165,7 +165,7 @@ if __name__ == '__main__':
     mainkey = '818b5e3bb5a19e32cf3338c82f94015817bcc605f6ad0025840b3eb64853a2df'
     t1 = time.perf_counter()
     ins = Enc(message=message1,mainkey=mainkey)
-    a = ins.encToStr()
+    a = ins.encToBytes()
     print(a)
     print(a[:64] == ins.HMAC())
     print(a[64:80] == ins.iv)
