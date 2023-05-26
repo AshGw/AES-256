@@ -83,12 +83,12 @@ class Enc:
 
 class IterationsOutofaRangeErrorD(Exception):
     def __init__(self,num):
-        self.display = f'Iterations must be between 50 and 100000. RECEIVED : {num}.\nPossible incomplete message '
+        self.display = f'Iterations must be between 50 and 100000. RECEIVED : {num}'
         super().__init__(self.display)
 
 class MessageTamperingError(Exception):
     def __init__(self):
-        self.display = 'HMAC mismatch ! Message has been tampered with'
+        self.display = 'HMAC mismatch ! Message has been TAMPERED with'
         super().__init__(self.display)
 
 class Dec:
@@ -151,6 +151,7 @@ if __name__ == '__main__':
     message1 = 'Hello there testing if it works'
     message2 = b'Hello this is bytes now'
     mainkey = '818b5e3bb5a19e32cf3338c82f94015817bcc605f6ad0025840b3eb64853a2df'
+
     t1 = time.perf_counter()
     ins = Enc(message=message1, mainkey=mainkey)
     a = ins.encToBytes()
@@ -177,6 +178,8 @@ if __name__ == '__main__':
     msg_b = b'\xf0\x8by\x19\x9cy@\x1c!y\r\xe7\xcf\x99q;5\x15\xb9\xfc\x1f\x12\xac7\xc4\x1f\xfagK_K\xb2\xe1\'YR\xc8\x83W\xf4ck\x07P\x91\xe8\x8fV\xbe\x81M\xda\x9e\xa3\xcbz\x8f\xe0\xba+>MFYX\xf0\x8d\xa8x\x19\xdb\xe4\xc9\xa5\x84\xbc\x1f\x95Mq\xe8T>e\x16[\xfa\x0c\n\x88c\t\xbe\xa6>\xe1\xfa18K\xb0e\x04\xd2\xa3\xed\xe4\xdeA\xb3\xfe\xd4\x00\x00\x002\x06S\xe9\xe2\xb3\xe0\x994\x02:hq\xa8^\x90A\x14K\xb1\x8d\xda"\xee\xaf|\xda\xb6\xad\x07\xa1\xc9H'
     msg_s = 'ewLVzwKCGEQaFlklltFrbKrn-ij63xkreHiFwPPP37omctiGyP6AErj1oEIoEYgPLGHeVUWG9u4kUWw1V_2lGZw8jUQgd3EhncJfoUV9gc6GRTwjA4AdN3vulWkXNlWWtBTsHlw79oIWbQX-GjqLWgAAADLXjpcgBXJqLrPW72RqW49euE5foFvSrTkUxWqsL75fHA=='
     key = '818b5e3bb5a19e32cf3338c82f94015817bcc605f6ad0025840b3eb64853a2df'
+    t3 = time.perf_counter()
     ins = Dec(msg_b, key)
     print(ins.decToBytes())
-
+    t4 = time.perf_counter()
+    print(t4-t3)
