@@ -1,8 +1,4 @@
-from typing import Union
-from cryptography.fernet import Fernet
 import Ash
-import base64
-import os
 
 
 class CryptFiles():
@@ -15,18 +11,10 @@ class CryptFiles():
         return Ash.Enc.genMainkey()
 
     @staticmethod
-    def bytesverify(key : bytes) -> int :
-        try:
-            testkey = base64.urlsafe_b64decode(key.strip())
-            if len(testkey) == 32:
-                return 1
-        except Exception:
-            return 0
-
-    @staticmethod
-    def strverify(key: str) -> int:
+    def keyverify(key: str) -> int:
         if isinstance(key, str):
-            if len(key.strip()) == 32:
+            a = bytes.fromhex(key.strip())
+            if len(a) == 64:
                 return 1
             else:
                 return 0
@@ -39,9 +27,9 @@ class CryptFiles():
         with open(self.filename, 'w') as f:
             if filecontent:
                 try:
-                    fernet1 = Fernet(self.key)
-                    new_content = fernet1.encrypt(filecontent.encode())
-                    f.write(new_content.decode())
+                    ins = Ash.Enc(message=filecontent,mainkey=self.key)
+                    new_content= ins.encToStr()
+                    f.write(new_content)
                     return 1
                 except:
                     f.write(filecontent)
@@ -55,9 +43,9 @@ class CryptFiles():
         if enc_content:
             with open(self.filename, 'w') as f:
                 try:
-                    dec_instance = Fernet(self.key)
-                    a = dec_instance.decrypt(enc_content)
-                    f.write(a.decode())
+                    ins = Ash.Dec(message=enc_content,mainkey=self.key)
+                    a = ins.decToStr()
+                    f.write(a)
                     return 1
                 except Exception:
                     f.write(enc_content)
@@ -71,9 +59,6 @@ class CryptFiles():
         return f'{self.__class__.__name__}({self.filename},{self.key})'
 
 if __name__ == '__main__':
-    key_byt = b'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef='  # Bytes can be used directly (verify first)
-    key_str = 'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeef'               # Strings need to get ready (verify first)
-
-    key_str = CryptFiles.getready(key_str)
-    target = CryptFiles('target.txt', key_str)
+    key = '818b5e3bb5a19e32cf3338c82f94015817bcc605f6ad0025840b3eb64853a2df'
+    target = CryptFiles('target.txt', key)
     target.decrypt()

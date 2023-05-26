@@ -1,6 +1,5 @@
-import Ash
 from typing import Union
-
+import Ash
 
 class Crypt():
     def __init__(self,text: Union[str,bytes],key : str):
@@ -12,7 +11,7 @@ class Crypt():
         return Ash.Enc.genMainkey()
 
     @staticmethod
-    def strverify(key: str) -> int:
+    def keyverify(key: str) -> int:
         if isinstance(key, str):
             a = bytes.fromhex(key.strip())
             if len(a) == 64:
@@ -29,7 +28,7 @@ class Crypt():
                     new_content = ins.encToStr()
                     return 1,new_content
                 except:
-                    output = 'Error'
+                    output = 'E'
                     return 0,output
             else:
                 return 0.0,0.0
@@ -39,7 +38,7 @@ class Crypt():
                 try:
                     dec_instance = Ash.Dec(message=self.text,mainkey=self.key)
                     a = dec_instance.decToBytes()
-                    output = (a.decode())
+                    output = (a)
                     return 1,output
                 except Exception:
                     output = (self.text)
