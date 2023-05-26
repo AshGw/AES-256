@@ -1,8 +1,8 @@
-import os
 from dataclasses import dataclass,field
 from datetime import datetime
 from typing import Union
 import sqlite3
+import os
 
 @dataclass
 class Database():
@@ -16,7 +16,7 @@ class Database():
         self.c = self.conn.cursor()
 
     @property
-    def size(self):
+    def size(self):         # Size in MB #
         try:
             with self.conn:
                 self.c.execute('SELECT page_count * page_size FROM pragma_page_count() , pragma_page_size')
@@ -225,4 +225,4 @@ if __name__ == '__main__':
     a = Database('test.db')
     a.addtable()
     a.show_tables()
-    a.size()
+    print(a.size)
