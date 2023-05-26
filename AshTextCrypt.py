@@ -37,7 +37,7 @@ class Crypt():
         if self.text:
                 try:
                     dec_instance = Ash.Dec(message=self.text,mainkey=self.key)
-                    a = dec_instance.decToBytes()
+                    a = dec_instance.decToStr()
                     output = (a)
                     return 1,output
                 except Exception:

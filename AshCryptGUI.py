@@ -2,7 +2,7 @@ import ttkbootstrap as tk
 from AshTextCrypt import *
 import qr
 
-k = b'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef='
+k = '818b5e3bb5a19e32cf3338c82f94015817bcc605f6ad0025840b3eb64853a2df'
 
 def encryption():
     m = inputfield1_1.get()
