@@ -1,7 +1,9 @@
 from typing import Union
 from cryptography.fernet import Fernet
+import Ash
 import base64
 import os
+
 
 class CryptFiles():
     def __init__(self,filename,key):
@@ -10,22 +12,8 @@ class CryptFiles():
 
     @staticmethod
     def genkey() -> str:
-        return os.urandom(16).hex()
+        return Ash.Enc.genMainkey()
 
-    @staticmethod
-    def getready(key: str) -> Union [ bytes , int ]:
-        try :
-            key = base64.urlsafe_b64encode(key.strip().encode())
-            return key
-        except AttributeError :
-            return 0
-    @staticmethod
-    def changeform(key : str) -> Union [ bytes , int ]:
-        try :
-            sanitized_key = key.strip()[2:-1].encode()
-            return sanitized_key
-        except AttributeError :
-            return 0
     @staticmethod
     def bytesverify(key : bytes) -> int :
         try:

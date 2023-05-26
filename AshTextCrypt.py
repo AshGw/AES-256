@@ -1,45 +1,21 @@
+import Ash
 from typing import Union
-from cryptography.fernet import Fernet
-import base64
-import os
 
 
 class Crypt():
-    def __init__(self,text,key):
+    def __init__(self,text: Union[str,bytes],key : str):
         self.text = text
         self.key = key
 
     @staticmethod
     def genkey() -> str:
-        return os.urandom(16).hex()
-
-    @staticmethod
-    def getready(key: str) -> Union [ bytes , int ]:
-        try :
-            key = base64.urlsafe_b64encode(key.strip().encode())
-            return key
-        except AttributeError :
-            return 0
-    @staticmethod
-    def changeform(key : str) -> Union [ bytes , int ]:
-        try :
-            sanitized_key = key.strip()[2:-1].encode()
-            return sanitized_key
-        except AttributeError :
-            return 0
-    @staticmethod
-    def bytesverify(key : bytes) -> int :
-        try:
-            testkey = base64.urlsafe_b64decode(key.strip())
-            if len(testkey) == 32:
-                return 1
-        except Exception:
-            return 0
+        return Ash.Enc.genMainkey()
 
     @staticmethod
     def strverify(key: str) -> int:
         if isinstance(key, str):
-            if len(key.strip()) == 32:
+            a = bytes.fromhex(key.strip())
+            if len(a) == 64:
                 return 1
             else:
                 return 0
@@ -49,10 +25,9 @@ class Crypt():
     def encrypt(self) -> tuple :
             if self.text:
                 try:
-                    fernet1 = Fernet(self.key)
-                    new_content = fernet1.encrypt(self.text.encode())
-                    output = new_content.decode()
-                    return 1,output
+                    ins = Ash.Enc(self.text,self.key)
+                    new_content = ins.encToStr()
+                    return 1,new_content
                 except:
                     output = 'Error'
                     return 0,output
@@ -62,8 +37,8 @@ class Crypt():
     def decrypt(self) -> tuple :
         if self.text:
                 try:
-                    dec_instance = Fernet(self.key)
-                    a = dec_instance.decrypt(self.text)
+                    dec_instance = Ash.Dec(message=self.text,mainkey=self.key)
+                    a = dec_instance.decToBytes()
                     output = (a.decode())
                     return 1,output
                 except Exception:
@@ -78,6 +53,6 @@ class Crypt():
         return f'{self.__class__.__name__}({(self.text)[:8]},{self.key})'
 
 if __name__ == '__main__':
-    k = b'Ashreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef='
-    a = Crypt('hello wold',k)
+    k = '818b5e3bb5a19e32cf3338c82f94015817bcc605f6ad0025840b3eb64853a2df'
+    a = Crypt('test1',k)
     print(a.encrypt()[1])
