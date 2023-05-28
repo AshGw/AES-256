@@ -12,13 +12,29 @@ def encryption():
         a = Crypt(m, key)
         b =  a.encrypt()[1]
         outputvar1.set(b.__str__())
-        qr.tqr(b)
+        if var1.get() == 1:
+            qr.tqr(b)
 
 def decryption():
     n =inputfield2_1.get()
     a = Crypt(n, key)
     b = a.decrypt()[1]
     outputvar2.set(b.__str__())
+    if var2.get() == 1:
+        qr.tqr(b)
+
+def func1():
+    if var1.get() == 1 :
+        label1.config(text='QR ON')
+    else:
+        label1.config(text='QR OFF')
+
+def func2():
+    if var2.get() == 1 :
+        label2.config(text='QR ON')
+    else:
+        label2.config(text='QR OFF')
+
 
 
 
@@ -71,5 +87,36 @@ outputlabel2 = tk.Entry(master=frame2 ,
                                         rely= 0.55 ,
                                         width= 1000000 ,
                                         height= 50)
+
+
+
+label1 = tk.Label(master=frame1,text='QR',font=('terminal',17))
+label1.place(relx=0.2,rely=0.75)
+var1 = tk.IntVar()
+mytoolbutt3 = tk.Checkbutton(bootstyle='success , round-toggle',
+                        master=frame1,
+                        variable=var1,
+                        offvalue=0,
+                        command=func1)
+
+mytoolbutt3.place(relx=0.1,rely=0.77)
+
+
+
+
+label2 = tk.Label(master=frame2,text='QR',font=('terminal',17))
+label2.place(relx=0.2,rely=0.82)
+var2 = tk.IntVar()
+mytoolbutt6 = tk.Checkbutton(bootstyle='success , round-toggle',
+                        master=frame2,
+                        variable=var2,
+                        offvalue=0,
+                        command=func2)
+
+mytoolbutt6.place(relx=0.1,rely=0.84)
+
+
+
+
 if __name__ == '__main__':
     object.mainloop()
