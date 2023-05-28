@@ -7,32 +7,32 @@ Individual **Freedom** has become a rare commodity in a world dominated by contr
 This led me to develop a way to work with a set of tools in Python , levereging the AES-256 algorithm  to make it easier for individuals to safeguard their data without blindly relying on third parties to do it for them , while at the same time making it easy for anyone with a limited programming knowledge to work with.
 
 ## Overview ## 
-The project incorporates a library I made called [Ash.py](##Ash Module) : 
+The project incorporates a library I made called [Ash.py](https://github.com/AshGw/CryptographyAES-256#ash-module) : 
 <br>A simple, secure, and developer-oriented library for
 encryption and decryption with AES-256 (CBC) . It offers an intuitive
 interface, seamless integration with precompiled 
 functions, and robust security measures to safeguard
 sensitive data,  providing a hassle-free experience when dealing with cryptographic libraries.
-<br>View [Features](##Features##).
+<br>View [Features](https://github.com/AshGw/CryptographyAES-256#features).
 
 
 
 The project uses that same module to ensure secure data encryption and decryption for Files and Texts while keeping it very easy and simple to use .
-view the headers for [AshFileCrypt](##[AshFileCrypt Module) and [AshTextCrypt](##AshTextCrypt Module) to learn more.
+view the headers for [AshFileCrypt](https://github.com/AshGw/CryptographyAES-256#ashfilecrypt) and [AshTextCrypt](https://github.com/AshGw/CryptographyAES-256#ashtextcrypt) to learn more.
 
 It also includes a simple graphical user interface (GUI) for easy interaction with the AshTextCrypt module.
 <br>If you're trying to either encrypt or decrypt some messages on the go ( 200 characters max ) you can use this GUI.
 <br>It also has a qr module associated with it to display the message.
-<br>check [GUI](##GUI##) header for more info.
+<br>check [GUI](https://github.com/AshGw/CryptographyAES-256#ashcryptgui) header for more info.
 
 
 It also incorporates 2 database modules that serve the same purpose which is allowing for the management and storage of classified content in a secure, 
 safe and simple manner, you can choose whichever you see fit.
 
-<br>The first one has a simple straight forward apporach for dealing with sqlite3 databases, even if youre not familiar with Python itself you can still use this module to run SQL queries to perform various operations on a given database, check [AshDatabase](##AshDataBase Module) header to learn more.
+<br>The first one has a simple straight forward apporach for dealing with sqlite3 databases, even if youre not familiar with Python itself you can still use this module to run SQL queries to perform various operations on a given database, check [AshDatabase](https://github.com/AshGw/CryptographyAES-256#ashdatabase) header to learn more.
 
 <br>The second one is using an Object-Relational Mapping (ORM) approach. It is designed for those who are already familiar with ORM concepts. It provides a higher-level abstraction for interacting with databases not only sqlite3 databases.
-you can check the [AshDatabaseORM](##AshDatabaseORM Module) header for more info.
+you can check the [AshDatabaseORM](https://github.com/AshGw/CryptographyAES-256#ashdatabaseorm) header for more info.
 
 ## Installation ##
 1) Clone the repository : 
@@ -79,100 +79,3 @@ the_output = encryption_instance.encToBytes()
 the_output = encryption_instance.encToStr()
 ```
 That simple, that's it.
-
-
-
-
-## Features ## 
-- AES 256 CBC mode 
-- Generates a randomly secure 512 Bit mainkey 
-- Derives the HMAC and the AES key from the mainkey using bcrypt's KDFs with a configurable number of iterations with :
-    - Salt : Random 128 bit value is generated  each time and passed to the KDF to generate the AES key
-    - Pepper : Random 128 bit value is generated  each time and passed to the KDF to generate the HMAC
-- AES Key : 256 bit
-- HMAC : 256 bit hashed using SHA512
-- Generates a random 128 bit Initialization Vector (IV) each time for the Cipher
-- PKCS7 message padding
-### Other Features :
-These focus on ease of use: 
-- No need to manipulate the input to fit, it accepts strings or bytes you can pass them right away
-- You can get a string or a bytes representation of either the encryption or the decryption result
-- In Ash module the key is flexible it doesn't have to be 512 bit long, it can actually be of any length but that's up to you to ensure it's security, or leave it as is and use the key generation function to get secure and random keys , although in AshTextCrypt and AshFileCrypt you have to use a 512 bit long key.
-- Encrypting to a string has URL-safe string representation 
-### Regarding KDFs
-bcrypt is intentionally slow and computationally expensive, enhancing protection against brute-force attacks. The number of iterations, including salt and pepper, increases derivation time to strike a balance between security and performance. Use a suitable value based on your machine's capabilities and desired security level.
-<br>Im using 50 just to demonstrate and make it quick.
-the bare minimum is 50, the max is 100 000, choose somewhere in between.
-<br>In my use case 50 takes around 0.5 secs while using the maximun number of iterations takes around 11 minutes to derive the keys and encrypt/decrypt.
-
-## AshFileCrypt ## 
-If you want to encrypt a file :
-1) Follow the steps above to set the key up.
-2) Create an instance of the class CryptFiles and pass 2 arguments, the first one being the target file and the second argument being the key :
-```python
-instance1 = CryptFiles('target.txt', key)
-```
-3) Apply either the encryption or decryption functions to that instance :
-```python
-instance1.encrypt()
-```
-```python
-instance1.decrypt()
-```
-That's it, if you follow the steps above then everything should work just fine.
-## AshTextCrypt ## 
-Same steps above just the naming is different, and keep in mind both accept either strings or bytes 
-```python
-instance1 = Crypt('Hello Wold !',key)
-```
-```python
-instance1.encrypt()[1]
-```
-## AshCryptGUI ##
-You can use the AshCryptGUI.py , it's merely a GUI to encrypt and decrypt a text of a maximum of 200 characters and also display the qr representation of the text post encryption.
-
-**NOTE** : The key is not specified in the GUI its hard-coded, if you want to change the key make sure to change it from within the file AshCryptGUI.py itself, it's just a security measure. By default it uses the following key in bytes :
-```python
-import ttkbootstrap as tk
-from AshTextCrypt import *
-import qr
-
-key = 'c3066e464350e68a144d6be3e35c879eac1b9f360139443ee3d9e1960725d6a4d3379af0a35b6a07d083ecc29c4ba03767ad6d48b8e9c20d319dd459da52a91a'
-```
-### QR ## 
-The qr.py module is used to display a qr code of either the key or the encrypted message, here I'm using it to display the encrypted message so it can be quickly scanned and transmitted , you can use qr versions from 1 to 40 , although I recommend using 40 since it can take the maximum number of characters for small files , and 10 if you're working with the GUI which is intended for text/short messages,
-
-## AshDatabase ##
-To support efficient content management, I have integrated this database module to enable the storage and retrieval of encrypted content in a safe and secure manner using an sqlite3 database
-
-Ensuring that the encrypted data remains organized and readily accessible to anyone with the right key. Any content going in must be encrypted with a key that you must keep off grid.
-
-**Note** that in AshDatabase.py I'm using "dataclasses" module which was introduced in Python 3.7, so make sure to install it if you have an older version.
-
-### Usage ## 
-In the module I'm providing built in functions to make it easier to perform usual queries on Sqlite tables , by default it creates a table 'Classified' with two deafult columns :
-
-**content** : This can be a single character or a whole movie in binary, that depends on your specific needs.
-
-**key** : This key column wasn't indeed meant to store a key itself but rather store a reference to the actual key. The key itself should be stored somewhere else safe and secure preferrably off-grid and completely seprerate from any vulnerable devices, heck you can even write it down on a piece of paper, just make sure to rotate your keys from time to time.
-
-1) Create connection to the database :
-```python
-connect = Database('test.db')
-```
-2) Perform actions :
-```python
-connect.addtable()
-key = 'reference to the key'
-connect.insert('some encrypted content of bytes or strings',key)
-connect.show_tables()
-print(connect.size) # Size of the Database in MB 
-```
-## AshDatabaseORM ## 
-**STILL IN THE TESTING PHASE** 
-
-## License ##
-This project is licensed under the MIT [LICENSE](https://github.com/AshGw/CryptographyAES-256/blob/main/LICENSE).
-## Acknowledgments ##
-This cryptographic scheme is inspired by secure cryptographic practices and various open-source implementations.
-
