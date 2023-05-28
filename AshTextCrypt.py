@@ -62,5 +62,5 @@ class Crypt():
 
 if __name__ == '__main__':
     k = 'd5d717f57933ad21725888d3451a9cd7a565dfda677fe92fd8ff9e9c3a36d1496af58c17de2b77d4d3ea6d8791b27350fea0af3ad2610d38c8cb12a29fda4bcf'
-    a = Crypt('test1',k)
+    a = Crypt(b'test1',k)
     print(a.encrypt()[1])

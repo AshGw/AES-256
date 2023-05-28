@@ -7,7 +7,7 @@ import os
 @dataclass
 class Database():
     dbname: str = field()
-    tablename: str = field(default='CLASSIFIED')
+    tablename: str = field(default='Classified')
     conn: sqlite3.Connection = field(init=False, repr=False)
     c: sqlite3.Cursor = field(init=False, repr=False)
 
@@ -224,5 +224,7 @@ class Database():
 if __name__ == '__main__':
     a = Database('test.db')
     a.addtable()
+    key = 'reference to the key'
+    a.insert('some encrypted content of bytes or strings',key)
     a.show_tables()
     print(a.size)
