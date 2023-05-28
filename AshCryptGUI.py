@@ -9,19 +9,24 @@ def encryption():
     if len(m) > 200 :
         outputvar1.set('Too Long')
     else :
-        a = Crypt(m, key)
-        b =  a.encrypt()[1]
-        outputvar1.set(b.__str__())
-        if var1.get() == 1:
-            qr.tqr(b)
+        if inputfield1_1.get():
+            progressbar.start()
+            a = Crypt(m, key)
+            b =  a.encrypt()[1]
+            outputvar1.set(b.__str__())
+            if var1.get() == 1:
+                qr.tqr(b)
+
 
 def decryption():
     n =inputfield2_1.get()
-    a = Crypt(n, key)
-    b = a.decrypt()[1]
-    outputvar2.set(b.__str__())
-    if var2.get() == 1:
-        qr.tqr(b)
+    if inputfield2_1.get():
+        progressbar2.start()
+        a = Crypt(n, key)
+        b = a.decrypt()[1]
+        outputvar2.set(b.__str__())
+        if var2.get() == 1:
+            qr.tqr(b)
 
 def func1():
     if var1.get() == 1 :
@@ -58,7 +63,7 @@ textfield1_1 = tk.Entry(master=frame1 ,
                         font='terminal 13 bold',
                         textvariable=inputfield1_1).place(relx=0.279 , rely=0.30)
 
-inputfield2_1 = tk.StringVar()
+inputfield2_1 = tk.StringVar(value='')
 textfield2_1 = tk.Entry(master=frame2 ,
                         font='terminal 11 bold',
                         textvariable=inputfield2_1).place(relx=0.290 ,rely=0.38)
@@ -116,6 +121,11 @@ mytoolbutt6 = tk.Checkbutton(bootstyle='success , round-toggle',
 mytoolbutt6.place(relx=0.1,rely=0.84)
 
 
+progressbar = tk.Progressbar(master=frame1,mode='indeterminate',style='secondary',length=100,)
+progressbar.place(relx=0.05,rely=0.34)
+
+progressbar2 = tk.Progressbar(master=frame2,mode='indeterminate',style='secondary',length=100,)
+progressbar2.place(relx=0.05,rely=0.42)
 
 
 if __name__ == '__main__':
