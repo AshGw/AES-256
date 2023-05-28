@@ -49,7 +49,7 @@ pip install requirements.txt
 The Ash.py module is a comprehensive collection of carefully designed functions and code modules that facilitate optimal performance and reliability in data encryption and decryption operations  while ensuring the utmost security and 
 confidentiality.
 
-<br>It uses primitives from the cryptography.py with added security features while keeping it simple and highly flexible to provide a head-ache free solution for developers. You can check [Features](##Features) tag below to learn more about the security features.
+<br>It uses primitives from the cryptography.py with added security features while keeping it simple and highly flexible to provide a head-ache free solution for developers. You can check [Features](https://github.com/AshGw/CryptographyAES-256#features) tag below to learn more about the security features.
 <br>
 
 ### Usage ##
