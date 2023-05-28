@@ -151,7 +151,7 @@ if __name__ == '__main__':
     message1 = 'Hello there testing if it works'
     message2 = b'Hello this is bytes now'
     mainkey = '818b5e3bb5a19e32cf3338c82f94015817bcc605f6ad0025840b3eb64853a2df'
-
+    print(Enc.genMainkey())
     t1 = time.perf_counter()
     ins = Enc(message=message1, mainkey=mainkey)
     a = ins.encToBytes()

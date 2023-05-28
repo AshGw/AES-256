@@ -1,4 +1,4 @@
-# Cryptography w/ AES-256 Algorithm
+[# Cryptography w/ AES-256 Algorithm
 ## Overview
 This project implements 512-bit key for AES-256 algorithm to ensure secure data encryption and decryption (Files/Text). It also includes a simple graphical user interface (GUI) for easy interaction with the application. The project also incorporates a database module that allows for the management and storage of classified content in a secure, safe and simple manner.
 ( currently working on Ash.py but the rest should work just fine ) 
@@ -20,7 +20,7 @@ This led me to develop a way to work with a set of tools in Python , levereging 
 ## Database Module
 To support efficient content management, I have integrated a database module. This module enables the storage and retrieval of encrypted content in a safe and secure manner. 
 
-The database ensures that the encrypted data remains organized and readily accessible to anyone with the right key.
+The]() database ensures that the encrypted data remains organized and readily accessible to anyone with the right key.
 Any content going in must be encrypted with a key that you must keep off grid.
 
 Note that in AshDatabase.py I'm using "dataclasses" module which was introduced in Python 3.7, so make sure to install it if you have an older version.

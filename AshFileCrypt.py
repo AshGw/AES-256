@@ -1,10 +1,17 @@
 import Ash
 
+class KeyError(Exception):
+    def __init__(self):
+        self.display = 'Key must be 512 Bit long !'
+        super().__init__(self.display)
 
 class CryptFiles():
     def __init__(self,filename,key):
         self.filename = filename
-        self.key = key
+        if self.keyverify(key) == 1:
+            self.key = key
+        else:
+            raise KeyError()
 
     @staticmethod
     def genkey() -> str:
@@ -59,6 +66,8 @@ class CryptFiles():
         return f'{self.__class__.__name__}({self.filename},{self.key})'
 
 if __name__ == '__main__':
-    key = '818b5e3bb5a19e32cf3338c82f94015817bcc605f6ad0025840b3eb64853a2df'
+    print(Ash.Enc.genMainkey())
+    key = 'd5d717f57933ad21725888d3451a9cd7a565dfda677fe92fd8ff9e9c3a36d1496af58c17de2b77d4d3ea6d8791b27350fea0af3ad2610d38c8cb12a29fda4bcf'
     target = CryptFiles('target.txt', key)
-    target.decrypt()
+    target.encrypt()
+
