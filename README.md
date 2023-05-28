@@ -49,7 +49,7 @@ pip install requirements.txt
 The Ash.py module is a comprehensive collection of carefully designed functions and code modules that facilitate optimal performance and reliability in data encryption and decryption operations  while ensuring the utmost security and 
 confidentiality.
 
-<br>It uses primitives from the cryptography.py with added security features while keeping it simple and highly flexible to provide a head-ache free solution for developers. You can check [Features](https://github.com/AshGw/CryptographyAES-256#features) tag below to learn more about the security features.
+<br>It uses primitives from the cryptography.py library with added security features while keeping it simple and highly flexible to provide a head-ache free solution for developers. You can check [Features](https://github.com/AshGw/CryptographyAES-256#features) tag below to learn more about the security features.
 <br>
 
 ### Usage ##
@@ -58,11 +58,11 @@ confidentiality.
 mainkey = Enc.genMainkey()
 ```
 2) Before encrypting or decrypting anything, first set the arguments you want to pass, you can have an encrypted message or a  decrypted message , and a mainkey to use.
-<br>Set the correct mainkey
+<br>Set the correct mainkey ( 64 byte long key ) 
 ```python
 mainkey = 'd5d717f57933ad21725888d3451a9cd7a565dfda677fe92fd8ff9e9c3a36d1496af58c17de2b77d4d3ea6d8791b27350fea0af3ad2610d38c8cb12a29fda4bcf'
 ```
-have a message , the message can be of type string or bytes.
+The message can be of type string or bytes.
 <br>Normal string message :  
 ```python 
 message = 'Hello There'
@@ -114,13 +114,13 @@ That simple, that's it.
 These focus on ease of use: 
 - No need to manipulate the input to fit, it accepts strings or bytes you can pass them right away
 - You can get a string or a bytes representation of either the encryption or the decryption result
-- In Ash module the key is flexible it doesn't have to be 512 bit long, it can actually be of any length but that's up to you to ensure it's security, or leave it as is and use the key generation function to get secure and random keys , although in AshTextCrypt and AshFileCrypt you have to use a 512 bit long key.
+- In Ash module the key is flexible it doesn't have to be 512 bit long, it can actually be of any length but that's up to you to ensure it's security, or leave it as is and use the key generation function to get secure and random keys ( although in AshTextCrypt and AshFileCrypt you have to use a 512 bit long key )
 - Encrypting to a string has URL-safe string representation 
 ### Regarding KDFs
 bcrypt is intentionally slow and computationally expensive, enhancing protection against brute-force attacks. The number of iterations, including salt and pepper, increases derivation time to strike a balance between security and performance. Use a suitable value based on your machine's capabilities and desired security level.
 <br>Im using 50 just to demonstrate and make it quick.
 the bare minimum is 50, the max is 100 000, choose somewhere in between.
-<br>In my use case 50 takes around 0.5 secs while using the maximun number of iterations takes around 11 minutes to derive the keys and encrypt/decrypt.
+<br>In my use case 50 takes around 0.5 secs while using the maximun number of iterations takes around 11 minutes to derive the keys and finish encryption/decryption.
 
 ## AshFileCrypt ## 
 If you want to encrypt a file :
@@ -171,7 +171,7 @@ In the module I'm providing built in functions to make it easier to perform usua
 
 **content** : This can be a single character or a whole movie in binary, that depends on your specific needs.
 
-**key** : This key column wasn't indeed meant to store a key itself but rather store a reference to the actual key. The key itself should be stored somewhere else safe and secure preferrably off-grid and completely seprerate from any vulnerable devices, heck you can even write it down on a piece of paper, just make sure to rotate your keys from time to time.
+**key** : This key column wasn't indeed meant to store a key itself but rather store a reference to the actual key. The key itself should be stored somewhere else safe and secure preferrably off-grid and completely seprerate from any vulnerable devices, you can even write it down on a piece of paper if you want , just make sure to rotate your keys from time to time.
 
 1) Create connection to the database :
 ```python
