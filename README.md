@@ -180,7 +180,7 @@ connect = Database('test.db')
 2) Perform actions :
 ```python
 connect.addtable()
-key = 'reference to the key'
+key = 'string reference to the key'
 connect.insert('some encrypted content of bytes or strings',key)
 connect.show_tables()
 print(connect.size) # Size of the Database in MB 
