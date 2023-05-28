@@ -33,40 +33,41 @@ frame2 = tk.Frame(master=object , width=500 , height=250)
 frame2.place(x=0 , y=250)
 
 
-button1 = tk.Button(master=frame1 ,text='compute', command=encryption).place(relx=0.43, rely=0.8)
-button2 = tk.Button(master=frame2 , text='compute', command=decryption).place(relx=0.43,rely=0.8)
+button1 = tk.Button(master=frame1 ,text='COMPUTE', command=encryption, bootstyle='light outline').place(relx=0.435, rely=0.73)
+button2 = tk.Button(master=frame2 , text='COMPUTE', command=decryption,bootstyle='light outline').place(relx=0.435,rely=0.8)
 
 inputfield1_1 = tk.StringVar()
 textfield1_1 = tk.Entry(master=frame1 ,
                         width=20,
-                        font='Calibre 9 bold',
-                        textvariable=inputfield1_1).place(relx=0.3333 , rely=0.33)
+                        font='terminal 13 bold',
+                        textvariable=inputfield1_1).place(relx=0.279 , rely=0.30)
 
 inputfield2_1 = tk.StringVar()
 textfield2_1 = tk.Entry(master=frame2 ,
-                        width=20,
-                        textvariable=inputfield2_1).place(relx=0.3333 ,rely=0.35)
+                        font='terminal 11 bold',
+                        textvariable=inputfield2_1).place(relx=0.290 ,rely=0.38)
 
 namelabel1 = tk.Label(master=frame1 ,
-                      text='Encryption',
-                      font='Calibre 20 bold' ,
-                      ).place(relx=0.33 ,rely=0.10)
+                      text='ENCRYPTION',
+                      font='Terminal 20' ,
+                      )
+namelabel1.place(relx=0.270 ,rely=0.10)
 namelabel2 = tk.Label(master=frame2 ,
-                      text='Decryption' ,
-                      font='Calibre 20 bold'  ,
-                      ).place(relx=0.335 ,rely=0.14)
+                      text='DECRYPTION' ,
+                      font='terminal 20'  ,
+                      ).place(relx=0.280 ,rely=0.200)
 
 outputvar1 = tk.StringVar(value='')
 outputlabel1 =  tk.Entry(master= frame1,
                          textvariable=outputvar1,
-                         font='Calibre 7 bold').place(relx= 0,
-                                                       rely= 0.53 ,
+                         font='terminal 11 bold').place(relx= 0,
+                                                       rely= 0.48 ,
                                                        width= 1000000,
                                                        height= 50)
 outputvar2 = tk.StringVar(value='')
 outputlabel2 = tk.Entry(master=frame2 ,
                         textvariable= outputvar2 ,
-                        font='Calibre 11 bold').place(relx= 0 ,
+                        font='terminal 11 bold').place(relx= 0 ,
                                         rely= 0.55 ,
                                         width= 1000000 ,
                                         height= 50)
