@@ -88,7 +88,7 @@ class IterationsOutofaRangeErrorD(Exception):
 
 class MessageTamperingError(Exception):
     def __init__(self):
-        self.display = 'HMAC mismatch ! Message has been TAMPERED with'
+        self.display = 'HMAC mismatch ! Message has been TAMPERED with ,\n or Possible key difference'
         super().__init__(self.display)
 
 class Dec:
@@ -150,7 +150,7 @@ if __name__ == '__main__':
 
     message1 = 'Hello there testing if it works'
     message2 = b'Hello this is bytes now'
-    mainkey = '818b5e3bb5a19e32cf3338c82f94015817bcc605f6ad0025840b3eb64853a2df'
+    mainkey = 'c3066e464350e68a144d6be3e35c879eac1b9f360139443ee3d9e1960725d6a4d3379af0a35b6a07d083ecc29c4ba03767ad6d48b8e9c20d319dd459da52a91a'
     print(Enc.genMainkey())
     t1 = time.perf_counter()
     ins = Enc(message=message1, mainkey=mainkey)
@@ -172,12 +172,13 @@ if __name__ == '__main__':
     t2 = time.perf_counter()
     print(t2 - t1)
     print(ins.encToStr())
+    print(ins.encToBytes())
 
     ''' DEC '''
 
-    msg_b = b'\xf0\x8by\x19\x9cy@\x1c!y\r\xe7\xcf\x99q;5\x15\xb9\xfc\x1f\x12\xac7\xc4\x1f\xfagK_K\xb2\xe1\'YR\xc8\x83W\xf4ck\x07P\x91\xe8\x8fV\xbe\x81M\xda\x9e\xa3\xcbz\x8f\xe0\xba+>MFYX\xf0\x8d\xa8x\x19\xdb\xe4\xc9\xa5\x84\xbc\x1f\x95Mq\xe8T>e\x16[\xfa\x0c\n\x88c\t\xbe\xa6>\xe1\xfa18K\xb0e\x04\xd2\xa3\xed\xe4\xdeA\xb3\xfe\xd4\x00\x00\x002\x06S\xe9\xe2\xb3\xe0\x994\x02:hq\xa8^\x90A\x14K\xb1\x8d\xda"\xee\xaf|\xda\xb6\xad\x07\xa1\xc9H'
+    msg_b =b'\x03;\xf7\x89\xef\xa9s\x16\xd2\x0c\n5\x05\x1cQ\xee.-\xa7\xcf\xf4\xb2\xc8#\xfe\x19\x1e\xd6\x98({J=\xed\xa0+,\xecJ\x9a\x02\x97\xda\x93\x99K6\xf9f\xa5\xda \x80h\x82\xc9\xeeU\xec\x98\xc1\xcb\nJH\xca\xf1\xf2M/=\x07hS\xcd \xdc\x8e\x0b\x8bS\x90 \xe8\xbd\xcb\x1a\xad\xde\x85\x17\x89\xa7\x02~\xde\x02D\x1d\xb9OC\xceO:\xdc\xc7\x99\xd7\xd4ru\x00\x00\x002$\x94\xa8\xc1\xa1i\x94\xac\xa8\xde\x82\x04\x94\xbc\x82W\xbb\xed\xe7\x1dY\xbe\xeb"A\xe4\xab"\xfe\xb8\xcb\xac'
     msg_s = 'ewLVzwKCGEQaFlklltFrbKrn-ij63xkreHiFwPPP37omctiGyP6AErj1oEIoEYgPLGHeVUWG9u4kUWw1V_2lGZw8jUQgd3EhncJfoUV9gc6GRTwjA4AdN3vulWkXNlWWtBTsHlw79oIWbQX-GjqLWgAAADLXjpcgBXJqLrPW72RqW49euE5foFvSrTkUxWqsL75fHA=='
-    key = '818b5e3bb5a19e32cf3338c82f94015817bcc605f6ad0025840b3eb64853a2df'
+    key = 'c3066e464350e68a144d6be3e35c879eac1b9f360139443ee3d9e1960725d6a4d3379af0a35b6a07d083ecc29c4ba03767ad6d48b8e9c20d319dd459da52a91a'
     t3 = time.perf_counter()
     ins = Dec(msg_b, key)
     print(ins.decToBytes())

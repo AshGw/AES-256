@@ -2,7 +2,7 @@ import ttkbootstrap as tk
 from AshTextCrypt import *
 import qr
 
-k = '818b5e3bb5a19e32cf3338c82f94015817bcc605f6ad0025840b3eb64853a2df'
+k = 'c3066e464350e68a144d6be3e35c879eac1b9f360139443ee3d9e1960725d6a4d3379af0a35b6a07d083ecc29c4ba03767ad6d48b8e9c20d319dd459da52a91a'
 
 def encryption():
     m = inputfield1_1.get()
@@ -10,7 +10,7 @@ def encryption():
         outputvar1.set('Too Long')
     else :
         a = Crypt(m, k)
-        b=  a.encrypt()[1]
+        b =  a.encrypt()[1]
         outputvar1.set(b.__str__())
         qr.tqr(b)
 
