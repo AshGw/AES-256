@@ -173,11 +173,11 @@ In the module I'm providing built in functions to make it easier to perform usua
 
 **key** : This key column wasn't indeed meant to store a key itself but rather store a reference to the actual key. The key itself should be stored somewhere else safe and secure preferrably off-grid and completely seprerate from any vulnerable devices, you can even write it down on a piece of paper if you want , just make sure to rotate your keys from time to time.
 
-1) Create connection to the database :
+1) Create a connection to the database :
 ```python
 connect = Database('test.db')
 ```
-2) Perform actions :
+2) Perform some actions :
 ```python
 connect.addtable()
 key = 'string reference to the key'
