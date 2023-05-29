@@ -146,7 +146,7 @@ instance1 = Crypt('Hello Wold !',key)
 instance1.encrypt()[1]
 ```
 ## AshCryptGUI ##
-You can use the AshCryptGUI.py , it's merely a GUI to encrypt and decrypt a text of a maximum of 200 characters and also display the qr representation of the text post encryption.
+You can use the AshCryptGUI.py , it's merely a GUI to encrypt and decrypt a text of a maximum of 200 characters and also display the qr representation of the text (encrypted/decrypted) .
 
 **NOTE** : The key is not specified in the GUI its hard-coded, if you want to change the key make sure to change it from within the file AshCryptGUI.py itself, it's just a security measure. By default it uses the following key in bytes :
 ```python
@@ -157,7 +157,7 @@ import qr
 key = 'c3066e464350e68a144d6be3e35c879eac1b9f360139443ee3d9e1960725d6a4d3379af0a35b6a07d083ecc29c4ba03767ad6d48b8e9c20d319dd459da52a91a'
 ```
 ### QR ## 
-The qr.py module is used to display a qr code of either the key or the encrypted message, here I'm using it to display the encrypted message so it can be quickly scanned and transmitted , you can use qr versions from 1 to 40 , although I recommend using 40 since it can take the maximum number of characters for small files , and 10 if you're working with the GUI which is intended for text/short messages,
+The qr.py module is used to display a qr code of the encrypted/decrypted messages to be quickly scanned and transmitted , you can use qr versions from 1 to 40 , although I recommend using 40 since it can take the maximum number of characters for small files , and 10 if you're working with the GUI which is intended for text/short messages,
 
 ## AshDatabase ##
 To support efficient content management, I have integrated this database module to enable the storage and retrieval of encrypted content in a safe and secure manner using an sqlite3 database
@@ -177,14 +177,59 @@ In the module I'm providing built in functions to make it easier to perform usua
 ```python
 connect = Database('test.db')
 ```
-2) Perform some actions :
+This would automatically set the default table name to 'Classifed' if no arguments are passed to the other class functions then they would all be working on the default table name , if you want to set you default table instead of classified  : 
+```python
+connect = Database('test.db','MyNewDefaultTable')
+```
+2) Create a table :
 ```python
 connect.addtable()
-key = 'string reference to the key'
-connect.insert('some encrypted content of bytes or strings',key)
-connect.show_tables()
+```
+Added the default table that's been set to the database,  if you want to pass an argument to the function that would create another table of your choice
+3) Set a reference to the key not the key itself : 
+```python
+ key = '#5482A'
+```
+4) Use the connection to perform various tasks
+The content can be anything post encryption in its Bytes or String format
+```python
+content='Some Encrypted Content'
+connect.insert(content=content,key='#1E89JO', optional_table_name=None)
+```
+If the optional table name is None then it will insert into the default table , else it would insert into the table you specify
+4) You can check the tables you have , it returns a generator object, yields the result of each element so you must run a for loop over it
+```python
+for e in connect.show_tables():
+        print(e)
+```
+You can check the current size of the database using the size property method 
+```python
 print(connect.size) # Size of the Database in MB 
 ```
+5) Check the module itself so you can run through all the available methods.
+<br>The methods available perform the usual operations like insertion, deletion , updating the database and more..
+
+
+6) to run more complex queries I've dedicated a query function that takes in *queries and returns the result fetched :
+Set you query : 
+```python
+query1 = 'SELECT COUNT(*) AS cc ,content FROM Classified WHERE key = "#5482A" ORDER BY cc DESC '
+print(a.query(query1))
+```
+The result fetched should look like this : 
+ ```python
+[{'query1': [(3, 'some encrypted content of bytes or strings')]}]
+```
+If some error has occured while doing a query like : 
+```python
+query1 = 'SELECT COUNT(*) AS cc ,content FROM DoesntExist WHERE key = "#5482A" ORDER BY cc DESC '
+```
+The result fetched should look similair to this : 
+```python
+[{'query1': (0, OperationalError('no such table: DoesntExist'))}]
+```
+Thats it so simple !
+
 ## AshDatabaseORM ## 
 **STILL IN THE TESTING PHASE** 
 

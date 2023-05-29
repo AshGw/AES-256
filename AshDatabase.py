@@ -43,17 +43,17 @@ class Database():
         result = []
         for i, query in enumerate(querys):
             if not isinstance(query, str):
-                result.append({f'query{i}': (0.0, TypeError)})
+                result.append({f'query{i+1}': (0.0, TypeError)})
             try:
                 with self.conn:
                     self.c.execute(query)
                     if self.c.rowcount == 1:
-                        result.append({f'query{i}': self.c.fetchone()})
+                        result.append({f'query{i+1}': self.c.fetchone()})
                     else:
-                        result.append({f'query{i}': self.c.fetchall()})
+                        result.append({f'query{i+1}': self.c.fetchall()})
 
             except sqlite3.Error as e:
-                result.append({f'query{i}': (0, e)})
+                result.append({f'query{i+1}': (0, e)})
         return result
 
     def addtable(self, optional_tablename=None):
@@ -222,9 +222,12 @@ class Database():
                 return (0, e)
 
 if __name__ == '__main__':
-    a = Database('test.db')
-    a.addtable()
-    key = 'reference to the key'
-    a.insert('some encrypted content of bytes or strings',key)
-    a.show_tables()
-    print(a.size)
+    conn = Database('test.db')
+    conn.addtable()
+    key = '#5482A'
+    conn.insert('some encrypted content of bytes or strings',key)
+    for e in conn.show_tables():
+        print(e)
+    print(conn.size)
+    query1 = 'SELECT COUNT(*) AS cc ,content FROM DoesntExist WHERE key = "#5482A" ORDER BY cc DESC '
+    print(conn.query(query1))
