@@ -10,7 +10,7 @@ import struct
 import time
 import os
 
-class IterationsOutofaRangeErrorE(Exception):
+class IterationsOutofaRangeError(Exception):
     def __init__(self,num):
         self.display = f'Iterations must be between 50 and 100000. RECEIVED : {num} '
         super().__init__(self.display)
@@ -28,7 +28,7 @@ class Enc:
         self.pepper = os.urandom(16)
         self.iterations = 50
         if self.iterations < 50 or self.iterations > 100000:
-            raise IterationsOutofaRangeErrorE(self.iterations)
+            raise IterationsOutofaRangeError(self.iterations)
         self.encKey = self.derkey(self.mainkey, self.salt, self.iterations)
         self.hmac_key = self.derkey(self.mainkey, self.pepper, self.iterations)
 
@@ -77,12 +77,6 @@ class Enc:
         return base64.urlsafe_b64encode(self.encToBytes()).decode('UTF-8')
 
 
-
-class IterationsOutofaRangeErrorD(Exception):
-    def __init__(self,num):
-        self.display = f'Iterations must be between 50 and 100000. RECEIVED : {num}'
-        super().__init__(self.display)
-
 class MessageTamperingError(Exception):
     def __init__(self):
         self.display = 'HMAC mismatch ! Message has been TAMPERED with ,\n or Possible key difference'
@@ -102,7 +96,7 @@ class Dec:
         self.rec_pepper = self.message[96:112]
         self.rec_iterations = struct.unpack('!I', self.message[112:116])[0]
         if self.rec_iterations < 50 or self.rec_iterations > 100000:
-            raise IterationsOutofaRangeErrorD(self.rec_iterations)
+            raise IterationsOutofaRangeError(self.rec_iterations)
         self.rec_ciphertext = self.message[116:]
         self.decKey = Enc.derkey(self.key, self.rec_salt, self.rec_iterations)
         self.hmac_k = Enc.derkey(self.key, self.rec_pepper, self.rec_iterations)
@@ -193,3 +187,5 @@ if __name__ == '__main__':
     print()
     print(ins2.decToBytes())
     print(ins2.decToStr())
+
+
