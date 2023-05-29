@@ -11,6 +11,10 @@ class MyTestCase(unittest.TestCase):
         self.ins2 = Ash.Dec(message=self.bytes_message,mainkey=self.mainkey)
     def tearDown(self) -> None:
         pass
+    def test_KeyLength(self):
+        self.assertEqual(64, bytes.fromhex(Ash.Enc.genMainkey()).__len__())
+    def test_KeyType(self):
+        self.assertIs(str,type(Ash.Enc.genMainkey()))
     def test_HMAC(self):
         self.assertTrue(self.bytes_message[:64] == self.ins1.HMAC())
     def test_IV(self):
@@ -21,26 +25,43 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue(self.bytes_message[96:112] == self.ins1.pepper)
     def test_Iterations(self):
         self.assertTrue(self.bytes_message[112:116] == self.ins1.setupIterations())
-    # def test_EncOutputBytes(self):
-    #     self.assertEqual(True, False)
-    # def test_EncOutputString(self):
-    #     self.assertEqual(True, False)
-    #
-    # '''DECRYPTION TESTING'''
+    def test_Ciphertext(self):
+        self.assertTrue(self.bytes_message[116:] == self.ins1.ciphertext())
+    def test_TypeIterations(self):
+        self.assertIs(bytes,type(self.ins1.setupIterations()))
+    def test_IterationsFixed_size(self):
+        self.assertEqual(4,self.ins1.setupIterations().__len__())
+
+    # def test_OutOfRangeError(self):
+    #     self.assertRaises(Ash.IterationsOutofaRangeErrorE,self.ins1.iterations < 50)
+    def test_EncOutputBytes(self):
+        self.assertIs(bytes,type(self.ins1.encToBytes()))
+    def test_EncOutputString(self):
+        self.assertIs(str,type(self.ins1.encToStr()))
+
+    '''DECRYPTION TESTING'''
+
     # def test_RecHMAC(self):
     #     self.assertEqual(True, False)
+
     # def test_RecIV(self):
     #     self.assertEqual(True, False)
+
     # def test_RecSalt(self):
     #     self.assertEqual(True, False)
+
     # def test_RecPepper(self):
     #     self.assertEqual(True, False)
+
     # def test_RecIterations(self):
     #     self.assertEqual(True, False)
+
     # def test_DecOutputBytes(self):
     #     self.assertEqual(True, False)
+
     # def test_DecOutputString(self):
     #     self.assertEqual(True, False)
+
 
 
 
