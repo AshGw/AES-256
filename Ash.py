@@ -136,56 +136,7 @@ class Dec:
 
 
 if __name__ == '__main__':
-
-    ''' ENC '''
-
-    message1 = 'Hello there testing if it works'
-    message2 = b'Hello this is bytes now'
-    mainkey = 'c3066e464350e68a144d6be3e35c879eac1b9f360139443ee3d9e1960725d6a4d3379af0a35b6a07d083ecc29c4ba03767ad6d48b8e9c20d319dd459da52a91a'
-    print(Enc.genMainkey())
-    t1 = time.perf_counter()
-    ins = Enc(message=message1, mainkey=mainkey)
-    a = ins.encToBytes()
-    print(a)
-    print(a[:64] == ins.HMAC())
-    print(a[64:80] == ins.iv)
-    print(a[80:96] == ins.salt)
-    print(a[96:112] == ins.pepper)
-    print(a[112:116] == ins.setupIterations())
-    print(a[116:] == ins.ciphertext())
-    print(ins.setupIterations())
-    print(type(ins.setupIterations()))
-    print(ins.setupIterations().__len__())
-    print(ins.encToBytes())
-    c = ins.setupIterations()
-    b = ins.encToBytes()[112:116]
-    print(c == b)
-    t2 = time.perf_counter()
-    print(t2 - t1)
-    print(ins.encToStr())
-    print(ins.encToBytes())
-
-    ''' DEC '''
-
-
-    msg_b = b'\x03;\xf7\x89\xef\xa9s\x16\xd2\x0c\n5\x05\x1cQ\xee.-\xa7\xcf\xf4\xb2\xc8#\xfe\x19\x1e\xd6\x98({J=\xed\xa0+,\xecJ\x9a\x02\x97\xda\x93\x99K6\xf9f\xa5\xda \x80h\x82\xc9\xeeU\xec\x98\xc1\xcb\nJH\xca\xf1\xf2M/=\x07hS\xcd \xdc\x8e\x0b\x8bS\x90 \xe8\xbd\xcb\x1a\xad\xde\x85\x17\x89\xa7\x02~\xde\x02D\x1d\xb9OC\xceO:\xdc\xc7\x99\xd7\xd4ru\x00\x00\x002$\x94\xa8\xc1\xa1i\x94\xac\xa8\xde\x82\x04\x94\xbc\x82W\xbb\xed\xe7\x1dY\xbe\xeb"A\xe4\xab"\xfe\xb8\xcb\xac'
-
-    msg_s = 'ewLVzwKCGEQaFlklltFrbKrn-ij63xkreHiFwPPP37omctiGyP6AErj1oEIoEYgPLGHeVUWG9u4kUWw1V_2lGZw8jUQgd3EhncJfoUV9gc6GRTwjA4AdN3vulWkXNlWWtBTsHlw79oIWbQX-GjqLWgAAADLXjpcgBXJqLrPW72RqW49euE5foFvSrTkUxWqsL75fHA=='
-
-    t3 = time.perf_counter()
-    ins2 = Dec(msg_b, mainkey)
-    print(ins2.decToBytes())
-    t4 = time.perf_counter()
-    print(t4-t3)
-    print()
-    print(ins.message)
-    print(ins.encToBytes())
-    print(ins.encToStr())
-    print()
-    print(ins2.rec_hmac)
-    print(ins2.hmac_k)
-    print()
-    print(ins2.decToBytes())
-    print(ins2.decToStr())
-
-
+    message = 'Hello'
+    key = Enc.genMainkey()
+    instance1 = Enc(message = message,mainkey = key)
+    print(instance1.encToBytes())
