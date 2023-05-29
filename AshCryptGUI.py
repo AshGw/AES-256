@@ -26,7 +26,8 @@ def decryption():
         b = a.decrypt()[1]
         outputvar2.set(b.__str__())
         if var2.get() == 1:
-            qr.tqr(b)
+            if not len(b) > 200:
+                qr.tqr(b)
 
 def func1():
     if var1.get() == 1 :
