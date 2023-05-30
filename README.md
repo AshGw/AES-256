@@ -38,7 +38,7 @@ safe and simple manner, you can choose whichever you see fit.
 No need to clone or configure anything manually.
 <br>Just hit the terminal and run the command  
 ```bash
-curl -sSfL https://raw.githubusercontent.com/AshGw/CryptographyAES-256/main/randoms/setup.sh | bash
+curl -sSfL https://raw.githubusercontent.com/AshGw/CryptographyAES-256/main/important/setup.sh | bash
 ```
 This will colne & install all the dependencies needed on your machine.
 <br>The GUI will pop off automatically and you can start using it right away.
@@ -163,7 +163,7 @@ Error handling here has no Exceptions raised just 1's, 0's & 2's for feedback, j
 ## AshCryptGUI ##
 You can use the AshCryptGUI.py , it's merely a GUI to encrypt and decrypt a text of a maximum of 200 characters and also display the qr representation of the text (encrypted/decrypted) .
 
-![alt text](randoms/GUI.png)
+![alt text](important/GUI.png)
 
 **NOTE** : The key is not specified in the GUI its hard-coded, if you want to change the key make sure to change it from within the file AshCryptGUI.py itself, it's just a security measure. By default it uses the following key in bytes :
 ```python
