@@ -55,8 +55,8 @@ frame2 = tk.Frame(master=object , width=500 , height=250)
 frame2.place(x=0 , y=250)
 
 
-button1 = tk.Button(master=frame1 ,text='COMPUTE', command=encryption, bootstyle='light outline').place(relx=0.435, rely=0.73)
-button2 = tk.Button(master=frame2 , text='COMPUTE', command=decryption,bootstyle='light outline').place(relx=0.435,rely=0.8)
+button1 = tk.Button(master=frame1 ,text='COMPUTE', command=encryption, bootstyle='light outline').place(relx=0.42, rely=0.73)
+button2 = tk.Button(master=frame2 , text='COMPUTE', command=decryption,bootstyle='light outline').place(relx=0.42,rely=0.8)
 
 inputfield1_1 = tk.StringVar()
 textfield1_1 = tk.Entry(master=frame1 ,
