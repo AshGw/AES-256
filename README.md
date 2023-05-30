@@ -36,20 +36,20 @@ safe and simple manner, you can choose whichever you see fit.
 
 ## Installation ##
 No need to clone or configure anything manually.
-<br>Just hit the terminal and run the command  
+<br>Just hit the terminal and run the command 
 ```bash
 curl -sSfL https://raw.githubusercontent.com/AshGw/CryptographyAES-256/main/important/setup.sh | bash
 ```
-This will colne & install all the dependencies needed on your machine.
+This will colne & install all the dependencies needed on your machine in the current directory you're at.
 <br>The GUI will pop off automatically and you can start using it right away.
 
-## Ash Module ##
-The Ash.py module is a comprehensive collection of carefully designed functions and code modules that facilitate optimal performance and reliability in data encryption and decryption operations  while ensuring the utmost security and 
+## Ash Library ##
+The Ash.py is a comprehensive collection of carefully designed functions and code modules that facilitate optimal performance and reliability in data encryption and decryption operations  while ensuring the utmost security and 
 confidentiality.
 
 <br>It uses primitives from the cryptography.py library with added security features while keeping it simple and highly flexible to provide a head-ache free solution for developers. 
 <br>You can check [Features](https://github.com/AshGw/CryptographyAES-256#features) tag below to learn more about the security features.
-<br>You can check the [unittest](unittestAsh.py) file to verify how it works.
+<br>You can check [unittest](unittestAsh.py) to verify how it works.
 
 ### Usage ##
 1) Generate a key if you don't have one already
@@ -161,7 +161,7 @@ Error handling here has no Exceptions raised just 1's, 0's & 2's for feedback, j
 
 
 ## AshCryptGUI ##
-You can use the AshCryptGUI.py , it's merely a GUI to encrypt and decrypt a text of a maximum of 200 characters and also display the qr representation of the text (encrypted/decrypted) .
+This is merely a GUI to encrypt and decrypt a text of a maximum of 200 characters and also display the qr representation of the text (encrypted/decrypted) .
 
 ![alt text](important/GUI.png)
 
@@ -250,7 +250,7 @@ Thats it so simple !
 **STILL IN THE TESTING PHASE** 
 
 ## License ##
-This project is licensed under the MIT [LICENSE](https://github.com/AshGw/CryptographyAES-256/blob/main/LICENSE).
+This project is licensed under the [MIT LICENSE](https://github.com/AshGw/CryptographyAES-256/blob/main/LICENSE).
 ## Acknowledgments ##
 This cryptographic scheme is inspired by secure cryptographic practices and various open-source implementations.
 
