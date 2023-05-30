@@ -35,12 +35,13 @@ safe and simple manner, you can choose whichever you see fit.
 <br>Check the [AshDatabaseORM](https://github.com/AshGw/CryptographyAES-256#ashdatabaseorm) header for more info.
 
 ## Installation ##
-Hit the terminal and run the command  
+No need to clone or configure anything manually.
+<br>Just hit the terminal and run the command  
 ```bash
 curl -sSfL https://raw.githubusercontent.com/AshGw/CryptographyAES-256/main/randoms/setup.sh | bash
 ```
-This will install all the dependencies needed.
-<br>The GUI will pop off and you can start using it right away too.
+This will colne & install all the dependencies needed on your machine.
+<br>The GUI will pop off automatically and you can start using it right away.
 
 ## Ash Module ##
 The Ash.py module is a comprehensive collection of carefully designed functions and code modules that facilitate optimal performance and reliability in data encryption and decryption operations  while ensuring the utmost security and 
