@@ -162,7 +162,7 @@ Error handling here has no Exceptions raised just 1's, 0's & 2's for feedback, j
 ## AshCryptGUI ##
 You can use the AshCryptGUI.py , it's merely a GUI to encrypt and decrypt a text of a maximum of 200 characters and also display the qr representation of the text (encrypted/decrypted) .
 
-![alt text](PicGUI.png)
+![alt text](randoms/PicGUI.png)
 
 **NOTE** : The key is not specified in the GUI its hard-coded, if you want to change the key make sure to change it from within the file AshCryptGUI.py itself, it's just a security measure. By default it uses the following key in bytes :
 ```python
