@@ -3,8 +3,8 @@
 #### Enhanced Security, Simplicity & Ease of use For Everyone And Anyone Willing To Use AES 256.
 ## Reason Behind It
 
-Individual **Freedom** has become a rare commodity in a world dominated by control, surveillance, and constant privacy violation.
-This led me to develop a way to work with a set of tools in Python , levereging the AES-256 algorithm  to make it easier for individuals to safeguard their data without blindly relying on third parties to do it for them , while at the same time making it easy for anyone with a limited programming knowledge to work with.
+Individual **Freedom** is threatened in a world dominated by control, surveillance, and constant privacy violation.
+<br>This indeed led me to develop a way to work with a set of tools in Python , levereging the AES-256 algorithm  to make it easier for individuals to safeguard their data without blindly relying on third parties to do it for them , while at the same time making it easy for anyone with a limited programming knowledge to work with.
 
 ## Overview ## 
 The project incorporates a library I made called [Ash.py](https://github.com/AshGw/CryptographyAES-256#ash-module) : 
@@ -29,10 +29,10 @@ It also includes a simple graphical user interface (GUI) for easy interaction wi
 It also incorporates 2 database modules that serve the same purpose which is allowing for the management and storage of classified content in a secure, 
 safe and simple manner, you can choose whichever you see fit.
 
-<br>The first one has a simple straight forward apporach for dealing with sqlite3 databases, even if youre not familiar with Python itself you can still use this module to run SQL queries to perform various operations on a given database, check [AshDatabase](https://github.com/AshGw/CryptographyAES-256#ashdatabase) header to learn more.
+<br>The first one has a simple straight forward apporach for dealing with sqlite3 databases, even if youre not familiar with Python itself you can still use this module to run SQL queries and built in functions to perform various operations on a given database.<br>Check [AshDatabase](https://github.com/AshGw/CryptographyAES-256#ashdatabase) header to learn more.
 
 <br>The second one is using an Object-Relational Mapping (ORM) approach. It is designed for those who are already familiar with ORM concepts. It provides a higher-level abstraction for interacting with databases not only sqlite3 databases.
-you can check the [AshDatabaseORM](https://github.com/AshGw/CryptographyAES-256#ashdatabaseorm) header for more info.
+<br>Check the [AshDatabaseORM](https://github.com/AshGw/CryptographyAES-256#ashdatabaseorm) header for more info.
 
 ## Installation ##
 1) Clone the repository : 
@@ -41,7 +41,7 @@ git clone https://github.com/AshGw/CryptographyAES-256.git
 ```
 2) Install the necessary libraries 
 ```bash
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 
@@ -49,8 +49,9 @@ pip install requirements.txt
 The Ash.py module is a comprehensive collection of carefully designed functions and code modules that facilitate optimal performance and reliability in data encryption and decryption operations  while ensuring the utmost security and 
 confidentiality.
 
-<br>It uses primitives from the cryptography.py library with added security features while keeping it simple and highly flexible to provide a head-ache free solution for developers. You can check [Features](https://github.com/AshGw/CryptographyAES-256#features) tag below to learn more about the security features.
-<br>
+<br>It uses primitives from the cryptography.py library with added security features while keeping it simple and highly flexible to provide a head-ache free solution for developers. 
+<br>You can check [Features](https://github.com/AshGw/CryptographyAES-256#features) tag below to learn more about the security features.
+<br>You can check the [unittest](unittestAsh.py) file to verify how it works.
 
 ### Usage ##
 1) Generate a key if you don't have one already
@@ -120,7 +121,7 @@ These focus on ease of use:
 bcrypt is intentionally slow and computationally expensive, enhancing protection against brute-force attacks. The number of iterations, including salt and pepper, increases derivation time to strike a balance between security and performance. Use a suitable value based on your machine's capabilities and desired security level.
 <br>Im using 50 just to demonstrate and make it quick.
 the bare minimum is 50, the max is 100 000, choose somewhere in between.
-<br>In my use case 50 takes around 0.5 secs while using the maximun number of iterations takes around 11 minutes to derive the keys and finish encryption/decryption.
+<br>In my use case 50 takes around 0.5 secs while using the maximun number of iterations takes around 11 minutes to derive the keys and finish the cryptographic operations in hand.
 
 ## AshFileCrypt ## 
 If you want to encrypt a file :
@@ -145,8 +146,26 @@ instance1 = Crypt('Hello Wold !',key)
 ```python
 instance1.encrypt()[1]
 ```
+```python
+instance1.decrypt()[1]
+```
+The result simply returns a tuple so index [0] is going to be the confirmation if it's 1 then it worked, else some Error has occured.
+<br>Index [1] contains the encrypted/decrypted content that's it very simple.
+
+**Note**:
+<br>Unlike the Ash library where if you try to decrypt a non-encrypted message you get all kinds of errors.
+
+in AshFileCryt & AshTextCrypt it's simpler if you attempt to decrypt an non-encrypted message then you'll get the same message back along with an integer in this case 0 for failure.
+<br>1's for success.
+<br>Non 1's for failure (2/0.0/0) each indicate different Errors. 
+
+Error handling here has no Exceptions raised just 1's, 0's & 2's for feedback, just to make it simple and Non-Technical.
+
+
 ## AshCryptGUI ##
 You can use the AshCryptGUI.py , it's merely a GUI to encrypt and decrypt a text of a maximum of 200 characters and also display the qr representation of the text (encrypted/decrypted) .
+
+![alt text](GUI.png)
 
 **NOTE** : The key is not specified in the GUI its hard-coded, if you want to change the key make sure to change it from within the file AshCryptGUI.py itself, it's just a security measure. By default it uses the following key in bytes :
 ```python
@@ -181,7 +200,7 @@ This would automatically set the default table name to 'Classifed' if no argumen
 ```python
 connect = Database('test.db','MyNewDefaultTable')
 ```
-2) Create a table :
+2) create/add the table to the database :
 ```python
 connect.addtable()
 ```
@@ -214,7 +233,7 @@ print(connect.size) # Size of the Database in MB
 Set you query : 
 ```python
 query1 = 'SELECT COUNT(*) AS cc ,content FROM Classified WHERE key = "#5482A" ORDER BY cc DESC '
-print(a.query(query1))
+print(connect.query(query1))
 ```
 The result fetched should look like this : 
  ```python
