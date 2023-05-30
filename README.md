@@ -37,7 +37,7 @@ safe and simple manner, you can choose whichever you see fit.
 ## Installation ##
 Hit the terminal and run the command  
 ```bash
-curl -sSfL https://raw.githubusercontent.com/AshGw/CryptographyAES-256/main/setup.sh | bash
+curl -sSfL https://raw.githubusercontent.com/AshGw/CryptographyAES-256/main/randoms/setup.sh | bash
 ```
 This will install all the dependencies needed.
 <br>The GUI will pop off and you can start using it right away too.
