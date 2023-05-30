@@ -213,7 +213,7 @@ content='Some Encrypted Content'
 connect.insert(content=content,key='#1E89JO', optional_table_name=None)
 ```
 If the optional table name is None then it will insert into the default table , else it would insert into the table you specify
-4) You can check the tables you have , it returns a generator object, yields the result of each element so you must run a for loop over it
+5) You can check the tables you have , it returns a generator object, yields the result of each element so you must run a for loop over it
 ```python
 for e in connect.show_tables():
         print(e)
@@ -222,11 +222,11 @@ You can check the current size of the database using the size property method
 ```python
 print(connect.size) # Size of the Database in MB 
 ```
-5) Check the module itself so you can run through all the available methods.
+6) Check the module itself so you can run through all the available methods.
 <br>The methods available perform the usual operations like insertion, deletion , updating the database and more..
 
 
-6) to run more complex queries I've dedicated a query function that takes in *queries and returns the result fetched 
+7) to run more complex queries I've dedicated a query function that takes in *queries and returns the result fetched 
 ```python
 query1 = 'SELECT COUNT(*) AS cc ,content FROM Classified WHERE key = "#5482A" ORDER BY cc DESC '
 print(connect.query(query1))
