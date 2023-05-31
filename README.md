@@ -3,17 +3,18 @@
 #### Enhanced Security, Simplicity & Ease of use For Everyone And Anyone Willing To Use AES 256.
 ## Reason Behind It
 
-Individual **Freedom** is threatened in a world dominated by control, surveillance, and constant privacy violation.
+Since individual **Freedom** is threatened in a world dominated by control, surveillance, and constant privacy violation.
 <br>This indeed led me to develop a way to work with a set of tools in Python , levereging the AES-256 algorithm  to make it easier for individuals to safeguard their data without blindly relying on third parties to do it for them , while at the same time making it easy for anyone with a limited programming knowledge to work with.
 
 ## Overview ## 
 The project incorporates a library I made called [Ash.py](https://github.com/AshGw/CryptographyAES-256#ash-module) : 
+
 <br>A simple, secure, and developer-oriented library for
 encryption and decryption with AES-256 (CBC) . It offers an intuitive
 interface, seamless integration with precompiled 
 functions, and robust security measures to safeguard
 sensitive data,  providing a hassle-free experience when dealing with cryptographic libraries.
-<br>View [Features](https://github.com/AshGw/CryptographyAES-256#features).
+<br>View [Features](https://github.com/AshGw/CryptographyAES-256#features) Header for more details.
 
 
 
@@ -27,7 +28,7 @@ It also includes a simple graphical user interface (GUI) for easy interaction wi
 
 
 It also incorporates 2 database modules that serve the same purpose which is allowing for the management and storage of classified content in a secure, 
-safe and simple manner, you can choose whichever you see fit.
+safe and simple manner, you can use whichever you see fit.
 
 <br>The first one has a simple straight forward apporach for dealing with sqlite3 databases, even if youre not familiar with Python itself you can still use this module to run SQL queries and built in functions to perform various operations on a given database.<br>Check [AshDatabase](https://github.com/AshGw/CryptographyAES-256#ashdatabase) header to learn more.
 
@@ -36,20 +37,21 @@ safe and simple manner, you can choose whichever you see fit.
 
 ## Installation ##
 No need to clone or configure anything manually.
-<br>Just hit the terminal and run the command 
+<br>Run this command in the Terminal
 ```bash
 curl -sSfL https://raw.githubusercontent.com/AshGw/CryptographyAES-256/main/important/setup.sh | bash
 ```
-This will colne & install all the dependencies needed on your machine in the current directory you're at.
+This will clone & install all the dependencies needed on your machine inside the directory you're currently at.
 <br>The GUI will pop off automatically and you can start using it right away.
 
 ## Ash Library ##
-The Ash.py is a comprehensive collection of carefully designed functions and code modules that facilitate optimal performance and reliability in data encryption and decryption operations  while ensuring the utmost security and 
+The Ash.py library is a comprehensive collection of carefully designed functions and code modules that facilitate optimal performance and reliability in data encryption and decryption operations  while ensuring the utmost security and 
 confidentiality.
 
 <br>It uses primitives from the cryptography.py library with added security features while keeping it simple and highly flexible to provide a head-ache free solution for developers. 
+
 <br>You can check [Features](https://github.com/AshGw/CryptographyAES-256#features) tag below to learn more about the security features.
-<br>You can check [unittest](unittestAsh.py) to verify how it works.
+<br>You can check the [unittesting file](unittestAsh.py) to verify how it works.
 
 ### Usage ##
 1) Generate a key if you don't have one already
@@ -85,7 +87,7 @@ message = b'dG\xe2\x91\x18\x8dC\x81\x04\xd7.D\xf9\t\xf8\x81\x06\xe8\xf2\n\x15\xa
 instanceE = Enc(message=message, mainkey=mainkey)
 ```
 
-4) Now you'd have to specify the output, you can encrypt to bytes or encrypt to strings.
+4) Now you'd have to specify the output, you can encrypt to bytes or encrypt to URL-safe strings.
 <br> Here I chose to encrypt to bytes
 ```python
 output = instanceE.encToBytes()
@@ -116,25 +118,38 @@ These focus on ease of use:
 - In Ash module the key is flexible it doesn't have to be 512 bit long, it can actually be of any length but that's up to you to ensure it's security, or leave it as is and use the key generation function to get secure and random keys ( although in AshTextCrypt and AshFileCrypt you have to use a 512 bit long key )
 - Encrypting to a string has URL-safe string representation 
 ### Regarding KDFs
-bcrypt is intentionally slow and computationally expensive, enhancing protection against brute-force attacks. The number of iterations, including salt and pepper, increases derivation time to strike a balance between security and performance. Use a suitable value based on your machine's capabilities and desired security level.
-<br>Im using 50 just to demonstrate and make it quick.
-the bare minimum is 50, the max is 100 000, choose somewhere in between.
-<br>In my use case 50 takes around 0.5 secs while using the maximun number of iterations takes around 11 minutes to derive the keys and finish the cryptographic operations in hand.
+Note that bcrypt is intentionally slow and computationally expensive, enhancing protection against brute-force attacks. The number of iterations, including salt and pepper, increases derivation time to strike a balance between security and performance. Use a suitable value based on your machine's capabilities and desired security level.
+
+<br>Im using 50 just to demonstrate the process and make it quick.
+<br>The bare minimum is 50, the max is 100 000, choose somewhere in between.
+<br>In my use case 50 takes around 0.5 secs while using the maximun number of iterations takes around 11 minutes to derive the keys and finish the cryptographic operations at hand.
 
 ## AshFileCrypt ## 
 If you want to encrypt a file :
 1) Follow the steps above to set the key up.
 2) Create an instance of the class CryptFiles and pass 2 arguments, the first one being the target file and the second argument being the key :
 ```python
-instance1 = CryptFiles('target.txt', key)
+instance1 = CryptFile('target.txt', key)
 ```
+The file can be of anything really image`.png`, movie `.mp4`, etc..
+<br>anything you want really , it doesn't have to be of `.txt` extension  
 3) Apply either the encryption or decryption functions to that instance :
+```python
+instance1 = CryptFile('qrv10.png',key)
+instance1.encrypt()
+```
+you can apply `print()` on `instance1.encrypt()`to check the result, if it is 1 then everything went ok , if it's 3 then the file doesn't even exists otherwise some other Error has occurred (usually the file is distorted).
+
 ```python
 instance1.encrypt()
 ```
 ```python
 instance1.decrypt()
 ```
+**Note** : 
+<br>Sometimes you might forget that you've applied  `encrypt()` more than one time , so when you try to `decrypt()` the file ,  the output is 1 but the file content is still in binary, just apply the function `decrypt()`the same number of times you applied `encrypt()`.
+
+
 That's it, if you follow the steps above then everything should work just fine.
 ## AshTextCrypt ## 
 Same steps above just the naming is different, and keep in mind both accept either strings or bytes 
