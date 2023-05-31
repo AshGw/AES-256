@@ -6,7 +6,7 @@ In a world where control, surveillance, and privacy violations are increasingly 
 
 As a firm believer in **Freedom** , I have developed a set of tools in Python that leverages the AES-256 algorithm to make it easier for undividuals to safeguard their data without blindly relying on third parties to do it tor them  . 
 
-My aim here is to make these tools accessible and user-friendly, even for individuals with limited programming knowledge. By providing these resources, I hope to contribute to the preservation of privacy and enable individuals to take control of their own data security so feel free to explore these tools.
+My aim here is to make these tools accessible and user-friendly, even for individuals with limited programming knowledge. By providing these resources, I hope to contribute to the preservation of privacy and enable individuals to take control of their own data security, so feel free to explore these tools.
 ## Overview ## 
 The project incorporates a library I made called [Ash.py](https://github.com/AshGw/CryptographyAES-256#ash-module) : 
 
@@ -152,7 +152,7 @@ instance1.encrypt()
 instance1.decrypt()
 ```
 **Note** : 
-<br>Sometimes you might forget that you've applied  `encrypt()` more than one time , so when you try to `decrypt()` the file ,  the output is 1 but the file content is still in binary, just apply the function `decrypt()`the same number of times you applied `encrypt()`.
+<br>Sometimes you might forget that you've applied  `encrypt()` more than one time , so when you try to `decrypt()` the file ,  the output is 1 but the file content is still in binary, just apply the function `decrypt()` the same number of times you applied `encrypt()`.
 
 
 That's it, if you follow the steps above then everything should work just fine.
@@ -167,17 +167,17 @@ instance1.encrypt()[1]
 ```python
 instance1.decrypt()[1]
 ```
-The result simply returns a tuple so index [0] is going to be the confirmation if it's 1 then it worked, else some Error has occured.
-<br>Index [1] contains the encrypted/decrypted content that's it very simple.
+The result simply returns a tuple so index `[0]` is going to be the confirmation if it's 1 then it worked, else some Error has occured.
+<br>Index `[1]` contains the encrypted/decrypted content that's it very simple.
 
 **Note**:
 <br>Unlike the Ash library where if you try to decrypt a non-encrypted message you get all kinds of errors.
 
 in AshFileCryt & AshTextCrypt it's simpler if you attempt to decrypt an non-encrypted message then you'll get the same message back along with an integer in this case 0 for failure.
-<br>1's for success.
-<br>Non 1's for failure (2/0.0/0) each indicate different Errors. 
+<br>`1`'s for success.
+<br>Non `1`'s for failure (`2`/`0.0`/`0`) each indicate different Errors. 
 
-Error handling here has no Exceptions raised just 1's, 0's & 2's for feedback, just to make it simple and Non-Technical.
+Error handling here has no Exceptions raised just `1`'s, `0`'s & `2`'s for feedback, just to make it simple and Non-Technical.
 
 
 ## AshCryptGUI ##
@@ -201,7 +201,7 @@ To support efficient content management, I have integrated this database module 
 
 Ensuring that the encrypted data remains organized and readily accessible to anyone with the right key. Any content going in must be encrypted with a key that you must keep off grid.
 
-**Note** that in AshDatabase.py I'm using "dataclasses" module which was introduced in Python 3.7, so make sure to install it if you have an older version.
+**Note** that in AshDatabase.py I'm using `dataclasses` module which was introduced in Python 3.7, so make sure to install it if you have an older version.
 
 ### Usage ## 
 In the module I'm providing built in functions to make it easier to perform usual queries on Sqlite tables , by default it creates a table 'Classified' with two deafult columns :
@@ -214,9 +214,9 @@ In the module I'm providing built in functions to make it easier to perform usua
 ```python
 connect = Database('test.db')
 ```
-This would automatically set the default table name to 'Classifed' if no arguments are passed to the other class functions then they would all be working on the default table name , if you want to set you default table instead of classified  : 
+This would automatically set the default table name to `Classifed` if no arguments are passed to the other class functions then they would all be working on the default table name , if you want to set your default table name instead of `Classified` you can pass your table name as the second argument : 
 ```python
-connect = Database('test.db','MyNewDefaultTable')
+connect = Database('test.db','MyDefaultTable')
 ```
 2) create/add the table to the database :
 ```python
@@ -234,6 +234,7 @@ content='Some Encrypted Content'
 connect.insert(content=content,key='#1E89JO', optional_table_name=None)
 ```
 If the optional table name is None then it will insert into the default table , else it would insert into the table you specify
+<br>
 5) You can check the tables you have , it returns a generator object, yields the result of each element so you must run a for loop over it
 ```python
 for e in connect.show_tables():
@@ -243,6 +244,7 @@ You can check the current size of the database using the size property method
 ```python
 print(connect.size) # Size of the Database in MB 
 ```
+
 6) Check the module itself so you can run through all the available methods.
 <br>The methods available perform the usual operations like insertion, deletion , updating the database and more..
 
