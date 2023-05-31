@@ -7,11 +7,10 @@ import hmac as hmc
 import bcrypt
 import base64
 import struct
-import time
 import os
 
 class IterationsOutofaRangeError(Exception):
-    def __init__(self,num):
+    def __init__(self,num : any)->None:
         self.display = f'Iterations must be between 50 and 100000. RECEIVED : {num} '
         super().__init__(self.display)
 
@@ -41,7 +40,7 @@ class Enc:
             rounds = iterations)
 
     @staticmethod
-    def genMainkey():
+    def genMainkey()->str:
         return os.urandom(64).hex()
 
     def mode(self):
@@ -57,16 +56,16 @@ class Enc:
         padder = padding.PKCS7(128).padder()
         return padder.update(self.message) + padder.finalize()
 
-    def ciphertext(self):
+    def ciphertext(self) -> bytes:
         return self.cipher_encryptor().update(self.padded_message()) + self.cipher_encryptor().finalize()
 
-    def HMAC(self):
+    def HMAC(self) ->bytes:
         h = self.hmac_key
         h = hmac.HMAC(h, hashes.SHA512())
         h.update(self.ciphertext())
         return h.finalize()
 
-    def setupIterations(self):
+    def setupIterations(self)->bytes:
         iters_bytes = struct.pack('!I',self.iterations)
         return iters_bytes
 
@@ -78,12 +77,12 @@ class Enc:
 
 
 class MessageTamperingError(Exception):
-    def __init__(self):
+    def __init__(self)->None:
         self.display = 'HMAC mismatch ! Message has been TAMPERED with ,\n or Possible key difference'
         super().__init__(self.display)
 
 class Dec:
-    def __init__(self,message: Union[str, bytes], mainkey: str):
+    def __init__(self,message: Union[str, bytes], mainkey: str)->None:
         if isinstance(message, str):
             m = message.encode('UTF-8')
             self.message = base64.urlsafe_b64decode(m)
@@ -102,7 +101,7 @@ class Dec:
         self.hmac_k = Enc.derkey(self.key, self.rec_pepper, self.rec_iterations)
         if self.verifyHMAC() is False :
             raise MessageTamperingError()
-    def actualHMAC(self):
+    def actualHMAC(self)->bytes:
         h = self.hmac_k
         h = hmac.HMAC(h, hashes.SHA512())
         h.update(self.rec_ciphertext)
@@ -123,7 +122,7 @@ class Dec:
     def pre_unpadding_dec(self) -> bytes:
         return self.cipher_decryptor().update(self.rec_ciphertext) + self.cipher_decryptor().finalize()
 
-    def unpadded_m(self):
+    def unpadded_m(self)->bytes:
         unpadder = padding.PKCS7(128).unpadder()
         return unpadder.update(self.pre_unpadding_dec()) + unpadder.finalize()
 
