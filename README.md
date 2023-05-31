@@ -6,7 +6,7 @@ In a world where control, surveillance, and privacy violations are increasingly 
 
 As a firm believer in **Freedom** , I have developed a set of tools in Python that leverages the AES-256 algorithm to make it easier for undividuals to safeguard their data without blindly relying on third parties to do it tor them  . 
 
-<br>My aim here is to make these tools accessible and user-friendly, even for individuals with limited programming knowledge. By providing these resources, I hope to contribute to the preservation of privacy and enable individuals to take control of their own data security so feel free to explore these tools.
+My aim here is to make these tools accessible and user-friendly, even for individuals with limited programming knowledge. By providing these resources, I hope to contribute to the preservation of privacy and enable individuals to take control of their own data security so feel free to explore these tools.
 ## Overview ## 
 The project incorporates a library I made called [Ash.py](https://github.com/AshGw/CryptographyAES-256#ash-module) : 
 
