@@ -41,7 +41,8 @@ No need to clone or configure anything manually.
 ```bash
 curl -sSfL https://raw.githubusercontent.com/AshGw/CryptographyAES-256/main/important/setup.sh | bash
 ```
-This will clone & install all the dependencies needed on your machine inside the directory you're currently at.
+This will run the commands in [setup.sh](important/setup.sh).
+<br>It will clone & install all the dependencies needed on your machine inside the directory you're currently at.
 <br>The GUI will pop off automatically and you can start using it right away.
 
 ## Ash Library ##
@@ -131,8 +132,11 @@ If you want to encrypt a file :
 ```python
 instance1 = CryptFile('target.txt', key)
 ```
-The file can be of anything really image`.png`, movie `.mp4`, etc..
-<br>anything you want really , it doesn't have to be of `.txt` extension  
+```python
+instance1 = CryptFile('testDataBase.db', key)
+```
+The file can be of anything : image`.png`, movie `.mp4`,`.sqlite`  etc..
+<br>It doesn't have to just be of `.txt` extension ,can be of anything really.  
 3) Apply either the encryption or decryption functions to that instance :
 ```python
 instance1 = CryptFile('qrv10.png',key)
