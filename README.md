@@ -234,7 +234,8 @@ content='Some Encrypted Content'
 connect.insert(content=content,key='#1E89JO', optional_table_name=None)
 ```
 If the optional table name is None then it will insert into the default table , else it would insert into the table you specify
-<br>
+
+
 5) You can check the tables you have , it returns a generator object, yields the result of each element so you must run a for loop over it
 ```python
 for e in connect.show_tables():
