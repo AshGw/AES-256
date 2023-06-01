@@ -8,24 +8,24 @@ As a firm believer in **Freedom** , I have developed a set of tools in Python th
 
 My aim here is to make these tools accessible and user-friendly, even for individuals with limited programming knowledge. By providing these resources, I hope to contribute to the preservation of privacy and enable individuals to take control of their own data security, so feel free to explore these tools.
 ## Overview ## 
-The project incorporates a library I made called [Ash.py](https://github.com/AshGw/CryptographyAES-256#ash-module) : 
+The project incorporates a library I made called [Ash.py](https://github.com/AshGw/AES-256#ash-module) : 
 
 <br>A simple, secure, and developer-oriented library for
 encryption and decryption with AES-256 (CBC) . It offers an intuitive
 interface, seamless integration with precompiled 
 functions, and robust security measures to safeguard
 sensitive data,  providing a hassle-free experience when dealing with cryptographic libraries.
-<br>View [Features](https://github.com/AshGw/CryptographyAES-256#features) Header for more details.
+<br>View [Features](https://github.com/AshGw/AES-256#features) Header for more details.
 
 
 
 The project uses that same module to ensure secure data encryption and decryption for Files and Texts while keeping it very easy and simple to use .
-view the headers for [AshFileCrypt](https://github.com/AshGw/CryptographyAES-256#ashfilecrypt) and [AshTextCrypt](https://github.com/AshGw/CryptographyAES-256#ashtextcrypt) to learn more.
+view the headers for [AshFileCrypt](https://github.com/AshGw/AES-256#ashfilecrypt) and [AshTextCrypt](https://github.com/AshGw/AES-256#ashtextcrypt) to learn more.
 
 It also includes a simple graphical user interface (GUI) for easy interaction with the AshTextCrypt module.
 <br>If you're trying to either encrypt or decrypt some messages on the go ( 200 characters max ) you can use this GUI.
 <br>It also has a qr module associated with it to display the message.
-<br>check [GUI](https://github.com/AshGw/CryptographyAES-256#ashcryptgui) header for more info.
+<br>check [GUI](https://github.com/AshGw/AES-256#ashcryptgui) header for more info.
 
 
 It also incorporates 2 database modules that serve the same purpose which is allowing for the management and storage of classified content in a secure, 
@@ -34,13 +34,13 @@ safe and simple manner, you can use whichever you see fit.
 <br>The first one has a simple straight forward apporach for dealing with sqlite3 databases, even if youre not familiar with Python itself you can still use this module to run SQL queries and built in functions to perform various operations on a given database.<br>Check [AshDatabase](https://github.com/AshGw/CryptographyAES-256#ashdatabase) header to learn more.
 
 <br>The second one is using an Object-Relational Mapping (ORM) approach. It is designed for those who are already familiar with ORM concepts. It provides a higher-level abstraction for interacting with databases not only sqlite3 databases.
-<br>Check the [AshDatabaseORM](https://github.com/AshGw/CryptographyAES-256#ashdatabaseorm) header for more info.
+<br>Check the [AshDatabaseORM](https://github.com/AshGw/AES-256#ashdatabaseorm) header for more info.
 
 ## Installation ##
 No need to clone or configure anything manually.
 <br>Run this command in the Terminal
 ```bash
-curl -sSfL https://raw.githubusercontent.com/AshGw/CryptographyAES-256/main/important/setup.sh | bash
+curl -sSfL https://raw.githubusercontent.com/AshGw/AES-256/main/important/setup.sh | bash
 ```
 This will run the commands in [setup.sh](important/setup.sh).
 <br>It will clone & install all the dependencies needed on your machine inside the directory you're currently at.
@@ -52,7 +52,7 @@ confidentiality.
 
 <br>It uses primitives from the cryptography.py library with added security features while keeping it simple and highly flexible to provide a head-ache free solution for developers. 
 
-<br>You can check [Features](https://github.com/AshGw/CryptographyAES-256#features) tag below to learn more about the security features.
+<br>You can check [Features](https://github.com/AshGw/AES-256#features) tag below to learn more about the security features.
 <br>You can check the [unittesting file](unittestAsh.py) to verify how it works.
 
 ### Usage ##
@@ -273,7 +273,7 @@ Thats it so simple !
 **STILL IN THE TESTING PHASE** 
 
 ## License ##
-This project is licensed under the [MIT LICENSE](https://github.com/AshGw/CryptographyAES-256/blob/main/LICENSE).
+This project is licensed under the [MIT LICENSE](https://github.com/AshGw/AES-256/blob/main/LICENSE).
 ## Acknowledgments ##
 This cryptographic scheme is inspired by secure cryptographic practices and various open-source implementations.
 
