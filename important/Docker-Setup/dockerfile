@@ -1,0 +1,5 @@
+FROM ubuntu:latest
+WORKDIR /Landing
+COPY setupDoc.sh /Landing/setupDoc.sh
+RUN chmod +x /Landing/setupDoc.sh
+RUN ./setupDoc.sh
