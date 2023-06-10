@@ -3,7 +3,7 @@ apt install -y curl
 apt install -y git
 apt install -y python3
 apt install -y python3-pip
-pip3 install -y virtualenv
+pip3 install virtualenv
 virtualenv vvv
 source vvv/bin/activate
 echo "tzdata tzdata/Areas select America" | debconf-set-selections
