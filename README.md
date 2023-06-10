@@ -28,13 +28,10 @@ It also includes a simple graphical user interface (GUI) for easy interaction wi
 <br>check [GUI](https://github.com/AshGw/AES-256#ashcryptgui) header for more info.
 
 
-It also incorporates 2 database modules that serve the same purpose which is allowing for the management and storage of classified content in a secure, 
+It also incorporates a database module that serve the same purpose which is allowing for the management and storage of classified content in a secure, 
 safe and simple manner, you can use whichever you see fit.
 
-<br>The first one has a simple straight forward apporach for dealing with sqlite3 databases, even if youre not familiar with Python itself you can still use this module to run SQL queries and built in functions to perform various operations on a given database.<br>Check [AshDatabase](https://github.com/AshGw/CryptographyAES-256#ashdatabase) header to learn more.
-
-<br>The second one is using an Object-Relational Mapping (ORM) approach. It is designed for those who are already familiar with ORM concepts. It provides a higher-level abstraction for interacting with databases not only sqlite3 databases.
-<br>Check the [AshDatabaseORM](https://github.com/AshGw/AES-256#ashdatabaseorm) header for more info.
+<br>The module has a simple straight forward apporach for dealing with sqlite3 databases, even if youre not familiar with Python itself you can still use this module to run SQL queries and built in functions to perform various operations on a given database.<br>Check [AshDatabase](https://github.com/AshGw/CryptographyAES-256#ashdatabase) header to learn more.
 
 ## Installation ##
 No need to clone or configure anything manually.
@@ -268,9 +265,6 @@ The result fetched should look similair to this :
 [{'query1': (0, OperationalError('no such table: DoesntExist'))}]
 ```
 Thats it so simple !
-
-## AshDatabaseORM ## 
-**STILL IN THE TESTING PHASE** 
 
 ## License ##
 This project is licensed under the [MIT LICENSE](https://github.com/AshGw/AES-256/blob/main/LICENSE).
