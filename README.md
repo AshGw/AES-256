@@ -53,7 +53,7 @@ confidentiality.
 <br>It uses primitives from the cryptography.py library with added security features while keeping it simple and highly flexible to provide a head-ache free solution for developers. 
 
 <br>You can check [Features](https://github.com/AshGw/AES-256#features) tag below to learn more about the security features.
-<br>You can check the [unittesting file](unittestAsh.py) to verify how it works.
+<br>You can check the [unittesting file](unittests/unittestAsh.py) to verify how it works.
 
 ### Usage ##
 1) Generate a key if you don't have one already
