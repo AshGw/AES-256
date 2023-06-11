@@ -42,6 +42,25 @@ curl -sSfL https://raw.githubusercontent.com/AshGw/AES-256/main/important/setup.
 This will run the commands in [setup.sh](important/setup.sh).
 <br>It will clone & install all the dependencies needed on your machine inside the directory you're currently at.
 <br>The GUI will pop off automatically and you can start using it right away.
+<details>
+<summary>Got Errors?</summary>
+
+1) Install `curl` if you don't have it already
+<br>If you're on debian based systems run the command : 
+```bash
+sudo apt-get install curl
+```
+2) if you're running a lightweight python version it might not include tkinter in the standard library so run
+```bash
+sudo apt-get update
+sudo apt-get install python3-tk 
+```
+3) if you're running `python 3.7` or older then you might need to install `dataclasses`
+```
+pip install dataclasses
+```
+<br>Now if none of this works you might just use the docker image for this purpose, so check this [directory](docker-build)
+</details>
 
 ## Ash Library ##
 The Ash.py library is a comprehensive collection of carefully designed functions and code modules that facilitate optimal performance and reliability in data encryption and decryption operations  while ensuring the utmost security and 
@@ -200,7 +219,7 @@ To support efficient content management, I have integrated this database module 
 
 Ensuring that the encrypted data remains organized and readily accessible to anyone with the right key. Any content going in must be encrypted with a key that you must keep off grid.
 
-**Note** that in `AshDatabase.py` I'm using `dataclasses` module which was introduced in `Python 3.7`, so make sure to install it if you have an older version.
+**Note** that in `AshDatabase.py` I'm using `dataclasses` module which was introduced in `python 3.7`, so make sure to install it if you have an older version.
 
 ### Usage ## 
 In the module I'm providing built in functions to make it easier to perform usual queries on Sqlite tables , by default it creates a table `Classified` with two deafult columns :
