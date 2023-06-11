@@ -45,7 +45,9 @@ This will run the commands in [setup.sh](important/setup.sh).
 <details>
 <summary>Got Errors ?</summary>
 <br>
-1) Install `curl` if you don't have it already. If you're on debian based systems run the command : 
+<h5>For Debian based systems</h5>
+
+1) Install `curl` if you don't have it already 
 ```bash
 sudo apt-get install curl
 ```
