@@ -51,7 +51,7 @@ This will run the commands in [setup.sh](important/setup.sh).
 ```bash
 sudo apt-get install curl
 ```
-2) if you're running a lightweight python version it might not include tkinter in the standard library so run
+2) if you're running a lightweight python version it might not include `tkinter` in the standard library so run
 ```bash
 sudo apt-get update
 sudo apt-get install python3-tk 
