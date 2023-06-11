@@ -43,10 +43,9 @@ This will run the commands in [setup.sh](important/setup.sh).
 <br>It will clone & install all the dependencies needed on your machine inside the directory you're currently at.
 <br>The GUI will pop off automatically and you can start using it right away.
 <details>
-<summary>Got Errors?</summary>
-
-1) Install `curl` if you don't have it already
-<br>If you're on debian based systems run the command : 
+<summary>Got Errors ?</summary>
+<br>
+1) Install `curl` if you don't have it already. If you're on debian based systems run the command : 
 ```bash
 sudo apt-get install curl
 ```
