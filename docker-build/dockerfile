@@ -1,5 +1,12 @@
 FROM python:3.10
+
 WORKDIR /Landing
+
+RUN apt-get update && apt-get install -y x11-apps
+
+ENV DISPLAY=:0
+
 COPY setupDoc.sh /Landing/setupDoc.sh
+
 RUN chmod +x /Landing/setupDoc.sh
 RUN ./setupDoc.sh
