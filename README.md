@@ -44,7 +44,7 @@ This will run the commands in [setup.sh](important/setup.sh).
 <br>The GUI will pop off automatically and you can start using it right away.
 <details>
 <summary>Got Errors ?</summary>
-<br>
+
 <h5>For Debian based systems</h5>
 
 1) Install `curl` if you don't have it already 
