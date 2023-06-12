@@ -22,11 +22,13 @@ class Crypt():
     @staticmethod
     def keyverify(key: str) -> int:
         if isinstance(key, str):
-            a = bytes.fromhex(key.strip())
-            if len(a) == 64:
-                return 1
-            else:
+            try :
+                a = bytes.fromhex(key.strip())
+                if len(a) == 64 :
+                    return 1
+            except Exception :
                 return 0
+
         else:
             return 2
 
