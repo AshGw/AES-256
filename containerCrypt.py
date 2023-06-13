@@ -8,13 +8,18 @@ commands = 'Commands : \n\tq: to quit the program \n\tc : view commands\n\tk : f
 
 global key
 def input_selection(q=None,c=None,e=None,d=None):
+    global encflag,decFlag
     if q == 1 :
         sys.exit()
     if c == 1 :
         print(commands)
     if e == 1 :
+        decFlag = False
+        encflag = True
         enc()
     if d == 1 :
+        decFlag = True
+        encflag = False
         dec()
     else :
         pass
@@ -44,32 +49,36 @@ def intro():
             n = input("Press 'c' : ")
             inputWrap(n)
 def keysetup():
-    while True :
+    outer = True
+    inner = True
+    while outer :
         global key
         key = ''
         i = input('Do you have a key ?(y/n) : ')
         inputWrap(i)
-        if i.lower() == "y" or "n":
-            break
-        if i == "n":
+        if i.lower() == 'n' :
             print("Here's your key : ")
             key = A.Crypt.genkey()
             print(key)
-        else:
-            while True:
+            inner = False
+            outer = False
+        elif i.lower() == 'y':
+            while inner:
                 print('insert your key here : ')
                 kk = input()
                 inputWrap(kk)
                 if A.Crypt.keyverify(kk) == 1:
                     print('Key selected')
                     key = kk
+                    inner = False
+                    outer = False
                 else:
                     print('Enter a valid key !')
 
-
+encflag = True
 def enc():
     keysetup()
-    while True:
+    while encflag:
         print()
         while True:
             global key
@@ -82,10 +91,10 @@ def enc():
                 print(enc[1])
             else:
                 print('Error occured during the encryption process')
-
+decFlag = True
 def dec():
     keysetup()
-    while True:
+    while decFlag:
         print()
         while True:
             global key
