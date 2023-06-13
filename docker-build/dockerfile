@@ -19,4 +19,5 @@ RUN virtualenv vvv
 RUN /bin/sh -c ". vvv/bin/activate"
 RUN pip install -r important/requirements.txt
 
-CMD ['python','containerCrypt.py']
+RUN chmod +x containerCrypt.py
+CMD ["python", "/Landing/AES-256/containerCrypt.py"]
