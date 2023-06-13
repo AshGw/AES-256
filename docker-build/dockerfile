@@ -4,19 +4,19 @@ LABEL maintainer="AshGw <AshGw@user.noreply.github.com>"
 LABEL version="1.0"
 LABEL description="Crypt"
 
+ENV DISPLAY=:0
 
 WORKDIR /Landing
 
-ENV DISPLAY=:0
-
-COPY env-setup.sh /Landing/env-setup.sh
-
-RUN chmod +x /Landing/env-setup.sh
-RUN ./env-setup.sh
-
 RUN git clone https://github.com/AshGw/AES-256.git
-RUN cd AES-256
+WORKDIR /Landing/AES-256
 
+RUN apt-get update -y
+RUN apt-get install -y git
+RUN pip install --upgrade pip
+RUN pip install virtualenv
+RUN virtualenv vvv
+RUN /bin/sh -c ". vvv/bin/activate"
 RUN pip install -r important/requirements.txt
 
 CMD ['python','containerCrypt.py']
