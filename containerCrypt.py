@@ -4,7 +4,7 @@ import sys
 
 print('Welcome to the container')
 
-commands = 'Commands : \n\tq: to quit the program \n\tc : view commands\n\tk : for key selection\n\te: for encryption\n\td : for decryption'
+commands = 'Commands : \n\tq: to quit the program \n\tc : view commands\n\te: for encryption\n\td : for decryption\n'
 
 global key
 def input_selection(q=None,c=None,e=None,d=None):
@@ -82,13 +82,14 @@ def enc():
         print()
         while True:
             global key
-            print("press c to view commands : ")
-            message = input('Enter a message : ')
+            print("press c to view commands.. ")
+            message = input('Encrypt a message : ')
             inputWrap(message)
             a = A.Crypt(message, key=key)
             enc = a.encrypt()
             if (enc[0]) == 1:
-                print(enc[1])
+                print("Success ! Here's the message : ")
+                print('\t',enc[1])
             else:
                 print('Error occurred during the encryption process')
 decFlag = True
@@ -98,13 +99,14 @@ def dec():
         print()
         while True:
             global key
-            print("press c to view commands : ")
-            message = input('Enter a message : ')
+            print("press c to view commands.. ")
+            message = input('Decrypt a message : ')
             inputWrap(message)
             a = A.Crypt(message, key=key)
             dec = a.decrypt()
             if (dec[0]) == 1:
-                print(dec[1])
+                print("Success ! Here's the message : ")
+                print('\t',dec[1])
             else:
                 print('Error occurred during the decryption process')
 
