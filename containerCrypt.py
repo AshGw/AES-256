@@ -90,7 +90,7 @@ def enc():
             if (enc[0]) == 1:
                 print(enc[1])
             else:
-                print('Error occured during the encryption process')
+                print('Error occurred during the encryption process')
 decFlag = True
 def dec():
     keysetup()
@@ -106,7 +106,7 @@ def dec():
             if (dec[0]) == 1:
                 print(dec[1])
             else:
-                print('Error occured during the encryption process')
+                print('Error occurred during the decryption process')
 
 
 
