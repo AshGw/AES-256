@@ -4,17 +4,18 @@ import sys
 
 print('Welcome to the container')
 
-commands = 'Commands : \n\tq: to quit the program \n\tc : view commands\n\tb : back to the enc/dec menu selection' \
-           '\n\tk : for key selection\n\te: for encryption\n\td : for decryption'
+commands = 'Commands : \n\tq: to quit the program \n\tc : view commands\n\tk : for key selection\n\te: for encryption\n\td : for decryption'
 
-key = ''
-def input_selection(q=None,c=None,b=None,k=None,e=None,d=None):
+global key
+def input_selection(q=None,c=None,e=None,d=None):
     if q == 1 :
         sys.exit()
-    if b == 1 :
-        encdec()
     if c == 1 :
         print(commands)
+    if e == 1 :
+        enc()
+    if d == 1 :
+        dec()
     else :
         pass
 
@@ -23,12 +24,15 @@ def inputWrap(inp) :
         if inp == 'c':
             input_selection(c=1)
             return 'c'
-        if inp == 'b' :
-            input_selection(b=1)
-            return 'b'
         if inp == 'q' :
             input_selection(q=1)
             return 'q'
+        if inp == 'e' :
+            input_selection(e=1)
+            return 'e'
+        if inp == 'd' :
+            input_selection(d=1)
+            return 'd'
         else :
             return None
 def intro():
@@ -38,14 +42,11 @@ def intro():
         print('To view commands : ')
         while True:
             n = input("Press 'c' : ")
-            a = inputWrap(n)
-            if a == 'c':
-                print()
-                break
-
+            inputWrap(n)
 def keysetup():
     while True :
         global key
+        key = ''
         i = input('Do you have a key ?(y/n) : ')
         inputWrap(i)
         if i.lower() == "y" or "n":
@@ -56,7 +57,6 @@ def keysetup():
             print(key)
         else:
             while True:
-                global key
                 print('insert your key here : ')
                 kk = input()
                 inputWrap(kk)
@@ -67,17 +67,35 @@ def keysetup():
                     print('Enter a valid key !')
 
 
-def encdec():
+def enc():
+    keysetup()
     while True:
         print()
         while True:
             global key
             print("press c to view commands : ")
             message = input('Enter a message : ')
+            inputWrap(message)
             a = A.Crypt(message, key=key)
             enc = a.encrypt()
             if (enc[0]) == 1:
                 print(enc[1])
+            else:
+                print('Error occured during the encryption process')
+
+def dec():
+    keysetup()
+    while True:
+        print()
+        while True:
+            global key
+            print("press c to view commands : ")
+            message = input('Enter a message : ')
+            inputWrap(message)
+            a = A.Crypt(message, key=key)
+            dec = a.decrypt()
+            if (dec[0]) == 1:
+                print(dec[1])
             else:
                 print('Error occured during the encryption process')
 
@@ -86,5 +104,3 @@ def encdec():
 
 if __name__ == '__main__':
     intro()
-    keysetup()
-    encdec()
