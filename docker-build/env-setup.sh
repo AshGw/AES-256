@@ -1,4 +1,3 @@
-cd ..
 apt-get update -y
 apt-get install -y git
 pip install --upgrade pip
