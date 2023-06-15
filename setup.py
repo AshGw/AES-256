@@ -3,11 +3,19 @@ from setuptools import setup , find_packages
 setup(
     name='AshCrypt',
     version='1.0.0',
-    author='AshrefGW',
-    author_email='AshGw@users.noreply.github.com',
+    author='Ashref Gwader',
+    author_email='AshrefGw@pronton.me',
     description='Cryptography of text/files of any type with DBMS',
-    url='https://github.com/yourusername/your-repository',
-    packages=find_packages(),
+    url='https://github.com/AshGw/AES-256.git',
+    packages=find_packages(exclude=['important', 'docker-build']),
+    package_data={
+        '': ['LICENSE', 'README.md'],
+        'src': ['*'],
+        'unittest': ['*'],
+    },
+    exclude_package_data={
+        '': ['.gitignore'],
+    },
     install_requires=[
         'bcrypt==4.0.1',
         'cryptography==40.0.2',

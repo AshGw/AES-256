@@ -3,7 +3,7 @@ import src.AshTextCrypt as A
 import sys
 
 
-print('Welcome to the container')
+print('Welcome to the CLI')
 
 commands = 'Commands : \n\tq: to quit the program \n\tc : view commands\n\te: for encryption\n\td : for decryption\n'
 
@@ -13,7 +13,7 @@ def input_selection(q=None,c=None,e=None,d=None):
     if q == 1 :
         sys.exit()
     if c == 1 :
-        print(commands)
+        print(commands,'\n')
     if e == 1 :
         decFlag = False
         encflag = True
@@ -47,7 +47,7 @@ def intro():
         print('Program started running..')
         print('To view commands : ')
         while True:
-            n = input("Press 'c' : ")
+            n = input("Press 'c' : \n")
             inputWrap(n)
 def keysetup():
     outer = True
@@ -69,12 +69,12 @@ def keysetup():
                 kk = input()
                 inputWrap(kk)
                 if A.Crypt.keyverify(kk) == 1:
-                    print('Key selected')
+                    print('Key selected\n')
                     key = kk
                     inner = False
                     outer = False
                 else:
-                    print('Enter a valid key !')
+                    print('Enter a valid key !\n')
 
 encflag = True
 def enc():
@@ -90,9 +90,9 @@ def enc():
             enc = a.encrypt()
             if (enc[0]) == 1:
                 print("Success ! Here's the message : ")
-                print('\t',enc[1])
+                print('\t',enc[1],'\n')
             else:
-                print('Error occurred during the encryption process')
+                print('Error occurred during the encryption process\n')
 decFlag = True
 def dec():
     keysetup()
@@ -107,9 +107,9 @@ def dec():
             dec = a.decrypt()
             if (dec[0]) == 1:
                 print("Success ! Here's the message : ")
-                print('\t',dec[1])
+                print('\t',dec[1],'\n')
             else:
-                print('Error occurred during the decryption process')
+                print('Error occurred during the decryption process\n')
 
 
 

@@ -1,8 +1,8 @@
 FROM python:3.10
-
-LABEL maintainer="AshGw <AshGw@user.noreply.github.com>"
+LABEL name="AshCrypt-light"
+LABEL maintainer="AshrefGw@pronton.me>"
 LABEL version="1.0"
-LABEL description="Crypt"
+LABEL description="AES-256 for texts encryption/decryption"
 
 ENV DISPLAY=:0
 
@@ -18,7 +18,7 @@ RUN pip install virtualenv
 RUN virtualenv vvv
 RUN /bin/sh -c ". vvv/bin/activate"
 RUN pip install -r important/requirements.txt
-WORKDIR /Landing/AES-256/docker-build
+WORKDIR /Landing/AES-256/src
 
-RUN chmod +x container.py
-CMD ["python", "/Landing/AES-256/docker-build/container.py"]
+RUN chmod +x CliCrypt.py
+CMD ["python", "/Landing/AES-256/src/CliCrypt.py"]
