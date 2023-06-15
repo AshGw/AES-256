@@ -1,6 +1,5 @@
-import src.Ash
 
-import src.AshTextCrypt  as A
+import src.AshTextCrypt as A
 import sys
 
 
