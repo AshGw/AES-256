@@ -18,6 +18,7 @@ RUN pip install virtualenv
 RUN virtualenv vvv
 RUN /bin/sh -c ". vvv/bin/activate"
 RUN pip install -r important/requirements.txt
+WORKDIR /Landing/AES-256/docker-build
 
-RUN chmod +x containerCrypt.py
-CMD ["python", "/Landing/AES-256/containerCrypt.py"]
+RUN chmod +x container.py
+CMD ["python", "/Landing/AES-256/docker-build/container.py"]
