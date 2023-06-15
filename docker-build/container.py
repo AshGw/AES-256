@@ -1,4 +1,6 @@
-import AshTextCrypt  as A
+import src.Ash
+
+import src.AshTextCrypt  as A
 import sys
 
 
