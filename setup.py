@@ -1,7 +1,7 @@
 from setuptools import setup , find_packages
 
 setup(
-    name='ashCrypt',
+    name='AshCrypt',
     version='1.0.0',
     author='Ashref Gwader',
     author_email='AshrefGw@pronton.me',
@@ -10,7 +10,7 @@ setup(
     packages=find_packages(exclude=['important', 'docker-build']),
     package_data={
         '': ['LICENSE', 'README.md'],
-        'ashCrypt': ['*'],
+        'src': ['*'],
         'unittest': ['*'],
     },
     exclude_package_data={

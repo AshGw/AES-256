@@ -1,7 +1,6 @@
 import unittest
 import struct
-from ashcrypt.Ash import *
-
+from src.Ash import *
 
 class AshModuleTesting(unittest.TestCase):
     def setUp(self) -> None:
