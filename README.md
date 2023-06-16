@@ -155,8 +155,16 @@ instance1 = CryptFile('testDataBase.db', key)
 ```
 The file can be of anything : image`.png`, movie `.mp4`,`.sqlite`  etc..
 <br>It doesn't have to just be of `.txt` extension ,can be of anything really.  
-
-
+<br>**Note** : 
+If the file is not in the working directroy you can specify the whole path: 
+<br>**For windows**
+```python
+target = CryptFile('C:\\Users\\offic\\MyProjects\\SomeOtherfolder\\myfile.txt',key) 
+```
+<br>**On Mac and Linux :**
+```python
+target = CryptFile('/User/Desktop/MyProjects/SomeOtherfolder/myfile.txt',key)
+```
 3) Apply either the encryption or decryption functions to that instance :
 ```python
 instance1 = CryptFile('qrv10.png',key)
