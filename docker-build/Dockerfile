@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:3.7
 LABEL name="AshCrypt-light"
 LABEL maintainer="AshrefGw@pronton.me>"
 LABEL version="1.0"
