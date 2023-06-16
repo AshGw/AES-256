@@ -142,21 +142,28 @@ def file_enc():
     while file_encFlag :
         print()
         global key
-        print("press c to view commands.. ")
-        filename = input('Enter full file name to be Encrypted : ')
-        if os.path.exists(filename):
-            target = AF.CryptFile(filename, key)
-            a = target.encrypt()
-            if a == 1 :
-                print('file successfully encrypted')
-            else :
-                print('Error occurred during the encryption process\n')
-        else:
-            if filename in ['df', 'q', 'd', 'e', 'c', 'ef']:
-                inputWrap(filename)
+        pre = input("running file encryption mode press 'c' for commands or 'Enter' to continue..")
+        inputWrap(pre)
+        if pre == '' :
+            print("You can use the commands AFTER entering the file name.. ")
+            filename = input('Enter full file name to be Encrypted : ')
+            if os.path.exists(filename):
+                target = AF.CryptFile(filename, key)
+                a = target.encrypt()
+                if a == 1:
+                    print('File successfully encrypted ')
+                if a == 2:
+                    print('Cannot encrypt the file  when it is already empty')
+                if a == 3:
+                    print(f'The file named : "{filename}" does not exists , try specifying the whole sys path')
+                if a == 0:
+                    print('Error in the decryption process. Check if the the file is distorted or just might be '
+                          'decrypted already')
+                else:
+                    print('Unknown Error has occurred\n')
             else:
                 print(f"The file : {filename} does not exist")
-                print('filename might be misspelled')
+                print('filename might be misspelled, or try specifying the whole sys path')
 
 file_decFlag = True
 def file_dec():
@@ -164,22 +171,28 @@ def file_dec():
     while file_decFlag :
         print()
         global key
-        print("press c to view commands.. ")
-        filename = input('Enter full file name to be Decrypted : ')
-        inputWrap(filename)
-        if os.path.exists(filename):
-            target = AF.CryptFile(filename, key)
-            a = target.decrypt()
-            if a == 1:
-                print('File successfully decrypted ')
+        pre = input("running file decryption mode press 'c' for commands or 'Enter' to continue..")
+        inputWrap(pre)
+        if pre == '':
+            print("You can use the commands AFTER entering the file name.. ")
+            filename = input('Enter full file name to be Decrypted : ')
+            if os.path.exists(filename):
+                target = AF.CryptFile(filename, key)
+                a = target.decrypt()
+                if a == 1:
+                    print('File successfully decrypted ')
+                if a == 2 :
+                    print('Cannot decrypt the file when it is already empty')
+                if a == 3 :
+                    print(f'The file named : "{filename}" does not exists , try specifying the whole sys path')
+                if a == 0 :
+                    print('Error in the decryption process. Check if the the file is distorted or just might be '
+                          'decrypted already')
+                else:
+                    print('Unknown Error has occurred\n')
             else:
-                print('Error occurred during the decryption process\n')
-        else:
-            if filename in ['df','q','d','e','c','ef']:
-                inputWrap(filename)
-            else :
                 print(f"The file : {filename} does not exist")
-                print('filename might be misspelled')
+                print('filename might be misspelled, or try specifying the whole sys path')
 
 
 if __name__ == '__main__':

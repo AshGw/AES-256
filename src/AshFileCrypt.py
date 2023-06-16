@@ -45,6 +45,7 @@ class CryptFile():
                         f.write(filecontent)
                         return 0
                 else:
+                    f.write(filecontent)
                     return 2
 
     def decrypt(self) -> int :
@@ -64,6 +65,7 @@ class CryptFile():
                         f.write(enc_content)
                         return 0
             else:
+                f.write(enc_content)
                 return 2
 
     def __str__(self):
@@ -75,6 +77,6 @@ if __name__ == '__main__':
     print(CryptFile.genkey())
     key = 'd5d717f57933ad21725888d3451a9cd7a565dfda677fe92fd8ff9e9c3a36d1496af58c17de2b77d4d3ea6d8791b27350fea0af3ad2610d38c8cb12a29fda4bcf'
     target = CryptFile('trash.txt', key)
-    print(target.encrypt())
+    print(target.decrypt())
 
 
