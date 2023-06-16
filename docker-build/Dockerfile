@@ -2,7 +2,7 @@ FROM python:3.10
 LABEL name="AshCrypt-light"
 LABEL maintainer="AshrefGw@pronton.me>"
 LABEL version="1.0"
-LABEL description="AES-256 for texts encryption/decryption"
+LABEL description="AES-256 for files/text"
 
 ENV DISPLAY=:0
 

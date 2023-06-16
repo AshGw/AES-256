@@ -12,4 +12,5 @@ Visit this **[link](https://docs.docker.com/desktop/install/mac-install/)**
 **For debian based Linux systems** : Visit the **[link](https://docs.docker.com/engine/install/debian/)**
 
 ### Git ####
-If you're on **Windows** or **Mac** install git bash 
+If you're on **Windows** or **Mac** install **[git](https://git-scm.com/downloads)**  
+
