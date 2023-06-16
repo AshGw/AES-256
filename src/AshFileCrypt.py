@@ -72,9 +72,9 @@ class CryptFile():
         return f'{self.__class__.__name__}({self.filename},{self.key})'
 
 if __name__ == '__main__':
-    print(Ash.Enc.genMainkey())
+    print(CryptFile.genkey())
     key = 'd5d717f57933ad21725888d3451a9cd7a565dfda677fe92fd8ff9e9c3a36d1496af58c17de2b77d4d3ea6d8791b27350fea0af3ad2610d38c8cb12a29fda4bcf'
-    target = CryptFile('qrv10.png', key)
+    target = CryptFile('trash.txt', key)
     print(target.encrypt())
 
 
