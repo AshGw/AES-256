@@ -1,8 +1,9 @@
 import unittest
 import struct
-from .. import Ash
+from ashcrypt.Ash import *
 
-class MyTestCase(unittest.TestCase):
+
+class AshModuleTesting(unittest.TestCase):
     def setUp(self) -> None:
         self.message1 = 'Hello there testing ifl it works'
         self.message2 = b'Hello this is bytes now'
