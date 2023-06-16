@@ -3,7 +3,7 @@
 If you dont have docker already : 
 <br>install it : 
 <br>
-**For windows :**
+**For wincdows :**
 Visit this **[link](https://docs.docker.com/desktop/install/windows-install/)** 
 <br>
 **For Mac :** 
