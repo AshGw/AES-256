@@ -1,21 +1,15 @@
-# Docker # 
-If you dont have docker already install it 
+## Installation ## 
+### Docker ###
+If you dont have docker already : 
+<br>install it : 
 <br>
 **For windows :**
-Visit this link 
+Visit this **[link](https://docs.docker.com/desktop/install/windows-install/)** 
 <br>
 **For Mac :** 
-Visit this link 
+Visit this **[link](https://docs.docker.com/desktop/install/mac-install/)** 
 <br>
-**For debian based Linux systems**
-<br>Run the command 
-```bash
-curl -sSfL https://raw.githubusercontent.com/AshGw/AES-256/main/important/setup.sh | bash
-```
-Or 
-Do it manually : 
-```bash
-azeaze
-```
-## Installation ## 
+**For debian based Linux systems** : Visit the **[link](https://docs.docker.com/engine/install/debian/)**
+
+### Git ####
 If you're on **Windows** or **Mac** install git bash 

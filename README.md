@@ -20,12 +20,12 @@ sensitive data,  providing a hassle-free experience when dealing with cryptograp
 
 
 The project uses that same module to ensure secure data encryption and decryption for Files and Texts while keeping it very easy and simple to use .
-view the headers for [AshFileCrypt](https://github.com/AshGw/AES-256#ashfilecrypt) and [AshTextCrypt](https://github.com/AshGw/AES-256#ashtextcrypt) to learn more.
+view the headers for [AshFileCrypt](https://github.com/AshGw/AES-256/src#ashfilecrypt) and [AshTextCrypt](https://github.com/AshGw/AES-256/src#ashtextcrypt) to learn more.
 
 It also includes a simple graphical user interface (GUI) for easy interaction with the AshTextCrypt module.
 <br>If you're trying to either encrypt or decrypt some messages on the go ( 200 characters max ) you can use this GUI.
 <br>It also has a qr module associated with it to display the message.
-<br>check [GUI](https://github.com/AshGw/AES-256#ashcryptgui) header for more info.
+<br>check [GUI](https://github.com/AshGw/AES-256/src#ashcryptgui) header for more info.
 
 
 It also incorporates a database module that serve the same purpose which is allowing for the management and storage of classified content in a secure, 
@@ -231,7 +231,7 @@ Ensuring that the encrypted data remains organized and readily accessible to any
 **Note** that in `AshDatabase.py` I'm using `dataclasses` module which was introduced in `python 3.7`, so make sure to install it if you have an older version.
 
 ### Usage ## 
-In the module I'm providing built in functions to make it easier to perform usual queries on Sqlite tables , by default it creates a table `Classified` with two deafult columns :
+In the module I'm providing built-in functions to make it easier to perform usual queries on Sqlite tables , by default it creates a table `Classified` with two deafult columns :
 
 **content** : This can be a single character or a whole movie in binary, that depends on your specific needs.
 
