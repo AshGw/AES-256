@@ -9,7 +9,7 @@ Visit this **[link](https://docs.docker.com/desktop/install/windows-install/)**
 **For Mac :** 
 Visit this **[link](https://docs.docker.com/desktop/install/mac-install/)** 
 <br>
-**For debian based Linux systems** : Visit the **[link](https://docs.docker.com/engine/install/debian/)**
+**For Linux** : Visit the **[link](https://docs.docker.com/engine/install/debian/)**
 
 ### Git ####
 If you're on **Windows** or **Mac** install **[git](https://git-scm.com/downloads)**  
