@@ -15,7 +15,8 @@ RUN apt-get update -y
 RUN apt-get install -y git
 RUN pip install --upgrade pip
 RUN pip install -r important/requirements.txt
-WORKDIR /Landing/AES-256/src
+RUN python setup.py develop
+WORKDIR /Landing/AES-256/AshCrypt
 
 RUN chmod +x CliCrypt.py
-CMD ["python", "/Landing/AES-256/src/CliCrypt.py"]
+CMD ["python", "/Landing/AES-256/AshCrypt/CliCrypt.py"]
