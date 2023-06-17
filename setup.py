@@ -6,7 +6,7 @@ with open('src/README.md','r') as f :
 
 setup(
     name='AshCrypt',
-    version='1.0',
+    version='1.0.1',
     author='Ashref Gwader',
     author_email='AshrefGw@proton.me',
     python_requires='>=3.7',
