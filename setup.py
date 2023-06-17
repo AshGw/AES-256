@@ -44,5 +44,4 @@ setup(
         'Cryptography',
         'AES-256',
     ],
-
 )
