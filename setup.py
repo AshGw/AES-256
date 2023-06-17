@@ -4,7 +4,7 @@ setup(
     name='AshCrypt',
     version='1.0.0',
     author='Ashref Gwader',
-    author_email='AshrefGw@pronton.me',
+    author_email='AshrefGw@proton.me',
     description='Cryptography of text/files of any type with DBMS',
     url='https://github.com/AshGw/AES-256.git',
     packages=find_packages(exclude=['important', 'docker-build']),
@@ -20,7 +20,6 @@ setup(
         'bcrypt==4.0.1',
         'cryptography==40.0.2',
         'qrcode==7.4.2',
-        'SQLAlchemy==2.0.15',
         'ttkbootstrap==1.10.1',
     ],
     classifiers=[
