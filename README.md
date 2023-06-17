@@ -34,14 +34,20 @@ safe and simple manner, you can use whichever you see fit.
 <br>The module has a simple straight forward apporach for dealing with sqlite3 databases, even if youre not familiar with Python itself you can still use this module to run SQL queries and built in functions to perform various operations on a given database.<br>Check [AshDatabase](https://github.com/AshGw/CryptographyAES-256#ashdatabase) header to learn more.
 
 ## Installation ##
-No need to clone or configure anything manually.
+You can simply use **pip**
+```
+pip install AshCrypt
+```
+This will install the latest version of the `AshCrypt`.
+
+<br>If you want to get the whole repo without manual configurations
 <br>Run this command in the Terminal
 ```bash
 curl -sSfL https://raw.githubusercontent.com/AshGw/AES-256/main/important/setup.sh | bash
 ```
 This will run the commands in [setup.sh](important/setup.sh).
 <br>It will clone & install all the dependencies needed on your machine inside the directory you're currently at.
-<br>The GUI will pop off automatically and you can start using it right away.
+<br>The `CliCrypt` will pop off automatically and you can start using it right away.
 <details>
 <summary>Got Errors ?</summary>
 

@@ -1,12 +1,8 @@
 qrv10.png
 test.db
 target.txt
-README2.md
-ORM.db
 test1.py
 test2.py
 test3.py
-testORM.db
-testORM2.db
-/__pycache__/
 test4.py
+/__pycache__/
