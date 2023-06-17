@@ -62,7 +62,10 @@ This will run the commands in [setup.sh](important/setup.sh).
 ```bash
 curl -sSfL https://raw.githubusercontent.com/AshGw/AES-256/Apex/docker-build/env-setup.sh | bash
 ```
-
+Then run 
+```bash
+source vvv/bin/activate
+```
 
 <details>
 <summary>Got Errors ?</summary>
