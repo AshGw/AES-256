@@ -1,8 +1,15 @@
 # Cryptography w/ AES-256
 ##  Objective ## 
 #### Enhanced Security, Simplicity & Ease of use For Everyone And Anyone Willing To Use AES 256.
+## Reason Behind It
+In a world where control, surveillance, and privacy violations are increasingly prevalent, the protection of individual freedom becomes crucial. 
+
+As a firm believer in **Freedom** , I have developed a set of tools in Python that leverages the AES-256 algorithm to make it easier for undividuals to safeguard their data without blindly relying on third parties to do it tor them  . 
+
+My aim here is to make these tools accessible and user-friendly, even for individuals with limited programming knowledge. By providing these resources, I hope to contribute to the preservation of privacy and enable individuals to take control of their own data security, so feel free to explore these tools.
 ## Overview ## 
-The project incorporates a library I made called [Ash.py](https://github.com/AshGw/AES-256#ash-library) : 
+**Visit [GitHub](https://github.com/AshGw/AES-256/tree/main)**
+<br>The project incorporates a library I made called [Ash.py](https://github.com/AshGw/AES-256#ash-library) : 
 
 <br>A simple, secure, and developer-oriented library for
 encryption and decryption with AES-256 (CBC) . It offers an intuitive
@@ -27,41 +34,11 @@ safe and simple manner, you can use whichever you see fit.
 
 <br>The module has a simple straight forward apporach for dealing with sqlite3 databases, even if youre not familiar with Python itself you can still use this module to run SQL queries and built in functions to perform various operations on a given database.<br>Check [AshDatabase](https://github.com/AshGw/CryptographyAES-256#ashdatabase) header to learn more.
 
-## Installation ##
-No need to clone or configure anything manually.
-<br>Run this command in the Terminal
-```bash
-curl -sSfL https://raw.githubusercontent.com/AshGw/AES-256/main/important/setup.sh | bash
-```
-This will run the commands in [setup.sh](important/setup.sh).
-<br>It will clone & install all the dependencies needed on your machine inside the directory you're currently at.
-<br>The GUI will pop off automatically and you can start using it right away.
-<details>
-<summary>Got Errors ?</summary>
-
-<h5>For Debian based systems</h5>
-
-1) Install `curl` if you don't have it already 
-```bash
-sudo apt-get install curl
-```
-2) If you're running a lightweight python version it might not include `tkinter` in the standard library so run
-```bash
-sudo apt-get update
-sudo apt-get install python3-tk 
-```
-3) If you're running `python 3.6` or older then you might need to install `dataclasses`
-```
-pip install dataclasses
-```
-<br>Now if none of this works you might just use the docker image for this purpose, so check this [directory](docker-build)
-</details>
-
 ## Ash Library ##
-The Ash.py library is a comprehensive collection of carefully designed functions and code modules that facilitate optimal performance and reliability in data encryption and decryption operations  while ensuring the utmost security and 
+The `Ash.py` library is a comprehensive collection of carefully designed functions and code modules that facilitate optimal performance and reliability in data encryption and decryption operations  while ensuring the utmost security and 
 confidentiality.
 
-<br>It uses primitives from the cryptography.py library with added security features while keeping it simple and highly flexible to provide a head-ache free solution for developers. 
+<br>It uses primitives from the `cryptography.py` library with added security features while keeping it simple and highly flexible to provide a head-ache free solution for developers. 
 
 <br>You can check [Features](https://github.com/AshGw/AES-256#features) tag below to learn more about the security features.
 <br>You can check the [unittesting file](unittests/unittestAsh.py) to verify how it works.
@@ -204,7 +181,10 @@ Error handling here has no Exceptions raised just `1`'s, `0`'s & `2`'s for feedb
 ## AshCryptGUI ##
 This is merely a GUI to encrypt and decrypt a text of a maximum of 200 characters and also display the qr representation of the text (encrypted/decrypted) .
 
-![alt text](important/GUI.png)
+Run the command
+```bash
+python -m AshCryptGUI
+```
 
 **NOTE** : The key is not specified in the GUI its hard-coded, if you want to change the key make sure to change it from within the file `AshCryptGUI.py` itself, it's just a security measure. By default it uses the following key in bytes :
 ```python

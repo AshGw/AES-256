@@ -1,11 +1,19 @@
 from setuptools import setup , find_packages
 
+
+with open('src/README.md','r') as f :
+    readme = f.read()
+
 setup(
-    name='AshCrypt',
-    version='1.0.0',
+    name='Apoxyloxiuois',
+    version='2.0',
     author='Ashref Gwader',
     author_email='AshrefGw@proton.me',
-    description='Cryptography of text/files of any type with DBMS',
+    python_requires='>=3.7',
+    description="Comprehensive AES-256 Cryptography library equipped with a file handling module along with"
+                " a text module w/ a user-friendly GUI and a database module to store encrypted content.",
+    long_description_content_type='text/markdown',
+    long_description=readme,
     url='https://github.com/AshGw/AES-256.git',
     packages=find_packages(exclude=['important', 'docker-build']),
     package_data={
@@ -34,7 +42,8 @@ setup(
         'Programming Language :: Python :: 3.9',
     ],
     keywords=[
-        'cryptography',
-        'AES',
-    ]
+        'Cryptography',
+        'AES-256',
+    ],
+
 )
