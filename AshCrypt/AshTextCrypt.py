@@ -1,5 +1,5 @@
 from typing import Union
-import Ash
+from AshCrypt import Ash
 
 
 class KeyError(Exception):

@@ -60,7 +60,7 @@ from AshCrypt.Ash import Enc.genMainkey()
 curl -sSfL https://raw.githubusercontent.com/AshGw/AES-256/main/important/setup.sh | bash
 ```
 This will run the commands in [setup.sh](important/setup.sh).
-<br>It will clone & install all the dependencies needed on your machine inside the directory you're currently at.
+<br>It will clone & install all the dependencies needed on your machine and activate the development mode, inside the directory you're currently at.
 <br>The `CliCrypt` will pop off automatically and you can start using it right away.
 
 <br>If you're testing how this works on a Debian based Docker container you can run this command to automatically set the environment before you run the command above

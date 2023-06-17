@@ -1,4 +1,4 @@
-import Ash
+from AshCrypt import Ash
 import os
 
 class KeyError(Exception):

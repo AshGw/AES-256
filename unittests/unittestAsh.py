@@ -1,6 +1,6 @@
 import unittest
 import struct
-import src.Ash as Ash
+import AshCrypt.Ash as Ash
 
 class AshModuleTesting(unittest.TestCase):
     def setUp(self) -> None:
