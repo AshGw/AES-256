@@ -48,8 +48,8 @@ Then install the Library
 pip install AshCrypt
 ```
 This will install the latest version of `AshCrypt`.
-
-<br>If you want to get the whole repo without manual configurations
+<br>That's it.
+<br>Now if you want to get the whole repo without manual configurations
 <br>Run this command in the Terminal
 ```bash
 curl -sSfL https://raw.githubusercontent.com/AshGw/AES-256/main/important/setup.sh | bash
