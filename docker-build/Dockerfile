@@ -1,8 +1,8 @@
-FROM python:3.7
+FROM python:3.8
 LABEL name="AshCrypt"
 LABEL maintainer="AshrefGw@pronton.me>"
-LABEL version="1.0"
-LABEL description="AES-256 for files/text"
+LABEL version="1.0.1"
+LABEL description="AES-256 For Files/Text"
 
 ENV DISPLAY=:0
 
@@ -18,5 +18,4 @@ RUN pip install -r important/requirements.txt
 RUN python setup.py develop
 WORKDIR /Landing/AES-256/AshCrypt
 
-RUN chmod +x CliCrypt.py
 CMD ["python", "/Landing/AES-256/AshCrypt/CliCrypt.py"]
