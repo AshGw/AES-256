@@ -18,11 +18,12 @@ docker --version
 ```
 The result must be the currently installed version of docker
 
-2) pulling the image 
+2) Pulling the image 
 ```shell
 docker pull ashgw/ashcrypt:1.0
 ```
 the image is quite lengthy so be patient with the installation process
+
 3) run the image within a container and give it a name , here im giving it the name `nova`
 ```shell
 docker run -it --name nova ashgw/ashcrypt:1.0
