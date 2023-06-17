@@ -60,7 +60,7 @@ This will run the commands in [setup.sh](important/setup.sh).
 
 <br>If you're testing how this works on a Debian based Docker container you can run this command to automatically set the environment before you run the command above
 ```bash
-curl -sSfL https://raw.githubusercontent.com/AshGw/AES-256/Apex/docker-build/env-setup.sh
+curl -sSfL https://raw.githubusercontent.com/AshGw/AES-256/Apex/docker-build/env-setup.sh | bash
 ```
 
 
