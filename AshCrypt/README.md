@@ -1,6 +1,6 @@
-# Cryptography w/ AES-256
+# Cryptography Library : AES-256
 ##  Objective ## 
-#### Enhanced Security, Simplicity & Ease of use For Everyone And Anyone Willing To Use AES 256.
+#### Enhanced Security, Simplicity & Ease of use For Everyone And Anyone Willing To Use AES 256 With No Unnecessary Complications.
 ## Overview ## 
 **Visit The [GitHub](https://github.com/AshGw/AES-256/tree/main) Repository**
 <br>The library incorporates a base cryptography mdoule called **Ash** 
