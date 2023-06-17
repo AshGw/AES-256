@@ -1,5 +1,5 @@
 FROM python:3.7
-LABEL name="AshCrypt-light"
+LABEL name="AshCrypt"
 LABEL maintainer="AshrefGw@pronton.me>"
 LABEL version="1.0"
 LABEL description="AES-256 for files/text"
