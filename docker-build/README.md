@@ -1,6 +1,6 @@
-## Installation ## 
-### Docker ###
-If you dont have docker already : 
+# Installation #
+## Docker ##
+If you dont have **Docker** already : 
 <br>install it : 
 <br>
 **For wincdows :**

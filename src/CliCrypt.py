@@ -70,7 +70,7 @@ def intro():
         print('Program started running..')
         print('Press c to view commands : ')
         while True:
-            n = input("Press : \n")
+            n = input("Press..\n")
             inputWrap(n)
 def keysetup():
     outer = True
