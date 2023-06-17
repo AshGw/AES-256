@@ -38,7 +38,7 @@ You can simply use **pip**
 ```
 pip install AshCrypt
 ```
-This will install the latest version of the `AshCrypt`.
+This will install the latest version of `AshCrypt`.
 
 <br>If you want to get the whole repo without manual configurations
 <br>Run this command in the Terminal
@@ -48,7 +48,8 @@ curl -sSfL https://raw.githubusercontent.com/AshGw/AES-256/main/important/setup.
 This will run the commands in [setup.sh](important/setup.sh).
 <br>It will clone & install all the dependencies needed on your machine inside the directory you're currently at.
 <br>The `CliCrypt` will pop off automatically and you can start using it right away.
-<br>If you're testing how this works on a Debian based Docker container you can run this command to set the environment before you run the command above
+
+<br>If you're testing how this works on a Debian based Docker container you can run this command to automatically set the environment before you run the command above
 ```bash
 curl -sSfL https://github.com/AshGw/AES-256/blob/main/docker-build/env-setup.sh
 ```
@@ -75,11 +76,11 @@ pip install dataclasses
 <br>Now if none of this works you might just use the docker image for this purpose, so check this [directory](docker-build)
 </details>
 
-## Ash Library ##
-The Ash.py library is a comprehensive collection of carefully designed functions and code modules that facilitate optimal performance and reliability in data encryption and decryption operations  while ensuring the utmost security and 
+## Ash Module ##
+The `Ash.py` Module is a comprehensive collection of carefully designed functions and code modules that facilitate optimal performance and reliability in data encryption and decryption operations  while ensuring the utmost security and 
 confidentiality.
 
-<br>It uses primitives from the cryptography.py library with added security features while keeping it simple and highly flexible to provide a head-ache free solution for developers. 
+<br>It uses primitives from the `cryptography.py` library with added security features while keeping it simple and highly flexible to provide a head-ache free solution for developers. 
 
 <br>You can check [Features](https://github.com/AshGw/AES-256#features) tag below to learn more about the security features.
 <br>You can check the [unittesting file](unittests/unittestAsh.py) to verify how it works.

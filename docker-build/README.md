@@ -17,6 +17,7 @@ Visit this **[link](https://docs.docker.com/desktop/install/mac-install/)**
 docker --version
 ```
 The result must contain information about Docker
+
 2) Pulling the image
 ```shell
 docker pull ashgw/ashcrypt:1.0
