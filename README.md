@@ -52,8 +52,9 @@ You can start using it in your code by importing its modules :
 ```python
 from AshCrypt.Ash import *
 ```
-<br>That's it.
-<br>Now if you want to get the whole repo without manual configurations
+That's it.
+
+Now if you want to get the whole repo with no manual configurations
 <br>Run this command in the Terminal
 ```bash
 curl -sSfL https://raw.githubusercontent.com/AshGw/AES-256/main/important/setup.sh | bash
