@@ -1,11 +1,11 @@
 LICENSE
 README.md
 setup.py
-Apoxyloxiuois.egg-info/PKG-INFO
-Apoxyloxiuois.egg-info/SOURCES.txt
-Apoxyloxiuois.egg-info/dependency_links.txt
-Apoxyloxiuois.egg-info/requires.txt
-Apoxyloxiuois.egg-info/top_level.txt
+AshCrypt.egg-info/PKG-INFO
+AshCrypt.egg-info/SOURCES.txt
+AshCrypt.egg-info/dependency_links.txt
+AshCrypt.egg-info/requires.txt
+AshCrypt.egg-info/top_level.txt
 src/Ash.py
 src/AshCryptGUI.py
 src/AshDatabase.py

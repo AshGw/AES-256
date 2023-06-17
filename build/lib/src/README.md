@@ -1,38 +1,32 @@
 # Cryptography w/ AES-256
 ##  Objective ## 
 #### Enhanced Security, Simplicity & Ease of use For Everyone And Anyone Willing To Use AES 256.
-## Reason Behind It
-In a world where control, surveillance, and privacy violations are increasingly prevalent, the protection of individual freedom becomes crucial. 
-
-As a firm believer in **Freedom** , I have developed a set of tools in Python that leverages the AES-256 algorithm to make it easier for undividuals to safeguard their data without blindly relying on third parties to do it tor them  . 
-
-My aim here is to make these tools accessible and user-friendly, even for individuals with limited programming knowledge. By providing these resources, I hope to contribute to the preservation of privacy and enable individuals to take control of their own data security, so feel free to explore these tools.
 ## Overview ## 
 **Visit [GitHub](https://github.com/AshGw/AES-256/tree/main)**
-<br>The project incorporates a library I made called [Ash.py](https://github.com/AshGw/AES-256#ash-library) : 
+<br>The project incorporates a library I made called **Ash.py** : 
 
 <br>A simple, secure, and developer-oriented library for
 encryption and decryption with AES-256 (CBC) . It offers an intuitive
 interface, seamless integration with precompiled 
 functions, and robust security measures to safeguard
 sensitive data,  providing a hassle-free experience when dealing with cryptographic libraries.
-<br>View [Features](https://github.com/AshGw/AES-256#features) Header for more details.
+<br>View **Features** Header for more details.
 
 
 
 The project uses that same module to ensure secure data encryption and decryption for Files and Texts while keeping it very easy and simple to use .
-view the headers for [AshFileCrypt](https://github.com/AshGw/AES-256/src#ashfilecrypt) and [AshTextCrypt](https://github.com/AshGw/AES-256/src#ashtextcrypt) to learn more.
+view the headers for **AshFileCrypt**  and **AshTextCrypt** learn more.
 
-It also includes a simple graphical user interface (GUI) for easy interaction with the AshTextCrypt module.
+It also includes a simple graphical user interface (GUI) for easy interaction with the **AshTextCrypt** module.
 <br>If you're trying to either encrypt or decrypt some messages on the go ( 200 characters max ) you can use this GUI.
 <br>It also has a qr module associated with it to display the message.
-<br>check [GUI](https://github.com/AshGw/AES-256/src#ashcryptgui) header for more info.
+<br>check **GUI**  for more info.
 
 
 It also incorporates a database module that serve the same purpose which is allowing for the management and storage of classified content in a secure, 
 safe and simple manner, you can use whichever you see fit.
 
-<br>The module has a simple straight forward apporach for dealing with sqlite3 databases, even if youre not familiar with Python itself you can still use this module to run SQL queries and built in functions to perform various operations on a given database.<br>Check [AshDatabase](https://github.com/AshGw/CryptographyAES-256#ashdatabase) header to learn more.
+<br>The module has a simple straight forward apporach for dealing with sqlite3 databases, even if youre not familiar with Python itself you can still use this module to run SQL queries and built in functions to perform various operations on a given database.<br>Check **AshDatabase** header to learn more.
 
 ## Ash Library ##
 The `Ash.py` library is a comprehensive collection of carefully designed functions and code modules that facilitate optimal performance and reliability in data encryption and decryption operations  while ensuring the utmost security and 
@@ -40,8 +34,7 @@ confidentiality.
 
 <br>It uses primitives from the `cryptography.py` library with added security features while keeping it simple and highly flexible to provide a head-ache free solution for developers. 
 
-<br>You can check [Features](https://github.com/AshGw/AES-256#features) tag below to learn more about the security features.
-<br>You can check the [unittesting file](unittests/unittestAsh.py) to verify how it works.
+<br>You can check **Features** tag below to learn more about the security features.
 
 ### Usage ##
 1) Generate a key if you don't have one already

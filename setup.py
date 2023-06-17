@@ -5,8 +5,8 @@ with open('src/README.md','r') as f :
     readme = f.read()
 
 setup(
-    name='Apoxyloxiuois',
-    version='2.0',
+    name='AshCrypt',
+    version='1.0',
     author='Ashref Gwader',
     author_email='AshrefGw@proton.me',
     python_requires='>=3.7',
