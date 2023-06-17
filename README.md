@@ -11,8 +11,9 @@ My aim here is to make these tools accessible and user-friendly, even for indivi
 The project incorporates a library I made called **[AshCrypt](https://github.com/AshGw/AES-256/tree/main/src)** : 
 
 <br>A simple, secure, and developer-oriented library for
-encryption and decryption with AES-256 (CBC) . It offers an intuitive
-interface, seamless integration with precompiled 
+encryption and decryption with AES-256 (CBC) . 
+<br>The core of the library is the module `Ash`
+It offers an intuitive interface, seamless integration with precompiled 
 functions, and robust security measures to safeguard
 sensitive data,  providing a hassle-free experience when dealing with cryptographic libraries.
 <br>View [Features](https://github.com/AshGw/AES-256#features) Header for more details.
@@ -28,6 +29,9 @@ It also includes a simple graphical user interface (GUI) for easy interaction wi
 <br>check [GUI](https://github.com/AshGw/AES-256/src#ashcryptgui) header for more info.
 
 
+While The **GUI** is limited to 200 characters of text, if you want to be free over how much data or type of data you want to include, then u can use `CliCrypt.py` which is an innovative command line interface (CLI) designed to provide encryption and decryption capabilities for both text and file data with no constraints.
+
+
 It also incorporates a database module that serve the same purpose which is allowing for the management and storage of classified content in a secure, 
 safe and simple manner, you can use whichever you see fit.
 
@@ -35,7 +39,12 @@ safe and simple manner, you can use whichever you see fit.
 
 ## Installation ##
 You can simply use **pip**
+<br>First upgrade the package installer 
+```bash
+pip install --upgrade pip 
 ```
+Then install the Library 
+```bash
 pip install AshCrypt
 ```
 This will install the latest version of `AshCrypt`.

@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: AshCrypt
-Version: 1.0
+Version: 1.0.1
 Summary: Comprehensive AES-256 Cryptography library equipped with a file handling module along with a text module w/ a user-friendly GUI and a database module to store encrypted content.
 Home-page: https://github.com/AshGw/AES-256.git
 Author: Ashref Gwader
@@ -23,10 +23,10 @@ License-File: LICENSE
 ##  Objective ## 
 #### Enhanced Security, Simplicity & Ease of use For Everyone And Anyone Willing To Use AES 256.
 ## Overview ## 
-**Visit [GitHub](https://github.com/AshGw/AES-256/tree/main)**
-<br>The project incorporates a library I made called **Ash.py** : 
+**Visit The [GitHub](https://github.com/AshGw/AES-256/tree/main) Repository**
+<br>The library incorporates a base cryptography mdoule called **Ash** 
 
-<br>A simple, secure, and developer-oriented library for
+<br>A simple, secure, and developer-oriented module for
 encryption and decryption with AES-256 (CBC) . It offers an intuitive
 interface, seamless integration with precompiled 
 functions, and robust security measures to safeguard
@@ -35,7 +35,7 @@ sensitive data,  providing a hassle-free experience when dealing with cryptograp
 
 
 
-The project uses that same module to ensure secure data encryption and decryption for Files and Texts while keeping it very easy and simple to use .
+The library uses that same module to ensure secure data encryption and decryption for Files and Texts while keeping it very easy and simple to use .
 view the headers for **AshFileCrypt**  and **AshTextCrypt** learn more.
 
 It also includes a simple graphical user interface (GUI) for easy interaction with the **AshTextCrypt** module.
@@ -43,17 +43,18 @@ It also includes a simple graphical user interface (GUI) for easy interaction wi
 <br>It also has a qr module associated with it to display the message.
 <br>check **GUI**  for more info.
 
+While The **GUI** is limited to 200 characters of text, if you want to be free over how much data or type of data you want to include, then u can use `CliCrypt.py` which is an innovative command line interface (CLI) designed to provide encryption and decryption capabilities for both text and file data with no constraints
 
 It also incorporates a database module that serve the same purpose which is allowing for the management and storage of classified content in a secure, 
 safe and simple manner, you can use whichever you see fit.
 
 <br>The module has a simple straight forward apporach for dealing with sqlite3 databases, even if youre not familiar with Python itself you can still use this module to run SQL queries and built in functions to perform various operations on a given database.<br>Check **AshDatabase** header to learn more.
 
-## Ash Library ##
-The `Ash.py` library is a comprehensive collection of carefully designed functions and code modules that facilitate optimal performance and reliability in data encryption and decryption operations  while ensuring the utmost security and 
+## Ash Module ##
+The `Ash.py` module is a comprehensive collection of carefully designed functions and code modules that facilitate optimal performance and reliability in data encryption and decryption operations  while ensuring the utmost security and 
 confidentiality.
 
-<br>It uses primitives from the `cryptography.py` library with added security features while keeping it simple and highly flexible to provide a head-ache free solution for developers. 
+<br>It uses primitives from the `cryptography` library with added security features while keeping it simple and highly flexible to provide a head-ache free solution for developers. 
 
 <br>You can check **Features** tag below to learn more about the security features.
 
