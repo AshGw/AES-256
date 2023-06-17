@@ -18,7 +18,7 @@ docker --version
 ```
 The result must be the currently installed version of docker
 
-2) Pulling the image 
+2) Pulling the image
 ```shell
 docker pull ashgw/ashcrypt:1.0
 ```
