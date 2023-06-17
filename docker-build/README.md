@@ -16,15 +16,16 @@ Visit this **[link](https://docs.docker.com/desktop/install/mac-install/)**
 ```shell
 docker --version
 ```
-The result must be the currently installed version of docker 
+The result must be the currently installed version of docker
+
 2) pulling the image 
 ```shell
 docker pull ashgw/ashcrypt:1.0
 ```
 the image is quite lengthy so be patient with the installation process
-2) run the image within a container and give it a name , here im giving it the name `nova`
+3) run the image within a container and give it a name , here im giving it the name `nova`
 ```shell
-docker run -it --name nova ashcrypt:1.0
+docker run -it --name nova ashgw/ashcrypt:1.0
 ```
 Now the container will run and it will automatically start the `CliCrypt.py` file 
 <br>
@@ -36,5 +37,5 @@ If you want to run the container with the same as you've ran it the first time u
 ```
 docker start -ia nova 
 ```
-keep in  mind that you can either call by `id` or name 
+keep in  mind that you can either call by `id` or name.
 <br>That's it so simple.
