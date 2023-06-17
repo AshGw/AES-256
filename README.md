@@ -48,6 +48,12 @@ curl -sSfL https://raw.githubusercontent.com/AshGw/AES-256/main/important/setup.
 This will run the commands in [setup.sh](important/setup.sh).
 <br>It will clone & install all the dependencies needed on your machine inside the directory you're currently at.
 <br>The `CliCrypt` will pop off automatically and you can start using it right away.
+<br>If you're testing how this works on a Debian based Docker container you can run this command to set the environment before you run the command above
+```bash
+curl -sSfL https://github.com/AshGw/AES-256/blob/main/docker-build/env-setup.sh
+```
+
+
 <details>
 <summary>Got Errors ?</summary>
 
