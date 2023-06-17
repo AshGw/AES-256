@@ -50,8 +50,7 @@ pip install AshCrypt
 This will install the latest version of `AshCrypt`.
 You can start using it in your code by importing its modules : 
 ```python
-from AshCrypt.
-from AshCrypt.Ash import Enc.genMainkey()
+from AshCrypt.Ash import *
 ```
 <br>That's it.
 <br>Now if you want to get the whole repo without manual configurations
