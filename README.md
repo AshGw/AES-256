@@ -31,6 +31,15 @@ It also includes a simple graphical user interface (GUI) for easy interaction wi
 
 While The **GUI** is limited to 200 characters of text, if you want to be free over how much data or type of data you want to include, then u can use `CliCrypt.py` which is an innovative command line interface (CLI) designed to provide encryption and decryption capabilities for both text and file data with no constraints.
 
+**After the library is installed** 
+<br>To run the GUI 
+```shell
+python -m AshCrypt.AshCryptGUI
+```
+To run the CLI 
+```shell
+python -m AshCrypt.CliCrypt
+```
 
 It also incorporates a database module that serve the same purpose which is allowing for the management and storage of classified content in a secure, 
 safe and simple manner, you can use whichever you see fit.
@@ -249,6 +258,10 @@ from AshTextCrypt import *
 import qr
 
 key = 'c3066e464350e68a144d6be3e35c879eac1b9f360139443ee3d9e1960725d6a4d3379af0a35b6a07d083ecc29c4ba03767ad6d48b8e9c20d319dd459da52a91a'
+```
+<br>To run the GUI anywhere
+```shell
+python -m AshCrypt.AshCryptGUI
 ```
 ### QR ## 
 The `qr.py` module is used to display a qr code of the encrypted/decrypted messages to be quickly scanned and transmitted , you can use qr versions from `1` to `40` , although I recommend using `40` since it can take the maximum number of characters for small files , and `10` if you're working with the GUI which is intended for text/short messages,

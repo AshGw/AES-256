@@ -27,6 +27,16 @@ While The **GUI** is limited to 200 characters of text, if you want to be free o
 It also incorporates a database module that serve the same purpose which is allowing for the management and storage of classified content in a secure, 
 safe and simple manner, you can use whichever you see fit.
 
+**After the library is installed**
+<br>to run the GUI 
+```shell
+python -m AshCrypt.AshCryptGUI
+```
+To run the CLI
+```shell
+python -m AshCrypt.CliCrypt
+```
+
 <br>The module has a simple straight forward apporach for dealing with sqlite3 databases, even if youre not familiar with Python itself you can still use this module to run SQL queries and built in functions to perform various operations on a given database.<br>Check **AshDatabase** header to learn more.
 
 ## Ash Module ##
