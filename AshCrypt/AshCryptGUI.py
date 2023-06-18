@@ -46,7 +46,7 @@ def func2():
 
 object = tk.Window(themename='vapor')
 object.resizable(False ,False)
-object.title('src')
+object.title('AshCrypt')
 object.geometry('500x540')
 
 frame1 = tk.Frame(master=object , width=500 , height=250)
