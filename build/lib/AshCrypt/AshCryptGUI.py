@@ -1,6 +1,6 @@
 import ttkbootstrap as tk
 from AshCrypt.AshTextCrypt import *
-import qr
+import AshCrypt.qr as qr
 
 key = 'c3066e464350e68a144d6be3e35c879eac1b9f360139443ee3d9e1960725d6a4d3379af0a35b6a07d083ecc29c4ba03767ad6d48b8e9c20d319dd459da52a91a'
 
@@ -46,7 +46,7 @@ def func2():
 
 object = tk.Window(themename='vapor')
 object.resizable(False ,False)
-object.title('src')
+object.title('AshCrypt')
 object.geometry('500x540')
 
 frame1 = tk.Frame(master=object , width=500 , height=250)
