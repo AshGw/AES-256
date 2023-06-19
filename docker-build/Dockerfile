@@ -1,7 +1,7 @@
 FROM python:3.8
 
 LABEL name="AshCrypt"
-LABEL version="1.0.1"
+LABEL version="1.1"
 LABEL maintainer="AshrefGw@pronton.me>"
 LABEL url="https://github.com/AshGw/AES-256.git"
 LABEL description="AES-256 For Files/Text"
