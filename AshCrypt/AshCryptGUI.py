@@ -1,4 +1,7 @@
 import ttkbootstrap as tk
+
+'''-------------------------------TEXT DECRYPTION/ENCRYPTION STARTED---------------------------------------------------'''
+
 from AshCrypt.AshTextCrypt import *
 import AshCrypt.qr as qr
 
@@ -49,58 +52,59 @@ object.resizable(False ,False)
 object.title('AshCrypt')
 object.geometry('500x540')
 
-frame1 = tk.Frame(master=object , width=500 , height=250)
-frame1.place(x=0 , y=0)
-frame2 = tk.Frame(master=object , width=500 , height=250)
-frame2.place(x=0 , y=250)
+textFrame1 = tk.Frame(master=object , width=500 , height=250)
+textFrame1.place(x=0 , y=0)
+textFrame2 = tk.Frame(master=object , width=500 , height=250)
+textFrame2.place(x=0 , y=250)
 
 
-button1 = tk.Button(master=frame1 ,text='COMPUTE', command=encryption, bootstyle='light outline').place(relx=0.42, rely=0.73)
-button2 = tk.Button(master=frame2 , text='COMPUTE', command=decryption,bootstyle='light outline').place(relx=0.42,rely=0.8)
+button1 = tk.Button(master=textFrame1 ,text='COMPUTE', command=encryption, bootstyle='light outline').place(relx=0.42, rely=0.73)
+button2 = tk.Button(master=textFrame2 , text='COMPUTE', command=decryption,bootstyle='light outline').place(relx=0.42,rely=0.8)
 
 inputfield1_1 = tk.StringVar()
-textfield1_1 = tk.Entry(master=frame1 ,
+textfield1_1 = tk.Entry(master=textFrame1 ,
                         width=20,
                         font='terminal 13 bold',
                         textvariable=inputfield1_1).place(relx=0.279 , rely=0.30)
 
 inputfield2_1 = tk.StringVar(value='')
-textfield2_1 = tk.Entry(master=frame2 ,
+textfield2_1 = tk.Entry(master=textFrame2 ,
                         font='terminal 11 bold',
+                        width=20,
                         textvariable=inputfield2_1).place(relx=0.290 ,rely=0.38)
 
-namelabel1 = tk.Label(master=frame1 ,
+namelabel1 = tk.Label(master=textFrame1 ,
                       text='ENCRYPTION',
                       font='Terminal 20' ,
                       )
 namelabel1.place(relx=0.270 ,rely=0.10)
-namelabel2 = tk.Label(master=frame2 ,
+namelabel2 = tk.Label(master=textFrame2 ,
                       text='DECRYPTION' ,
                       font='terminal 20'  ,
                       ).place(relx=0.280 ,rely=0.200)
 
 outputvar1 = tk.StringVar(value='')
-outputlabel1 =  tk.Entry(master= frame1,
+outputlabel1 =  tk.Entry(master= textFrame1,
                          textvariable=outputvar1,
-                         font='terminal 11 bold').place(relx= 0,
+                         font='terminal 11 bold').place(relx= 0.02,
                                                        rely= 0.48 ,
-                                                       width= 1000000,
+                                                       width= 478,
                                                        height= 50)
 outputvar2 = tk.StringVar(value='')
-outputlabel2 = tk.Entry(master=frame2 ,
+outputlabel2 = tk.Entry(master=textFrame2 ,
                         textvariable= outputvar2 ,
-                        font='terminal 11 bold').place(relx= 0 ,
-                                        rely= 0.55 ,
-                                        width= 1000000 ,
-                                        height= 50)
+                        font='terminal 11 bold').place(relx= 0.02,
+                                                       rely= 0.55,
+                                                       width= 478,
+                                                       height= 50)
 
 
 
-label1 = tk.Label(master=frame1,text='QR',font=('terminal',17))
+label1 = tk.Label(master=textFrame1,text='QR',font=('terminal',17))
 label1.place(relx=0.2,rely=0.75)
 var1 = tk.IntVar()
 mytoolbutt3 = tk.Checkbutton(bootstyle='success , round-toggle',
-                        master=frame1,
+                        master=textFrame1,
                         variable=var1,
                         offvalue=0,
                         command=func1)
@@ -110,11 +114,11 @@ mytoolbutt3.place(relx=0.1,rely=0.77)
 
 
 
-label2 = tk.Label(master=frame2,text='QR',font=('terminal',17))
+label2 = tk.Label(master=textFrame2,text='QR',font=('terminal',17))
 label2.place(relx=0.2,rely=0.82)
 var2 = tk.IntVar()
 mytoolbutt6 = tk.Checkbutton(bootstyle='success , round-toggle',
-                        master=frame2,
+                        master=textFrame2,
                         variable=var2,
                         offvalue=0,
                         command=func2)
@@ -122,11 +126,14 @@ mytoolbutt6 = tk.Checkbutton(bootstyle='success , round-toggle',
 mytoolbutt6.place(relx=0.1,rely=0.84)
 
 
-progressbar = tk.Progressbar(master=frame1,mode='indeterminate',style='secondary',length=100,)
+progressbar = tk.Progressbar(master=textFrame1,mode='indeterminate',style='secondary',length=100,)
 progressbar.place(relx=0.05,rely=0.34)
 
-progressbar2 = tk.Progressbar(master=frame2,mode='indeterminate',style='secondary',length=100,)
+progressbar2 = tk.Progressbar(master=textFrame2,mode='indeterminate',style='secondary',length=100,)
 progressbar2.place(relx=0.05,rely=0.42)
+
+'''-------------------------------TEXT DECRYPTION/ENCRYPTION ENDED---------------------------------------------------'''
+
 
 
 if __name__ == '__main__':
