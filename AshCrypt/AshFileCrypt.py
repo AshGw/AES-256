@@ -28,18 +28,19 @@ class CryptFile():
                 return 0
         else:
             return 2
-    def encrypt(self) -> int :
-        try :
+
+    def encrypt(self) -> int:
+        try:
             if not os.path.exists(self.filename):
                 return 3
-            else :
+            else:
                 with open(self.filename, 'rb') as f:
                     filecontent = f.read()
                 with open(self.filename, 'wb') as f:
                     if filecontent:
                         try:
-                            ins = Ash.Enc(message=filecontent,mainkey=self.key)
-                            new_content= ins.encToBytes()
+                            ins = Ash.Enc(message=filecontent, mainkey=self.key)
+                            new_content = ins.encToBytes()
                             f.write(new_content)
                             return 1
                         except:
@@ -48,29 +49,30 @@ class CryptFile():
                     else:
                         f.write(filecontent)
                         return 2
-        except Exception :
+        except Exception:
             return 4
-    def decrypt(self) -> int :
-        try :
+
+    def decrypt(self) -> int:
+        try:
             if not os.path.exists(self.filename):
                 return 3
-            else :
+            else:
                 with open(self.filename, 'rb') as f:
                     enc_content = f.read()
-                if enc_content:
-                    with open(self.filename, 'wb') as f:
+                with open(self.filename, 'wb') as f:
+                    if enc_content:
                         try:
-                            ins = Ash.Dec(message=enc_content,mainkey=self.key)
+                            ins = Ash.Dec(message=enc_content, mainkey=self.key)
                             a = ins.decToBytes()
                             f.write(a)
                             return 1
                         except Exception:
                             f.write(enc_content)
                             return 0
-                else:
-                    f.write(enc_content)
-                    return 2
-        except Exception :
+                    else:
+                        f.write(enc_content)
+                        return 2
+        except Exception:
             return 4
 
     def __str__(self):

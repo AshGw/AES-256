@@ -183,8 +183,7 @@ def file_enc():
             if a == 3:
                 print(f'The file named : "{filename}" does not exists , try specifying the whole sys path')
             if a == 0:
-                print('Error in the encryption process. Check if the the file is distorted or it might just be '
-                      'encrypted already')
+                print('Error in the encryption process. Check if the the file is distorted')
             elif a == 4 :
                 print('Unknown Error has occurred\n')
 
