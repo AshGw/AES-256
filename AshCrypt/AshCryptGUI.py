@@ -1,18 +1,14 @@
 import ttkbootstrap as tk
 '''--------------------------------------FRAMING STARTED-------------------------------------------------------------'''
 
-
 object = tk.Window(themename='vapor')
 object.resizable(False ,False)
 object.title('AshCrypt')
-object.geometry('1500x700')
+object.geometry('1500x800')
 
 
-databaseFrame1 = tk.Frame(master=object , width=500 , height=250)
-databaseFrame1.place(x=0 , y=0)
-
-databaseFrame2 = tk.Frame(master=object , width=500 , height=250)
-databaseFrame2.place(x=0 , y=250)
+databaseFrame = tk.Frame(master=object , width=500 , height=800)
+databaseFrame.place(x=0 , y=0)
 
 frameFile1 = tk.Frame(master=object , width=500 , height=250)
 frameFile1.place(x=500 , y=0)
@@ -26,12 +22,60 @@ textFrame1.place(x=1000 , y=0)
 textFrame2 = tk.Frame(master=object , width=500 , height=250)
 textFrame2.place(x=1000 , y=250)
 
-
+lowerFrame = tk.Frame(master=object, width=1000 ,height=260)
+lowerFrame.place(x=500,y=540)
 
 
 '''--------------------------------------FRAMING DONE--------------------------------------------------------------'''
 
+'''---------------------------------------QR SETUP STARTED-----------------------------------------------------------'''
+#
+#
+# import qrcode
+# from typing import Union
+#
+# def encQR(text : str) -> Union [int,tuple] :
+#     try:
+#         x = text.strip()
+#         qr = qrcode.QRCode(version = 10,error_correction=qrcode.constants.ERROR_CORRECT_L,box_size=20,border=1)
+#         qr.add_data(x)
+#         qr.make(fit=True)
+#         img = qr.make_image(fill_color = "black", back_color="white")
+#         img.save(("encQR.png"))
+#         img.show()
+#         return 1
+#     except Exception as e :
+#         return (0,e)
+#
+# def decQR(text : str) -> Union [int,tuple] :
+#     try:
+#         x = text.strip()
+#         qr = qrcode.QRCode(version = 10,error_correction=qrcode.constants.ERROR_CORRECT_L,box_size=20,border=1)
+#         qr.add_data(x)
+#         qr.make(fit=True)
+#         img = qr.make_image(fill_color = "black", back_color="white")
+#         img.save(("decQR.png"))
+#         img.show()
+#         return 1
+#
+#     except Exception as e :
+#         return (0,e)
 
+'''---------------------------------------QR SETUP ENDED-----------------------------------------------------------'''
+
+
+
+'''----------------------------------------LOWER FRAME STARTED--------------------------------------------------------'''
+# from PIL import ImageTk , Image
+# theEncryptedQR = encImageHold.configure(height=220,width=220)
+# resizedImageEnc = theEncryptedQR
+# photoEncQR = ImageTk.PhotoImage(resizedImageEnc)
+# theEncryptedQRLabel = tk.Label(master=lowerFrame,image=photoEncQR)
+# theEncryptedQRLabel.place(x=1210 , y=10)
+
+
+
+'''----------------------------------------LOWER FRAME ENDED----------------------------------------------------------'''
 
 
 
@@ -91,8 +135,8 @@ def func2():
         label2.config(text='QR OFF')
 
 
-button1 = tk.Button(master=textFrame1 ,text='COMPUTE', command=encryption, bootstyle='light outline').place(relx=0.42, rely=0.73)
-button2 = tk.Button(master=textFrame2 , text='COMPUTE', command=decryption,bootstyle='light outline').place(relx=0.42,rely=0.8)
+button1 = tk.Button(master=textFrame1 ,text='ENCRYPT', command=encryption, bootstyle='light outline').place(relx=0.42, rely=0.73)
+button2 = tk.Button(master=textFrame2 , text='DECRYPT', command=decryption,bootstyle='light outline').place(relx=0.42,rely=0.8)
 
 inputfield1_1 = tk.StringVar()
 textfield1_1 = tk.Entry(master=textFrame1 ,
@@ -108,13 +152,13 @@ textfield2_1 = tk.Entry(master=textFrame2 ,
 
 namelabel1 = tk.Label(master=textFrame1 ,
                       text='ENCRYPTION',
-                      font='Terminal 20' ,
+                      font='Calibre 20' ,
                       )
-namelabel1.place(relx=0.270 ,rely=0.10)
+namelabel1.place(relx=0.291 ,rely=0.10)
 namelabel2 = tk.Label(master=textFrame2 ,
                       text='DECRYPTION' ,
-                      font='terminal 20'  ,
-                      ).place(relx=0.280 ,rely=0.200)
+                      font='Calibre 20'  ,
+                      ).place(relx=0.298 ,rely=0.200)
 
 outputvar1 = tk.StringVar(value='')
 outputlabel1 =  tk.Entry(master= textFrame1,
@@ -180,9 +224,9 @@ progressbar2.place(relx=0.05,rely=0.42)
 
 filepathlabel = tk.Label(master=frameFile1 ,
                       text='FILE PATH',
-                      font='Terminal 20' ,
+                      font='Calibre 20' ,
                       )
-filepathlabel.place(relx=0.293 ,rely=0.10)
+filepathlabel.place(relx=0.336,rely=0.10)
 
 
 resultvarfile = tk.StringVar(value='                  ..RESULT..')
@@ -252,8 +296,8 @@ filenametext = tk.Entry(master=frameFile1 ,
 
 #################################################################################"
 
-addtodbLabel = tk.Label(master=frameFile1,text='ADD TO DATABASE',font=('terminal',11))
-addtodbLabel.place(relx=0.36,rely=0.91)
+addtodbLabel = tk.Label(master=frameFile1,text='ADD TO DATABASE',font=('Calibre',11))
+addtodbLabel.place(relx=0.35,rely=0.908)
 
 
 def encToggleButtFunc():
@@ -297,9 +341,9 @@ def mainKeyWrapper():
 
 mainkeyLabel = tk.Label(master=frameFile2 ,
                       text='MAIN KEY' ,
-                      font='terminal 20',
+                      font='Calibre 20',
                       bootstyle='secondary',
-                      ).place(relx=0.195 ,rely=0.100)
+                      ).place(relx=0.3 ,rely=0.075)
 
 
 mainkeyvar = tk.StringVar()
@@ -353,6 +397,79 @@ keyButton = tk.Button(master=frameFile2 ,text='GENERATE', command=genSideKey, bo
 
 
 '''-------------------------------FILE ENCRYPTION/DECRYPTION ENDED--------------------------------------------'''
+
+
+
+
+'''--------------------------------------DATA BASE FRAME STARTED------------------------------------------------'''
+
+
+databaseFrame = tk.Frame(master=object,height=800, width=500)
+databaseFrame.place(rely=0, relx=0)
+
+console_label = tk.Label(master=databaseFrame, text='DATABASE OUTPUT CONSOLE', font='Terminal 15 bold')
+console_label.place( relx=0.09,rely=0.04)
+
+display_text_variable = 'Here is the output...'
+
+db_display_text = tk.ScrolledText(width=36 , height=30, font='Terminal 10 bold')
+db_display_text.insert(tk.END,display_text_variable)
+db_display_text.place(relx=0.01 ,rely=0.105)
+
+###### FUNCTIONS ######
+def show_all_content():
+    pass
+
+def show_content():
+    pass
+
+def show_all_tables():
+    pass
+def drop_all_tables():
+    pass
+
+def drop_content():
+    pass
+
+
+########## FUNCTIONS DONE ###########
+
+show_all_content_button = tk.Button(master=databaseFrame,text='SHOW ALL TABLE CONTENT',command=show_all_content,bootstyle='light outline')
+show_all_content_button.place(relx=0.278,rely=0.75)
+
+show_all_tables_button = tk.Button(master=databaseFrame,text='SHOW ALL TABLES',command=show_all_tables,bootstyle='light outline')
+show_all_tables_button.place(relx=0.342,rely=0.81)
+
+drop_all_tables_button = tk.Button(master=databaseFrame,text='DROP ALL TABLES',command=drop_all_tables,bootstyle='light outline')
+drop_all_tables_button.place(relx=0.344,rely=0.87)
+
+
+
+drop_content_button = tk.Button(master=databaseFrame,text='DROP CONTENT BY ID',command=drop_content,bootstyle='light outline')
+drop_content_button.place(relx=0.08,rely=0.93)
+
+content_id_entry_var = tk.StringVar(value=' ID')
+content_id_entry = tk.Entry(master=databaseFrame,textvariable=content_id_entry_var,width=3,font='Calibre 11')
+content_id_entry.place(relx=0.45,rely=0.93)
+
+show_content_button = tk.Button(master=databaseFrame,text='SHOW CONTENT BY ID',command=show_content,bootstyle='light outline')
+show_content_button.place(relx=0.562,rely=0.93)
+
+
+
+'''--------------------------------------DATA BASE FRAME ENDED------------------------------------------------'''
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 if __name__ == '__main__':
