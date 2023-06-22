@@ -1,3 +1,5 @@
+import os.path
+
 import ttkbootstrap as tk
 '''--------------------------------------FRAMING STARTED-------------------------------------------------------------'''
 
@@ -296,7 +298,7 @@ filenametext = tk.Entry(master=frameFile1 ,
 
 #################################################################################"
 
-addtodbLabel = tk.Label(master=frameFile1,text='ADD TO DATABASE',font=('Calibre',11))
+addtodbLabel = tk.Label(master=frameFile1,text='ADD TO DATABASE',font=('Calibre',11),bootstyle='warning')
 addtodbLabel.place(relx=0.35,rely=0.908)
 
 
@@ -410,10 +412,9 @@ databaseFrame.place(rely=0, relx=0)
 console_label = tk.Label(master=databaseFrame, text='DATABASE OUTPUT CONSOLE', font='Terminal 15 bold')
 console_label.place( relx=0.09,rely=0.04)
 
-display_text_variable = 'Here is the output...'
 
-db_display_text = tk.ScrolledText(width=34 , height=30, font='Terminal 10 bold')
-db_display_text.insert(tk.END,display_text_variable)
+db_display_text = tk.ScrolledText(width=36 , height=30, font='Terminal 10',wrap='word')
+db_display_text.insert(tk.END,'Waiting to fetch..')
 db_display_text.place(relx=0.015 ,rely=0.105)
 
 ###### FUNCTIONS ######
@@ -434,25 +435,25 @@ def drop_content():
 
 ########## FUNCTIONS DONE ###########
 
-show_all_content_button = tk.Button(master=databaseFrame,text='SHOW ALL TABLE CONTENT',command=show_all_content,bootstyle='light outline')
-show_all_content_button.place(relx=0.278,rely=0.75)
+show_all_content_button = tk.Button(master=databaseFrame,text='SHOW ALL TABLE CONTENT',command=show_all_content,bootstyle='warning outline')
+show_all_content_button.place(relx=0.279,rely=0.75)
 
-show_all_tables_button = tk.Button(master=databaseFrame,text='SHOW ALL TABLES',command=show_all_tables,bootstyle='light outline')
+show_all_tables_button = tk.Button(master=databaseFrame,text='SHOW ALL TABLES',command=show_all_tables,bootstyle='warning outline')
 show_all_tables_button.place(relx=0.342,rely=0.81)
 
-drop_all_tables_button = tk.Button(master=databaseFrame,text='DROP ALL TABLES',command=drop_all_tables,bootstyle='light outline')
+drop_all_tables_button = tk.Button(master=databaseFrame,text='DROP ALL TABLES',command=drop_all_tables,bootstyle='warning outline')
 drop_all_tables_button.place(relx=0.344,rely=0.87)
 
 
 
-drop_content_button = tk.Button(master=databaseFrame,text='DROP CONTENT BY ID',command=drop_content,bootstyle='light outline')
+drop_content_button = tk.Button(master=databaseFrame,text='DROP CONTENT BY ID',command=drop_content,bootstyle='warning outline')
 drop_content_button.place(relx=0.08,rely=0.93)
 
 content_id_entry_var = tk.StringVar(value=' ID')
 content_id_entry = tk.Entry(master=databaseFrame,textvariable=content_id_entry_var,width=3,font='Calibre 11')
 content_id_entry.place(relx=0.45,rely=0.93)
 
-show_content_button = tk.Button(master=databaseFrame,text='SHOW CONTENT BY ID',command=show_content,bootstyle='light outline')
+show_content_button = tk.Button(master=databaseFrame,text='SHOW CONTENT BY ID',command=show_content,bootstyle='warning outline')
 show_content_button.place(relx=0.562,rely=0.93)
 
 
@@ -462,7 +463,7 @@ show_content_button.place(relx=0.562,rely=0.93)
 
 '''--------------------------------------CREATING DEMO DB-----------------------------------------------------------------------'''
 import AshCrypt.AshDatabase as db
-conn = db.Database('test.db')
+conn = db.Database('database1.db')
 conn.addtable()
 key = '#5482A'
 conn.insert('My Accounts', 'some encrypted content of bytes or strings', key)
@@ -493,55 +494,134 @@ def show_current_IDs():
 def show_cwd():
     pass
 
-import string
-def set_db_name():
-    global db_blocker
-    db_name = db_name_var.get()
-    valid_count = 0
-    if len(db_name)>0:
-        for e in db_name:
-            if e in (string.ascii_letters + string.digits + '-' + '.' + '_'):
-                valid_count += 1
-        if valid_count == len(db_name):
-            db_blocker = 1
+
+def set_db_path():
+    global db_path_blocker
+    path = db_path_var.get()
+    if os.path.isdir(path.strip()) :
+        db_path_blocker = 1
+        db_path_result_var.set('SET')
+    else :
+        db_path_blocker = 0
+        db_path_result_var.set('NOT SET')
+
+
+import re
+
+main_db_name_blocker = 0
+db_already_exists_blocker = 0
+def main_db_name():
+    global main_db_name_blocker,db_already_exists_blocker,db_display_text
+    name = main_db_name_var.get().strip()
+    if re.match(r'((^[\w(-.)?]+\.db$)|(^[\w?(-.)]\.db+$))', name):
+        main_db_name_blocker = 1
+        main_db_name_result_var.set('SET')
+        fullpath = db_path_var.get().strip()
+        if os.path.isfile(fullpath + f'\\{name}') or os.path.isfile(fullpath + f'/{name}')  :
+            db_already_exists_blocker = 1
+            main_db_name_result_var.set('CONNECTED')
+            db_display_text.delete('1.0', tk.END)
+            db_display_text.insert(tk.END, f'Connected to {name}..')
+        else:
+            db_already_exists_blocker = 0
     else:
-        db_blocker = 0
+        main_db_name_result_var.set('NOT SET')
+        main_db_name_blocker = 0
 
 
 
-db_blocker = 0
-db_name_var = tk.StringVar()
-db_name_entry = tk.Entry(master=lowerFrame ,
+
+
+
+
+
+db_path_blocker = 0
+db_path_var = tk.StringVar()
+db_path_entry = tk.Entry(master=lowerFrame ,
                         width=22,
                         font='terminal 15 bold',
-                        textvariable=db_name_var).place(relx=0.03, rely=0.04)
-
-set_db_button = tk.Button(master=lowerFrame , text='SUBMIT DATABASE NAME', command=set_db_name,bootstyle='secondary outline')
-set_db_button.place(relx=0.45,rely=0.048)
+                        textvariable=db_path_var).place(relx=0.03, rely=0)
 
 
-db_analysis_label = tk.Label(master=lowerFrame,text='DATABASE', font='Calibre 13 bold')
-db_analysis_label.place(relx=0.03,rely=0.21)
+db_path_result_var = tk.StringVar(value='')
+db_path_result_entry = tk.Label(master=lowerFrame ,
+                        width=22,
+                        font='terminal 15 bold',
+                        bootstyle='info',
+                        textvariable=db_path_result_var).place(relx=0.71, rely=0.018)
 
-database_cwd_label = tk.Label(master=lowerFrame,text='PATH :', font='Calibre 11')
-database_cwd_label.place(relx=0.05,rely=0.35)
-
-size_label = tk.Label(master=lowerFrame,text='SIZE (MB) :', font='Calibre 11')
-size_label.place(relx=0.05,rely=0.46)
+set_db_path_button = tk.Button(master=lowerFrame , text='SUBMIT DATABASES DIRECTORY', command=set_db_path,bootstyle='info outline')
+set_db_path_button.place(relx=0.45,rely=0.008)
 
 
-last_mod_label = tk.Label(master=lowerFrame,text='LAST MODIFICATION :', font='Calibre 11')
-last_mod_label.place(relx=0.05,rely=0.57)
 
-latest_ID_label = tk.Label(master=lowerFrame,text='LATEST INSERTED ID :', font='Calibre 11')
-latest_ID_label.place(relx=0.05,rely=0.68)
+main_db_name_var = tk.StringVar()
+main_db_name_entry = tk.Entry(master=lowerFrame ,
+                        width=11,
+                        font='terminal 15 bold',
+                        textvariable=main_db_name_var).place(relx=0.03, rely=0.192)
+
+main_db_name_result_var = tk.StringVar(value='')
+main_db_name_result_entry = tk.Label(master=lowerFrame ,
+                        width=22,
+                        font='terminal 15 bold',
+                        bootstyle='warning',
+                        textvariable=main_db_name_result_var).place(relx=0.46, rely=0.214)
+
+main_db_name_button = tk.Button(master=lowerFrame , text='MAIN DATABASE NAME', command=main_db_name,bootstyle='warning outline')
+main_db_name_button.place(relx=0.253,rely=0.2)
+
+
+
+
+
+
+db_analysis_label = tk.Label(master=lowerFrame,text='MAIN DATABASE', font='Calibre 13 bold')
+db_analysis_label.place(relx=0.03,rely=0.37)
+
+database_cwd_label = tk.Label(master=lowerFrame,text='NAME', font='Calibre 11')
+database_cwd_label.place(relx=0.05,rely=0.49)
+
+size_label = tk.Label(master=lowerFrame,text='SIZE (MB)', font='Calibre 11')
+size_label.place(relx=0.05,rely=0.60)
+
+
+last_mod_label = tk.Label(master=lowerFrame,text='LAST MODIFICATION', font='Calibre 11')
+last_mod_label.place(relx=0.05,rely=0.71)
+
+latest_ID_label = tk.Label(master=lowerFrame,text='LATEST INSERTED ID', font='Calibre 11')
+latest_ID_label.place(relx=0.05,rely=0.82)
+
+
+
+
+
+db_analysis_key_label = tk.Label(master=lowerFrame,text='KEYS DATABASE', font='Calibre 13 bold')
+db_analysis_key_label.place(relx=0.441,rely=0.37)
+
+database_cwd_key_label = tk.Label(master=lowerFrame,text='AUTO NAME', font='Calibre 11')
+database_cwd_key_label.place(relx=0.461,rely=0.49)
+
+size_key_label = tk.Label(master=lowerFrame,text='SIZE (MB)', font='Calibre 11')
+size_key_label.place(relx=0.461,rely=0.60)
+
+
+last_mod_key_label = tk.Label(master=lowerFrame,text='LAST MODIFICATION', font='Calibre 11')
+last_mod_key_label.place(relx=0.461,rely=0.71)
+
+latest_ID_key_label = tk.Label(master=lowerFrame,text='LATEST INSERTED ID', font='Calibre 11')
+latest_ID_key_label.place(relx=0.461,rely=0.82)
 
 '''----------------------------------------LOWER FRAME ENDED----------------------------------'''
 
 
+'''---------------------------------------STAMP STARTED -------------------------------------------------------'''
 
 
+latest_ID_key_label = tk.Label(master=lowerFrame,text='Github.com/AshGw/AES-256', font='Calibre 6')
+latest_ID_key_label.place(relx=0.85,rely=0.92)
 
+'''---------------------------------------STAMP ENDED-------------------------------------------------------'''
 
 
 
@@ -553,3 +633,5 @@ latest_ID_label.place(relx=0.05,rely=0.68)
 
 if __name__ == '__main__':
     object.mainloop()
+
+
