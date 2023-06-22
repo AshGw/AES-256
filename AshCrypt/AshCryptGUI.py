@@ -412,9 +412,9 @@ console_label.place( relx=0.09,rely=0.04)
 
 display_text_variable = 'Here is the output...'
 
-db_display_text = tk.ScrolledText(width=36 , height=30, font='Terminal 10 bold')
+db_display_text = tk.ScrolledText(width=34 , height=30, font='Terminal 10 bold')
 db_display_text.insert(tk.END,display_text_variable)
-db_display_text.place(relx=0.01 ,rely=0.105)
+db_display_text.place(relx=0.015 ,rely=0.105)
 
 ###### FUNCTIONS ######
 def show_all_content():
@@ -460,6 +460,85 @@ show_content_button.place(relx=0.562,rely=0.93)
 '''--------------------------------------DATA BASE FRAME ENDED------------------------------------------------'''
 
 
+'''--------------------------------------CREATING DEMO DB-----------------------------------------------------------------------'''
+import AshCrypt.AshDatabase as db
+conn = db.Database('test.db')
+conn.addtable()
+key = '#5482A'
+conn.insert('My Accounts', 'some encrypted content of bytes or strings', key)
+for e in conn.show_tables():
+    print(e)
+print(conn.size)
+query1 = 'SELECT COUNT(*) AS cc ,content FROM Classified WHERE key = "#5482A" ORDER BY cc DESC '
+print(conn.query(query1))
+
+
+'''---------------------------------------CREATING DEMO DB DONE-----------------------------------------------------------'''
+'''----------------------------------------LOWER FRAME STARTED----------------------------------'''
+
+
+
+lowerFrame = tk.Frame(master=object, width=1000 ,height=260)
+lowerFrame.place(x=500,y=540)           ##### MUST CHANGE ####
+
+def show_db_size():
+    pass
+
+def show_last_mod():
+    pass
+
+def show_current_IDs():
+    pass
+
+def show_cwd():
+    pass
+
+import string
+def set_db_name():
+    global db_blocker
+    db_name = db_name_var.get()
+    valid_count = 0
+    if len(db_name)>0:
+        for e in db_name:
+            if e in (string.ascii_letters + string.digits + '-' + '.' + '_'):
+                valid_count += 1
+        if valid_count == len(db_name):
+            db_blocker = 1
+    else:
+        db_blocker = 0
+
+
+
+db_blocker = 0
+db_name_var = tk.StringVar()
+db_name_entry = tk.Entry(master=lowerFrame ,
+                        width=22,
+                        font='terminal 15 bold',
+                        textvariable=db_name_var).place(relx=0.03, rely=0.04)
+
+set_db_button = tk.Button(master=lowerFrame , text='SUBMIT DATABASE NAME', command=set_db_name,bootstyle='secondary outline')
+set_db_button.place(relx=0.45,rely=0.048)
+
+
+db_analysis_label = tk.Label(master=lowerFrame,text='DATABASE', font='Calibre 13 bold')
+db_analysis_label.place(relx=0.03,rely=0.21)
+
+database_cwd_label = tk.Label(master=lowerFrame,text='PATH :', font='Calibre 11')
+database_cwd_label.place(relx=0.05,rely=0.35)
+
+size_label = tk.Label(master=lowerFrame,text='SIZE (MB) :', font='Calibre 11')
+size_label.place(relx=0.05,rely=0.46)
+
+
+last_mod_label = tk.Label(master=lowerFrame,text='LAST MODIFICATION :', font='Calibre 11')
+last_mod_label.place(relx=0.05,rely=0.57)
+
+latest_ID_label = tk.Label(master=lowerFrame,text='LATEST INSERTED ID :', font='Calibre 11')
+latest_ID_label.place(relx=0.05,rely=0.68)
+
+'''----------------------------------------LOWER FRAME ENDED----------------------------------'''
+
+
 
 
 
@@ -474,4 +553,3 @@ show_content_button.place(relx=0.562,rely=0.93)
 
 if __name__ == '__main__':
     object.mainloop()
-
