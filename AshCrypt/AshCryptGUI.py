@@ -1,4 +1,5 @@
 import os.path
+import time
 
 import ttkbootstrap as tk
 '''--------------------------------------FRAMING STARTED-------------------------------------------------------------'''
@@ -494,29 +495,33 @@ def show_current_IDs():
 def show_cwd():
     pass
 
-
+db_path_blocker = 0
+usable_real_path = ''
 def set_db_path():
-    global db_path_blocker
-    path = db_path_var.get()
+    global db_path_blocker,usable_real_path
+    path = db_path_var.get().strip()
     if os.path.isdir(path.strip()) :
         db_path_blocker = 1
         db_path_result_var.set('SET')
+        usable_real_path = path
     else :
         db_path_blocker = 0
         db_path_result_var.set('NOT SET')
+        usable_real_path = ''
 
 
 import re
 
 main_db_name_blocker = 0
 db_already_exists_blocker = 0
+
 def main_db_name():
-    global main_db_name_blocker,db_already_exists_blocker,db_display_text
+    global main_db_name_blocker,db_already_exists_blocker,usable_real_path
     name = main_db_name_var.get().strip()
     if re.match(r'((^[\w(-.)?]+\.db$)|(^[\w?(-.)]\.db+$))', name):
         main_db_name_blocker = 1
         main_db_name_result_var.set('SET')
-        fullpath = db_path_var.get().strip()
+        fullpath = usable_real_path
         if os.path.isfile(fullpath + f'\\{name}') or os.path.isfile(fullpath + f'/{name}')  :
             db_already_exists_blocker = 1
             main_db_name_result_var.set('CONNECTED')
@@ -524,53 +529,71 @@ def main_db_name():
             db_display_text.insert(tk.END, f'Connected to {name}..')
         else:
             db_already_exists_blocker = 0
+            if os.path.isdir(fullpath):
+                db_display_text.delete('1.0', tk.END)
+                db_display_text.insert(tk.END, f"Created '{name}'.. in the directory '{fullpath}'")
+            else:
+                db_display_text.delete('1.0', tk.END)
+                db_display_text.insert(tk.END, f"PATH : '{fullpath}' is not a valid path")
     else:
         main_db_name_result_var.set('NOT SET')
         main_db_name_blocker = 0
 
 
+def keyDBsetup():
+    global usable_real_path
+    print(usable_real_path)
+    if db_path_blocker == 1 and main_db_name_blocker == 1:
+        if db_already_exists_blocker == 1 :
+            dbname = main_db_name_var.get().strip()
+            dbnameKeysWindows = '\\' + dbname[:-3] + 'Keys.db'
+            dbnameKeysUnix =  '/' + dbname[:-3] + 'Keys.db'
+            if os.path.isfile(usable_real_path + dbnameKeysWindows) or os.path.isfile(usable_real_path + dbnameKeysUnix):
+                db_display_text.insert(tk.END, f"\nConnected to '{dbname[:-3]}Keys.db' ..")
+            else:
+                db_display_text.insert(tk.END, f"\nCreated '{dbname[:-3]}Keys.db' ..")
+        else:
+            pass
+
+
+
+def path_name_wrapper():
+    set_db_path()
+    main_db_name()
+    keyDBsetup()
 
 
 
 
-
-
-db_path_blocker = 0
 db_path_var = tk.StringVar()
 db_path_entry = tk.Entry(master=lowerFrame ,
                         width=22,
                         font='terminal 15 bold',
-                        textvariable=db_path_var).place(relx=0.03, rely=0)
+                        textvariable=db_path_var).place(relx=0.28, rely=0.005)
 
 
-db_path_result_var = tk.StringVar(value='')
+db_path_result_var = tk.StringVar(value="DB's PATH NOT SET")
 db_path_result_entry = tk.Label(master=lowerFrame ,
-                        width=22,
-                        font='terminal 15 bold',
+                        font='terminal 12 bold',
                         bootstyle='info',
-                        textvariable=db_path_result_var).place(relx=0.71, rely=0.018)
+                        textvariable=db_path_result_var).place(relx=0.05, rely=0.04)
 
-set_db_path_button = tk.Button(master=lowerFrame , text='SUBMIT DATABASES DIRECTORY', command=set_db_path,bootstyle='info outline')
-set_db_path_button.place(relx=0.45,rely=0.008)
+set_db_path_button = tk.Button(master=lowerFrame , text='SUBMIT', command=path_name_wrapper,bootstyle='info outline')
+set_db_path_button.place(relx=0.7,rely=0.1)
 
 
 
 main_db_name_var = tk.StringVar()
 main_db_name_entry = tk.Entry(master=lowerFrame ,
-                        width=11,
-                        font='terminal 15 bold',
-                        textvariable=main_db_name_var).place(relx=0.03, rely=0.192)
-
-main_db_name_result_var = tk.StringVar(value='')
-main_db_name_result_entry = tk.Label(master=lowerFrame ,
                         width=22,
                         font='terminal 15 bold',
+                        textvariable=main_db_name_var).place(relx=0.28, rely=0.192)
+
+main_db_name_result_var = tk.StringVar(value='DB NAME NOT SET')
+main_db_name_result_entry = tk.Label(master=lowerFrame ,
+                        font='terminal 12 bold',
                         bootstyle='warning',
-                        textvariable=main_db_name_result_var).place(relx=0.46, rely=0.214)
-
-main_db_name_button = tk.Button(master=lowerFrame , text='MAIN DATABASE NAME', command=main_db_name,bootstyle='warning outline')
-main_db_name_button.place(relx=0.253,rely=0.2)
-
+                        textvariable=main_db_name_result_var).place(relx=0.05, rely=0.214)
 
 
 
@@ -633,5 +656,3 @@ latest_ID_key_label.place(relx=0.85,rely=0.92)
 
 if __name__ == '__main__':
     object.mainloop()
-
-
