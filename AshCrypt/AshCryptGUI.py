@@ -335,10 +335,14 @@ decfiletoolbutt.place(relx=0.717,rely=0.92)
 
 keySelectionFlag = tk.IntVar(value=0)
 def mainKeyWrapper():
+    global success_keysdb_connection_blocker
     if AF.CryptFile.keyverify(mainkeyvar.get()) == 1 :
         keyrefGen()
         keyselectionvar.set('       SELECTED')
         keySelectionFlag.set(1)
+        if success_keysdb_connection_blocker and os.path.isfile(filenameStringVar.get()):
+            keys_db_conn.insert(filenameStringVar.get(),mainkeyvar.get(),outputKeyref.get())
+
     else :
         keyselectionvar.set('     NOT SELECTED')
 
@@ -387,7 +391,7 @@ keyselectionLabel = tk.Label(master=frameFile2 ,
 
 ###########################################################################################
 
-def genSideKey():
+def genMainKey():
     keyGenVar.set(AF.CryptFile.genkey())
 
 
@@ -398,7 +402,7 @@ keyGenEntry = tk.Entry(master=frameFile2 ,
                         width=14,
                         show='').place(relx=0.1 ,rely=0.69)
 
-keyButton = tk.Button(master=frameFile2 ,text='GENERATE', command=genSideKey, bootstyle='success outline').place(relx=0.675, rely=0.7)
+keyButton = tk.Button(master=frameFile2 ,text='GENERATE', command=genMainKey, bootstyle='success outline').place(relx=0.675, rely=0.7)
 
 
 '''-------------------------------FILE ENCRYPTION/DECRYPTION ENDED--------------------------------------------'''
@@ -518,9 +522,13 @@ main_db_name_blocker = 0
 db_already_exists_blocker = 0
 
 def main_db_name():
-    global main_db_name_blocker,db_already_exists_blocker,usable_real_path,db_path_blocker,success_maindb_connection_blocker
+    global main_db_name_blocker,\
+        db_already_exists_blocker,\
+        usable_real_path,db_path_blocker,\
+        success_maindb_connection_blocker,\
+        main_db_conn
     dbname = main_db_name_var.get().strip()
-    if re.match(r'((^[\w(-.)?]+\.db$)|(^[\w?(-.)]\.db+$))', dbname):
+    if re.match(r'((^[\w(-.)?]+\.db$)|(^[\w?(-.)]\.db$))', dbname):
         main_db_name_blocker = 1
         main_db_name_result_var.set('SET')
         if db_path_blocker == 1:
@@ -528,14 +536,16 @@ def main_db_name():
             conn_path_db = os.path.join(usable_real_path, dbname)
             if os.path.isfile(fullpath + f'\\{dbname}') or os.path.isfile(fullpath + f'/{dbname}')  :
                 db_already_exists_blocker = 1
-                AD.Database(conn_path_db)
+                main_db_conn = AD.Database(conn_path_db)
+                main_db_conn.addtable()
                 main_db_name_result_var.set('CONNECTED')
                 db_display_text.delete('1.0', tk.END)
                 db_display_text.insert(tk.END, f'Connected to {dbname}..\n\n')
                 success_maindb_connection_blocker = 1
             else:
                 db_already_exists_blocker = 0
-                AD.Database(conn_path_db)
+                main_db_conn = AD.Database(conn_path_db)
+                main_db_conn.addtable()
                 db_display_text.delete('1.0', tk.END)
                 db_display_text.insert(tk.END, f"Created and Connected to '{dbname}'.. in the directory '{fullpath}'\n\n")
                 success_maindb_connection_blocker = 1
@@ -548,7 +558,9 @@ def main_db_name():
 
 
 def keyDBsetup():
-    global usable_real_path,success_keysdb_connection_blocker
+    global usable_real_path,\
+        success_keysdb_connection_blocker,\
+        keys_db_conn
     print(usable_real_path)
     if db_path_blocker == 1 and main_db_name_blocker == 1:
         dbname = main_db_name_var.get().strip()
@@ -558,23 +570,35 @@ def keyDBsetup():
         conn_path_keys = os.path.join(usable_real_path, keysDB)
         if db_already_exists_blocker == 1 :
             if os.path.isfile(usable_real_path + dbnameKeysWindows) or os.path.isfile(usable_real_path + dbnameKeysUnix):
-                AD.Database(conn_path_keys)
+                keys_db_conn = AD.Database(conn_path_keys)
+                keys_db_conn.addtable()
                 db_display_text.insert(tk.END, f"Connected to '{keysDB}' ..\n\n")
+                success_keysdb_connection_blocker = 1
             else:
-                AD.Database(conn_path_keys)
+                keys_db_conn = AD.Database(conn_path_keys)
+                keys_db_conn.addtable()
                 db_display_text.insert(tk.END, f"'{keysDB}' NOT FOUND ! ==> Created and Connected to '{keysDB}' ..\n\n")
+                success_keysdb_connection_blocker = 1
         else:
-            AD.Database(conn_path_keys)
+            keys_db_conn = AD.Database(conn_path_keys)
+            keys_db_conn.addtable()
             db_display_text.insert(tk.END, f"Created and Connected to '{keysDB}' ..\n\n")
+            success_keysdb_connection_blocker = 1
 
-
+# keys_db_conn = None
+# main_db_conn = None
 success_maindb_connection_blocker = 0
 success_keysdb_connection_blocker = 0
+db_enable_blocker = 0
 def path_name_wrapper():
     set_db_path()
     main_db_name()
     keyDBsetup()
-
+    global db_enable_blocker,success_keysdb_connection_blocker,success_keysdb_connection_blocker
+    if success_keysdb_connection_blocker and success_keysdb_connection_blocker:
+        db_enable_blocker = 1
+    else:
+        db_enable_blocker = 0
 
 
 
@@ -585,13 +609,13 @@ db_path_entry = tk.Entry(master=lowerFrame ,
                         textvariable=db_path_var).place(relx=0.03, rely=0.005)
 
 
-db_path_result_var = tk.StringVar(value="DB's PATH NOT SET")
+db_path_result_var = tk.StringVar(value="DATABASES PATH NOT SET")
 db_path_result_entry = tk.Label(master=lowerFrame ,
                         font='terminal 12 bold',
                         bootstyle='info',
                         textvariable=db_path_result_var).place(relx=0.47, rely=0.04)
 
-set_db_path_button = tk.Button(master=lowerFrame , text='SUBMIT NAME AND PATH',width=48 ,command=path_name_wrapper,bootstyle='info outline')
+set_db_path_button = tk.Button(master=lowerFrame , text='SUBMIT PATH AND NAME',width=48 ,command=path_name_wrapper,bootstyle='info outline')
 set_db_path_button.place(relx=0.031,rely=0.37)
 
 
@@ -602,7 +626,7 @@ main_db_name_entry = tk.Entry(master=lowerFrame ,
                         font='terminal 15 bold',
                         textvariable=main_db_name_var).place(relx=0.03, rely=0.192)
 
-main_db_name_result_var = tk.StringVar(value='DB NAME NOT SET')
+main_db_name_result_var = tk.StringVar(value='MAIN DATABASE NAME NOT SET')
 main_db_name_result_entry = tk.Label(master=lowerFrame ,
                         font='terminal 12 bold',
                         bootstyle='warning',
@@ -635,17 +659,17 @@ latest_ID_label.place(relx=0.05,rely=0.86)
 db_analysis_key_label = tk.Label(master=lowerFrame,text='MAIN / KEYS DATABASE', font='Calibre 13 bold')
 db_analysis_key_label.place(relx=0.47,rely=0.37)
 
-database_cwd_key_label = tk.Label(master=lowerFrame,text='NULL XXXX', font='Calibre 11')
+database_cwd_key_label = tk.Label(master=lowerFrame,text='XXXX / XXXX', font='Calibre 11')
 database_cwd_key_label.place(relx=0.515,rely=0.53)
 
-size_key_label = tk.Label(master=lowerFrame,text='NULL XXXX', font='Calibre 11')
+size_key_label = tk.Label(master=lowerFrame,text='XXXX / XXXX', font='Calibre 11')
 size_key_label.place(relx=0.515,rely=0.64)
 
 
-last_mod_key_label = tk.Label(master=lowerFrame,text='NULL XXXX', font='Calibre 11')
+last_mod_key_label = tk.Label(master=lowerFrame,text='XXXX / XXXX', font='Calibre 11')
 last_mod_key_label.place(relx=0.515,rely=0.75)
 
-latest_ID_key_label = tk.Label(master=lowerFrame,text='NULL XXXX', font='Calibre 11')
+latest_ID_key_label = tk.Label(master=lowerFrame,text='XXXX / XXXX', font='Calibre 11')
 latest_ID_key_label.place(relx=0.515,rely=0.86)
 
 '''----------------------------------------LOWER FRAME ENDED----------------------------------'''
@@ -669,4 +693,5 @@ latest_ID_key_label.place(relx=0.85,rely=0.92)
 
 if __name__ == '__main__':
     object.mainloop()
+
 
