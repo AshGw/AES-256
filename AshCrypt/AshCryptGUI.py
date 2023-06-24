@@ -146,24 +146,24 @@ button2 = tk.Button(master=textFrame2 , text='DECRYPT', command=decryption,boots
 inputfield1_1 = tk.StringVar()
 textfield1_1 = tk.Entry(master=textFrame1 ,
                         width=20,
-                        font='terminal 13 bold',
-                        textvariable=inputfield1_1).place(relx=0.279 , rely=0.30)
+                        font='Calibre 11 bold',
+                        textvariable=inputfield1_1).place(relx=0.29 , rely=0.30)
 
 inputfield2_1 = tk.StringVar(value='')
 textfield2_1 = tk.Entry(master=textFrame2 ,
-                        font='terminal 11 bold',
+                        font='Calibre 11 bold',
                         width=20,
                         textvariable=inputfield2_1).place(relx=0.290 ,rely=0.38)
 
 namelabel1 = tk.Label(master=textFrame1 ,
-                      text='ENCRYPTION',
-                      font='Calibre 20' ,
+                      text='TEXT ENCRYPTION',
+                      font='Calibre 20 bold' ,
                       )
-namelabel1.place(relx=0.291 ,rely=0.10)
+namelabel1.place(relx=0.190 ,rely=0.10)
 namelabel2 = tk.Label(master=textFrame2 ,
-                      text='DECRYPTION' ,
-                      font='Calibre 20'  ,
-                      ).place(relx=0.298 ,rely=0.200)
+                      text='TEXT DECRYPTION' ,
+                      font='Calibre 20 bold'  ,
+                      ).place(relx=0.190 ,rely=0.200)
 
 outputvar1 = tk.StringVar(value='')
 outputlabel1 =  tk.Entry(master= textFrame1,
@@ -229,9 +229,9 @@ progressbar2.place(relx=0.05,rely=0.42)
 
 filepathlabel = tk.Label(master=frameFile1 ,
                       text='FILE PATH',
-                      font='Calibre 20' ,
+                      font='Calibre 20 bold' ,
                       )
-filepathlabel.place(relx=0.336,rely=0.10)
+filepathlabel.place(relx=0.335,rely=0.10)
 
 
 resultvarfile = tk.StringVar(value='                  ..RESULT..')
@@ -259,13 +259,13 @@ def encFile():
                         file_content = f.read()
                     main_db_conn.insert(filename + '.encrypted',file_content, outputKeyref.get().strip())
             if a == 2:
-                resultvarfile.set('            ERROR : File is Empty')
+                resultvarfile.set('                  File is Empty')
             if a == 3:
-                resultvarfile.set("          ERROR : File Doesn't Exist")
+                resultvarfile.set("                File Doesn't Exist")
             if a == 0:
-                resultvarfile.set("               ERROR : Can't Encrypt")
+                resultvarfile.set("                  Can't Encrypt")
             elif a == 4:
-                resultvarfile.set('                 ERROR : Unknown')
+                resultvarfile.set('                     ERROR')
 
 def decfile():
     global fileaccessSemo,add_dec_to_db,main_db_conn,mainkey
@@ -283,13 +283,13 @@ def decfile():
                         file_content = f.read()
                     main_db_conn.insert(filename + '.decrypted',file_content, outputKeyref.get().strip())
             if a == 2:
-                resultvarfile.set('            ERROR : File is Empty')
+                resultvarfile.set('                  File is Empty')
             if a == 3:
-                resultvarfile.set("          ERROR : File Doesn't Exist")
+                resultvarfile.set("                File Doesn't Exist")
             if a == 0:
-                resultvarfile.set("             ERROR : Can't Decrypt")
+                resultvarfile.set("                 Can't Decrypt")
             elif a == 4:
-                resultvarfile.set('                ERROR : Unknown')
+                resultvarfile.set('                     ERROR')
 
 
 
@@ -300,9 +300,9 @@ decryptionfilebutton = tk.Button(master=frameFile1 , text='DECRYPT FILE', comman
 
 filenameStringVar = tk.StringVar(value='')
 filenametext = tk.Entry(master=frameFile1 ,
-                        width=22,
-                        font='terminal 15 bold',
-                        textvariable=filenameStringVar).place(relx=0.1, rely=0.30)
+                        width=31,
+                        font='Calibre 15 bold',
+                        textvariable=filenameStringVar).place(relx=0.05, rely=0.30)
 
 #################################################################################"
 
@@ -367,17 +367,17 @@ def mainKeyWrapper():
 
 mainkeyLabel = tk.Label(master=frameFile2 ,
                       text='MAIN KEY' ,
-                      font='Calibre 20',
+                      font='Calibre 20 bold',
                       bootstyle='secondary',
                       ).place(relx=0.3 ,rely=0.075)
 
 
 mainkeyvar = tk.StringVar()
 mainkeyEntry = tk.Entry(master=frameFile2 ,
-                        font='terminal 15 bold',
+                        font='Calibre 14 bold',
                         textvariable=mainkeyvar,
-                        width=22
-                        ).place(relx=0.1 ,rely=0.29)
+                        width=29
+                        ).place(relx=0.09 ,rely=0.29)
 
 
 import string
@@ -419,7 +419,10 @@ keyGenEntry = tk.Entry(master=frameFile2 ,
                         width=14,
                         show='').place(relx=0.1 ,rely=0.69)
 
-keyButton = tk.Button(master=frameFile2 ,text='GENERATE', command=genMainKey, bootstyle='success outline').place(relx=0.675, rely=0.7)
+keyButton = tk.Button(master=frameFile2 ,
+                      text='GENERATE',
+                      command=genMainKey,
+                      bootstyle='success outline').place(relx=0.671, rely=0.7)
 
 
 '''-------------------------------FILE ENCRYPTION/DECRYPTION ENDED--------------------------------------------'''
@@ -460,13 +463,19 @@ def drop_content():
 ########## FUNCTIONS DONE ###########
 
 show_all_content_button = tk.Button(master=databaseFrame,text='SHOW ALL TABLE CONTENT',command=show_all_content,bootstyle='warning outline')
-show_all_content_button.place(relx=0.279,rely=0.75)
+show_all_content_button.place(relx=0.287,rely=0.87)
 
-show_all_tables_button = tk.Button(master=databaseFrame,text='SHOW ALL TABLES',command=show_all_tables,bootstyle='warning outline')
-show_all_tables_button.place(relx=0.342,rely=0.81)
+# show_all_tables_button = tk.Button(master=databaseFrame,text='SHOW ALL TABLES',command=show_all_tables,bootstyle='warning outline')
+# show_all_tables_button.place(relx=0.342,rely=0.81)
 
-drop_all_tables_button = tk.Button(master=databaseFrame,text='DROP ALL TABLES',command=drop_all_tables,bootstyle='warning outline')
-drop_all_tables_button.place(relx=0.344,rely=0.87)
+query_entry_var = tk.StringVar()
+query_entry = tk.Entry(master=databaseFrame ,
+                        width=38,
+                        font='Calibre 13 bold',
+                        textvariable=query_entry_var).place(relx=0.043, rely=0.742)
+
+drop_all_tables_button = tk.Button(master=databaseFrame,text='RUN QUERY',command=drop_all_tables,bootstyle='warning outline')
+drop_all_tables_button.place(relx=0.39,rely=0.81)
 
 
 
@@ -483,8 +492,6 @@ show_content_button.place(relx=0.562,rely=0.93)
 
 
 '''--------------------------------------DATA BASE FRAME ENDED------------------------------------------------'''
-
-
 
 
 '''----------------------------------------LOWER FRAME STARTED----------------------------------'''
@@ -614,8 +621,8 @@ def path_name_wrapper():
 
 db_path_var = tk.StringVar()
 db_path_entry = tk.Entry(master=lowerFrame ,
-                        width=22,
-                        font='terminal 15 bold',
+                        width=31,
+                        font='Calibre 14 bold',
                         textvariable=db_path_var).place(relx=0.03, rely=0.005)
 
 
@@ -625,15 +632,15 @@ db_path_result_entry = tk.Label(master=lowerFrame ,
                         bootstyle='info',
                         textvariable=db_path_result_var).place(relx=0.47, rely=0.04)
 
-set_db_path_button = tk.Button(master=lowerFrame , text='SUBMIT PATH AND NAME',width=48 ,command=path_name_wrapper,bootstyle='info outline')
-set_db_path_button.place(relx=0.031,rely=0.37)
+set_db_path_button = tk.Button(master=lowerFrame , text='SUBMIT PATH AND NAME',width=49 ,command=path_name_wrapper,bootstyle='info outline')
+set_db_path_button.place(relx=0.031,rely=0.38)
 
 
 
 main_db_name_var = tk.StringVar()
 main_db_name_entry = tk.Entry(master=lowerFrame ,
-                        width=22,
-                        font='terminal 15 bold',
+                        width=31,
+                        font='Calibre 14 bold',
                         textvariable=main_db_name_var).place(relx=0.03, rely=0.192)
 
 main_db_name_result_var = tk.StringVar(value='MAIN DATABASE NAME NOT SET')
@@ -650,14 +657,14 @@ main_db_name_result_entry = tk.Label(master=lowerFrame ,
 # db_analysis_label.place(relx=0.3,rely=0.37)
 
 database_cwd_label = tk.Label(master=lowerFrame,text='NAME', font='Calibre 11')
-database_cwd_label.place(relx=0.05,rely=0.53)
+database_cwd_label.place(relx=0.05,rely=0.64)
 
 size_label = tk.Label(master=lowerFrame,text='SIZE (MB)', font='Calibre 11')
-size_label.place(relx=0.05,rely=0.64)
+size_label.place(relx=0.05,rely=0.75)
 
 
-last_mod_label = tk.Label(master=lowerFrame,text='LAST MODIFICATION', font='Calibre 11')
-last_mod_label.place(relx=0.05,rely=0.75)
+# last_mod_label = tk.Label(master=lowerFrame,text='LAST MODIFICATION', font='Calibre 11')
+# last_mod_label.place(relx=0.05,rely=0.75)
 
 latest_ID_label = tk.Label(master=lowerFrame,text='LATEST INSERTED ID', font='Calibre 11')
 latest_ID_label.place(relx=0.05,rely=0.86)
@@ -665,12 +672,12 @@ latest_ID_label.place(relx=0.05,rely=0.86)
 
 
 
+#
+# db_analysis_key_label = tk.Label(master=lowerFrame,text='MAIN / KEYS DATABASE', font='Calibre 13 bold')
+# db_analysis_key_label.place(relx=0.47,rely=0.37)
 
-db_analysis_key_label = tk.Label(master=lowerFrame,text='MAIN / KEYS DATABASE', font='Calibre 13 bold')
-db_analysis_key_label.place(relx=0.47,rely=0.37)
-
-database_cwd_key_label = tk.Label(master=lowerFrame,text='XXXX / XXXX', font='Calibre 11')
-database_cwd_key_label.place(relx=0.515,rely=0.53)
+# database_cwd_key_label = tk.Label(master=lowerFrame,text='XXXX / XXXX', font='Calibre 11')
+# database_cwd_key_label.place(relx=0.515,rely=0.53)
 
 size_key_label = tk.Label(master=lowerFrame,text='XXXX / XXXX', font='Calibre 11')
 size_key_label.place(relx=0.515,rely=0.64)
