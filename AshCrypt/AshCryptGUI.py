@@ -259,9 +259,9 @@ def encFile():
                         file_content = f.read()
                     main_db_conn.insert(filename + '.encrypted',file_content, outputKeyref.get().strip())
             if a == 2:
-                resultvarfile.set('                  File is Empty')
+                resultvarfile.set('                 File is Empty')
             if a == 3:
-                resultvarfile.set("                File Doesn't Exist")
+                resultvarfile.set("               File Doesn't Exist")
             if a == 0:
                 resultvarfile.set("                  Can't Encrypt")
             elif a == 4:
@@ -283,9 +283,9 @@ def decfile():
                         file_content = f.read()
                     main_db_conn.insert(filename + '.decrypted',file_content, outputKeyref.get().strip())
             if a == 2:
-                resultvarfile.set('                  File is Empty')
+                resultvarfile.set('                 File is Empty')
             if a == 3:
-                resultvarfile.set("                File Doesn't Exist")
+                resultvarfile.set("               File Doesn't Exist")
             if a == 0:
                 resultvarfile.set("                 Can't Decrypt")
             elif a == 4:
@@ -614,8 +614,22 @@ def path_name_wrapper():
     global db_enable_blocker,success_keysdb_connection_blocker,success_keysdb_connection_blocker
     if success_keysdb_connection_blocker and success_keysdb_connection_blocker:
         db_enable_blocker = 1
+        database_cwd_var.set('Name')
+        size_var.set('Size (MB)')
+        latest_ID_var.set('LATEST INSERTED ID')
+        size_value_var.set('XXXX / XXXX')
+        last_mod_key_var.set('XXXX / XXXX')
+        latest_ID_key_var.set('XXXX / XXXX')
+        show_stats()
     else:
         db_enable_blocker = 0
+        database_cwd_var.set('')
+        size_var.set('')
+        latest_ID_var.set('')
+        size_value_var.set('')
+        last_mod_key_var.set('')
+        latest_ID_key_var.set('')
+
 
 
 
@@ -626,11 +640,21 @@ db_path_entry = tk.Entry(master=lowerFrame ,
                         textvariable=db_path_var).place(relx=0.03, rely=0.005)
 
 
-db_path_result_var = tk.StringVar(value="DATABASES PATH NOT SET")
+db_path_result_var = tk.StringVar(value="")
 db_path_result_entry = tk.Label(master=lowerFrame ,
                         font='terminal 12 bold',
                         bootstyle='info',
-                        textvariable=db_path_result_var).place(relx=0.47, rely=0.04)
+                        textvariable=db_path_result_var).place(relx=0.8, rely=0.035)
+
+path_label = tk.Label(master=lowerFrame ,
+                        font='Calibre 13 bold',
+                        bootstyle='light',
+                        text='DATABASES PATH').place(relx=0.47, rely=0.022)
+
+main_database_label = tk.Label(master=lowerFrame ,
+                        font='Calibre 13 bold',
+                        bootstyle='light',
+                        text='MAIN DATABASE').place(relx=0.47, rely=0.205)
 
 set_db_path_button = tk.Button(master=lowerFrame , text='SUBMIT PATH AND NAME',width=49 ,command=path_name_wrapper,bootstyle='info outline')
 set_db_path_button.place(relx=0.031,rely=0.38)
@@ -643,51 +667,50 @@ main_db_name_entry = tk.Entry(master=lowerFrame ,
                         font='Calibre 14 bold',
                         textvariable=main_db_name_var).place(relx=0.03, rely=0.192)
 
-main_db_name_result_var = tk.StringVar(value='MAIN DATABASE NAME NOT SET')
+main_db_name_result_var = tk.StringVar(value='')
 main_db_name_result_entry = tk.Label(master=lowerFrame ,
                         font='terminal 12 bold',
                         bootstyle='warning',
-                        textvariable=main_db_name_result_var).place(relx=0.47, rely=0.214)
+                        textvariable=main_db_name_result_var).place(relx=0.8, rely=0.214)
+
+####################################################
+database_cwd_var = tk.StringVar(value='')
+# Name
+size_var = tk.StringVar(value='')
+# 'SIZE (MB)'
+latest_ID_var = tk.StringVar(value='')
+# 'LATEST INSERTED ID'
+size_value_var = tk.StringVar(value='')
+# 'XXXX / XXXX'
+last_mod_key_var = tk.StringVar(value='')
+# 'XXXX / XXXX'
+latest_ID_key_var = tk.StringVar(value='')
+# 'XXXX / XXXX'
+##################################################
+def show_stats():
+
+    database_cwd_label = tk.Label(master=lowerFrame,textvariable=database_cwd_var, font='Calibre 11')
+    database_cwd_label.place(relx=0.05,rely=0.64)
 
 
+    size_label = tk.Label(master=lowerFrame,textvariable=size_var, font='Calibre 11')
+    size_label.place(relx=0.05,rely=0.75)
 
 
-#
-# db_analysis_label = tk.Label(master=lowerFrame,text='MAIN DATABASE', font='Calibre 13 bold')
-# db_analysis_label.place(relx=0.3,rely=0.37)
-
-database_cwd_label = tk.Label(master=lowerFrame,text='NAME', font='Calibre 11')
-database_cwd_label.place(relx=0.05,rely=0.64)
-
-size_label = tk.Label(master=lowerFrame,text='SIZE (MB)', font='Calibre 11')
-size_label.place(relx=0.05,rely=0.75)
+    latest_ID_label = tk.Label(master=lowerFrame,textvariable=latest_ID_var, font='Calibre 11')
+    latest_ID_label.place(relx=0.05,rely=0.86)
 
 
-# last_mod_label = tk.Label(master=lowerFrame,text='LAST MODIFICATION', font='Calibre 11')
-# last_mod_label.place(relx=0.05,rely=0.75)
-
-latest_ID_label = tk.Label(master=lowerFrame,text='LATEST INSERTED ID', font='Calibre 11')
-latest_ID_label.place(relx=0.05,rely=0.86)
+    size_key_label = tk.Label(master=lowerFrame,textvariable=size_value_var, font='Calibre 11')
+    size_key_label.place(relx=0.515,rely=0.64)
 
 
+    last_mod_key_label = tk.Label(master=lowerFrame,textvariable=last_mod_key_var, font='Calibre 11')
+    last_mod_key_label.place(relx=0.515,rely=0.75)
 
 
-#
-# db_analysis_key_label = tk.Label(master=lowerFrame,text='MAIN / KEYS DATABASE', font='Calibre 13 bold')
-# db_analysis_key_label.place(relx=0.47,rely=0.37)
-
-# database_cwd_key_label = tk.Label(master=lowerFrame,text='XXXX / XXXX', font='Calibre 11')
-# database_cwd_key_label.place(relx=0.515,rely=0.53)
-
-size_key_label = tk.Label(master=lowerFrame,text='XXXX / XXXX', font='Calibre 11')
-size_key_label.place(relx=0.515,rely=0.64)
-
-
-last_mod_key_label = tk.Label(master=lowerFrame,text='XXXX / XXXX', font='Calibre 11')
-last_mod_key_label.place(relx=0.515,rely=0.75)
-
-latest_ID_key_label = tk.Label(master=lowerFrame,text='XXXX / XXXX', font='Calibre 11')
-latest_ID_key_label.place(relx=0.515,rely=0.86)
+    latest_ID_key_label = tk.Label(master=lowerFrame,textvariable=latest_ID_key_var, font='Calibre 11')
+    latest_ID_key_label.place(relx=0.515,rely=0.86)
 
 '''----------------------------------------LOWER FRAME ENDED----------------------------------'''
 
