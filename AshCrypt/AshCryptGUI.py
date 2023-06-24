@@ -243,18 +243,21 @@ resultLabelfile =  tk.Label(master= frameFile1,
 
 import AshCrypt.AshFileCrypt as AF
 
-fileaccessSemo = 1
 def encFile():
-    global fileaccessSemo
-    if fileaccessSemo == 1 :
-        fileaccessSemo -= 1
-        if AF.CryptFile.keyverify(mainkeyvar.get()) == 1 and keySelectionFlag.get() == 1:
-            filename = filenameStringVar.get()
-            key = mainkeyvar.get()
+    global fileaccessSemo ,add_enc_to_db ,main_db_conn,mainkey
+    if 1 :
+        #           if AF.CryptFile.keyverify(mainkeyvar.get()) == 1 and keySelectionFlag.get() != 0:
+        if keySelectionFlag.get() != 0:
+            filename = filenameStringVar.get().strip()
+            key = mainkey
             target = AF.CryptFile(filename, key)
             a = target.encrypt()
             if a == 1:
                 resultvarfile.set('            Encrypted Successfully')
+                if encfiletoolbuttvar.get() == 1:
+                    with open(filename,'rb') as f:
+                        file_content = f.read()
+                    main_db_conn.insert(filename + '.encrypted',file_content, outputKeyref.get().strip())
             if a == 2:
                 resultvarfile.set('            ERROR : File is Empty')
             if a == 3:
@@ -263,19 +266,22 @@ def encFile():
                 resultvarfile.set("               ERROR : Can't Encrypt")
             elif a == 4:
                 resultvarfile.set('                 ERROR : Unknown')
-            fileaccessSemo += 1
 
 def decfile():
-    global fileaccessSemo
-    if fileaccessSemo == 1:
-        fileaccessSemo -= 1
-        if AF.CryptFile.keyverify(mainkeyvar.get()) == 1 and keySelectionFlag.get() == 1:
-            filename = filenameStringVar.get()
-            key = mainkeyvar.get()
+    global fileaccessSemo,add_dec_to_db,main_db_conn,mainkey
+    if 1:
+        #  if AF.CryptFile.keyverify(mainkeyvar.get()) == 1 and keySelectionFlag.get() != 0:
+        if keySelectionFlag.get() != 0:
+            filename = filenameStringVar.get().strip()
+            key = mainkey
             target = AF.CryptFile(filename, key)
             a = target.decrypt()
             if a == 1:
                 resultvarfile.set('            Decrypted Successfully')
+                if decfiletoolbuttvar.get() == 1:
+                    with open(filename,'rb') as f:
+                        file_content = f.read()
+                    main_db_conn.insert(filename + '.decrypted',file_content, outputKeyref.get().strip())
             if a == 2:
                 resultvarfile.set('            ERROR : File is Empty')
             if a == 3:
@@ -284,7 +290,6 @@ def decfile():
                 resultvarfile.set("             ERROR : Can't Decrypt")
             elif a == 4:
                 resultvarfile.set('                ERROR : Unknown')
-            fileaccessSemo += 1
 
 
 
@@ -304,20 +309,30 @@ filenametext = tk.Entry(master=frameFile1 ,
 addtodbLabel = tk.Label(master=frameFile1,text='ADD TO DATABASE',font=('Calibre',11),bootstyle='warning')
 addtodbLabel.place(relx=0.35,rely=0.908)
 
-
+add_enc_to_db = 0
 def encToggleButtFunc():
-    pass
+    global add_enc_to_db
+    if encfiletoolbuttvar == 1:
+        add_enc_to_db = 1
+    else:
+        add_enc_to_db = 0
 
+add_dec_to_db = 0
 def decToggleButtFunc():
-    pass
+    global add_dec_to_db
+    if decfiletoolbuttvar == 1:
+        add_dec_to_db = 1
+    else:
+        add_dec_to_db = 0
 
 encfiletoolbuttvar = tk.IntVar()
 encfiletoolbutt = tk.Checkbutton(bootstyle='warning , round-toggle',
                         master=frameFile1,
                         variable=encfiletoolbuttvar,
                         offvalue=0,
+                        onvalue=1,
                         command=encToggleButtFunc)
-
+encfiletoolbutt.state(['disabled'])
 encfiletoolbutt.place(relx=0.25,rely=0.92)
 
 
@@ -327,7 +342,7 @@ decfiletoolbutt = tk.Checkbutton(bootstyle='warning , round-toggle',
                         variable=decfiletoolbuttvar,
                         offvalue=0,
                         command=decToggleButtFunc)
-
+decfiletoolbutt.state(['disabled'])
 decfiletoolbutt.place(relx=0.717,rely=0.92)
 
 #####################################################################################
@@ -335,15 +350,17 @@ decfiletoolbutt.place(relx=0.717,rely=0.92)
 
 keySelectionFlag = tk.IntVar(value=0)
 def mainKeyWrapper():
-    global success_keysdb_connection_blocker
-    if AF.CryptFile.keyverify(mainkeyvar.get()) == 1 :
+    global success_keysdb_connection_blocker,mainkey
+    if AF.CryptFile.keyverify(mainkeyvar.get().strip()) == 1 :
+        mainkey = mainkeyvar.get().strip()
         keyrefGen()
         keyselectionvar.set('       SELECTED')
         keySelectionFlag.set(1)
-        if success_keysdb_connection_blocker and os.path.isfile(filenameStringVar.get()):
-            keys_db_conn.insert(filenameStringVar.get(),mainkeyvar.get(),outputKeyref.get())
+        if success_keysdb_connection_blocker and os.path.isfile(filenameStringVar.get().strip()):
+            keys_db_conn.insert(filenameStringVar.get().strip(),mainkey,outputKeyref.get())
 
     else :
+        keySelectionFlag.set(0)
         keyselectionvar.set('     NOT SELECTED')
 
 
@@ -468,20 +485,8 @@ show_content_button.place(relx=0.562,rely=0.93)
 '''--------------------------------------DATA BASE FRAME ENDED------------------------------------------------'''
 
 
-'''--------------------------------------CREATING DEMO DB-----------------------------------------------------------------------'''
-import AshCrypt.AshDatabase as db
-conn = db.Database('database1.db')
-conn.addtable()
-key = '#5482A'
-conn.insert('My Accounts', 'some encrypted content of bytes or strings', key)
-for e in conn.show_tables():
-    print(e)
-print(conn.size)
-query1 = 'SELECT COUNT(*) AS cc ,content FROM Classified WHERE key = "#5482A" ORDER BY cc DESC '
-print(conn.query(query1))
 
 
-'''---------------------------------------CREATING DEMO DB DONE-----------------------------------------------------------'''
 '''----------------------------------------LOWER FRAME STARTED----------------------------------'''
 
 
@@ -542,6 +547,8 @@ def main_db_name():
                 db_display_text.delete('1.0', tk.END)
                 db_display_text.insert(tk.END, f'Connected to {dbname}..\n\n')
                 success_maindb_connection_blocker = 1
+                encfiletoolbutt.state(['!disabled'])
+                decfiletoolbutt.state(['!disabled'])
             else:
                 db_already_exists_blocker = 0
                 main_db_conn = AD.Database(conn_path_db)
@@ -549,6 +556,9 @@ def main_db_name():
                 db_display_text.delete('1.0', tk.END)
                 db_display_text.insert(tk.END, f"Created and Connected to '{dbname}'.. in the directory '{fullpath}'\n\n")
                 success_maindb_connection_blocker = 1
+                encfiletoolbutt.state(['!disabled'])
+                decfiletoolbutt.state(['!disabled'])
+
         else:
             db_display_text.delete('1.0', tk.END)
             db_display_text.insert(tk.END, f"PATH : '{db_path_var.get().strip()}' is not a valid path\n\n")
