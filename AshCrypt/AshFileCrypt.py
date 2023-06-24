@@ -20,13 +20,14 @@ class CryptFile():
 
     @staticmethod
     def keyverify(key: str) -> int:
-        if isinstance(key, str):
-            a = bytes.fromhex(key.strip())
-            if len(a) == 64:
-                return 1
-            else:
-                return 0
-        else:
+        try:
+            if isinstance(key, str):
+                a = bytes.fromhex(key.strip())
+                if len(a) == 64:
+                    return 1
+                else:
+                    return 0
+        except:
             return 2
 
     def encrypt(self) -> int:
@@ -85,5 +86,7 @@ if __name__ == '__main__':
     key = 'd5d717f57933ad21725888d3451a9cd7a565dfda677fe92fd8ff9e9c3a36d1496af58c17de2b77d4d3ea6d8791b27350fea0af3ad2610d38c8cb12a29fda4bcf'
     target = CryptFile('myfile.txt',key)  # if the file is in the current working directory
     print(target.decrypt())
+
+
 
 
