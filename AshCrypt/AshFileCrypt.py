@@ -9,10 +9,11 @@ class KeyError(Exception):
 class CryptFile():
     def __init__(self,filename,key):
         self.filename = filename
+        self.not_512_bit_key = 0
         if self.keyverify(key) == 1:
             self.key = key
         else:
-            raise KeyError()
+            self.not_512_bit_key = 1  # Raise KeyError()
 
     @staticmethod
     def genkey() -> str:
@@ -31,6 +32,8 @@ class CryptFile():
             return 2
 
     def encrypt(self) -> int:
+        if self.not_512_bit_key == 1:
+            return 5
         try:
             if not os.path.exists(self.filename):
                 return 3
@@ -54,6 +57,8 @@ class CryptFile():
             return 4
 
     def decrypt(self) -> int:
+        if self.not_512_bit_key == 1:
+            return 5
         try:
             if not os.path.exists(self.filename):
                 return 3
@@ -84,9 +89,6 @@ class CryptFile():
 if __name__ == '__main__':
     print(CryptFile.genkey())
     key = 'd5d717f57933ad21725888d3451a9cd7a565dfda677fe92fd8ff9e9c3a36d1496af58c17de2b77d4d3ea6d8791b27350fea0af3ad2610d38c8cb12a29fda4bcf'
-    target = CryptFile('myfile.txt',key)  # if the file is in the current working directory
-    print(target.decrypt())
-
-
-
+    target = CryptFile('testfile.txt',key)  # if the file is in the current working directory
+    print(target.encrypt())
 
