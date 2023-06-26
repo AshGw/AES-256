@@ -53,7 +53,7 @@ class Database():
                         result.append({f'query{i+1}': self.c.fetchall()})
 
             except sqlite3.Error as e:
-                result.append({f'query{i+1}': (0, e)})
+                result.append({f'query{i+1}': (0, e.__str__())})
         return result
 
     def addtable(self, optional_tablename=None):
@@ -255,5 +255,5 @@ if __name__ == '__main__':
     print(conn.size)
     query1 = 'SELECT COUNT(*) AS cc ,content FROM Classified WHERE key = "#5482AF" ORDER BY cc DESC '
     print(conn.query(query1))
-    for e in conn.content_by_id(1):
-        print(e)
+
+
