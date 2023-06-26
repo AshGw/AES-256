@@ -368,7 +368,7 @@ def mainKeyWrapper():
 mainkeyLabel = tk.Label(master=frameFile2 ,
                       text='MAIN KEY' ,
                       font='Calibre 20 bold',
-                      bootstyle='secondary',
+                      bootstyle='info',
                       ).place(relx=0.3 ,rely=0.075)
 
 
@@ -395,13 +395,13 @@ outputKeyref = tk.StringVar(value='#XXXXXX')
 keyrefLabel = tk.Label(master=frameFile2,textvariable=outputKeyref,bootstyle='secondary',font=('terminal',12))
 keyrefLabel.place(relx=0.712,rely=0.12)
 
-keySelectButton = tk.Button(master=frameFile2 ,text='SELECT KEY', command=mainKeyWrapper, bootstyle='secondary outline').place(relx=0.6725, rely=0.5)
+keySelectButton = tk.Button(master=frameFile2 ,text='SELECT KEY', command=mainKeyWrapper, bootstyle='info outline').place(relx=0.6725, rely=0.5)
 
 
 keyselectionvar = tk.StringVar(value='   KEY NOT SELECTED')
 keyselectionLabel = tk.Label(master=frameFile2 ,
                         textvariable= keyselectionvar ,
-                        bootstyle='secondary',
+                        bootstyle='info',
                         font='terminal 11 bold').place(relx= 0.15 ,
                                         rely= 0.465,
                                         height= 50)
@@ -614,21 +614,9 @@ def path_name_wrapper():
     global db_enable_blocker,success_keysdb_connection_blocker,success_keysdb_connection_blocker
     if success_keysdb_connection_blocker and success_keysdb_connection_blocker:
         db_enable_blocker = 1
-        database_cwd_var.set('Name')
-        size_var.set('Size (MB)')
-        latest_ID_var.set('LATEST INSERTED ID')
-        size_value_var.set('XXXX / XXXX')
-        last_mod_key_var.set('XXXX / XXXX')
-        latest_ID_key_var.set('XXXX / XXXX')
-        show_stats()
     else:
         db_enable_blocker = 0
-        database_cwd_var.set('')
-        size_var.set('')
-        latest_ID_var.set('')
-        size_value_var.set('')
-        last_mod_key_var.set('')
-        latest_ID_key_var.set('')
+
 
 
 
@@ -639,12 +627,12 @@ db_path_entry = tk.Entry(master=lowerFrame ,
                         font='Calibre 14 bold',
                         textvariable=db_path_var).place(relx=0.03, rely=0.005)
 
-
+# PATH SET NOT SET LABEL
 db_path_result_var = tk.StringVar(value="")
 db_path_result_entry = tk.Label(master=lowerFrame ,
-                        font='terminal 12 bold',
-                        bootstyle='info',
-                        textvariable=db_path_result_var).place(relx=0.8, rely=0.035)
+                        font='Calibre 13 bold',
+                        bootstyle='light',
+                        textvariable=db_path_result_var).place(relx=0.7, rely=0.022)
 
 path_label = tk.Label(master=lowerFrame ,
                         font='Calibre 13 bold',
@@ -659,6 +647,49 @@ main_database_label = tk.Label(master=lowerFrame ,
 set_db_path_button = tk.Button(master=lowerFrame , text='SUBMIT PATH AND NAME',width=49 ,command=path_name_wrapper,bootstyle='info outline')
 set_db_path_button.place(relx=0.031,rely=0.38)
 
+def checksize():
+    global db_enable_blocker,main_db_conn
+    if db_enable_blocker != 0:
+        size = main_db_conn.size
+        if size < 1024:
+            db_display_text.delete('1.0', tk.END)
+            db_display_text.insert(tk.END, f"Current size is {size:.5f} (MB)'\n\n")
+        if size >= 1024:
+            db_display_text.delete('1.0', tk.END)
+            db_display_text.insert(tk.END, f"Current size is {(size/1024):.3f} (GB)'\n\n")
+
+
+
+size_button = tk.Button(master=lowerFrame , text='SIZE',width=22 ,command=checksize,bootstyle='warning outline')
+size_button.place(relx=0.031,rely=0.58)
+
+def checkid():
+    global db_enable_blocker,main_db_conn
+    if db_enable_blocker != 0:
+        q = main_db_conn.query('SELECT ID FROM Classified')
+        idd = 0
+        for e in q:
+            for k, v in e.items():
+                idd += v[-1][0]
+        db_display_text.delete('1.0', tk.END)
+        db_display_text.insert(tk.END, f"Last inserted ID is : '{idd}'\n")
+
+
+
+
+
+id_button = tk.Button(master=lowerFrame , text='LAST ID',width=22 ,command=checkid,bootstyle='warning outline')
+id_button.place(relx=0.247,rely=0.58)
+
+def check_las_mod():
+    global db_enable_blocker,main_db_conn
+    if db_enable_blocker != 0:
+        db_display_text.delete('1.0', tk.END)
+        db_display_text.insert(tk.END, f"Last modification at : '{main_db_conn.last_mod}'\n")
+
+
+las_mod_button = tk.Button(master=lowerFrame , text='LAST MODIFICATION',width=49 ,command=check_las_mod,bootstyle='warning outline')
+las_mod_button.place(relx=0.031,rely=0.74)
 
 
 main_db_name_var = tk.StringVar()
@@ -667,50 +698,13 @@ main_db_name_entry = tk.Entry(master=lowerFrame ,
                         font='Calibre 14 bold',
                         textvariable=main_db_name_var).place(relx=0.03, rely=0.192)
 
+# SET NOT SET LABEL
 main_db_name_result_var = tk.StringVar(value='')
 main_db_name_result_entry = tk.Label(master=lowerFrame ,
-                        font='terminal 12 bold',
-                        bootstyle='warning',
-                        textvariable=main_db_name_result_var).place(relx=0.8, rely=0.214)
+                        font='Calibre 13 bold',
+                        bootstyle='light',
+                        textvariable=main_db_name_result_var).place(relx=0.7, rely=0.205)
 
-####################################################
-database_cwd_var = tk.StringVar(value='')
-# Name
-size_var = tk.StringVar(value='')
-# 'SIZE (MB)'
-latest_ID_var = tk.StringVar(value='')
-# 'LATEST INSERTED ID'
-size_value_var = tk.StringVar(value='')
-# 'XXXX / XXXX'
-last_mod_key_var = tk.StringVar(value='')
-# 'XXXX / XXXX'
-latest_ID_key_var = tk.StringVar(value='')
-# 'XXXX / XXXX'
-##################################################
-def show_stats():
-
-    database_cwd_label = tk.Label(master=lowerFrame,textvariable=database_cwd_var, font='Calibre 11')
-    database_cwd_label.place(relx=0.05,rely=0.64)
-
-
-    size_label = tk.Label(master=lowerFrame,textvariable=size_var, font='Calibre 11')
-    size_label.place(relx=0.05,rely=0.75)
-
-
-    latest_ID_label = tk.Label(master=lowerFrame,textvariable=latest_ID_var, font='Calibre 11')
-    latest_ID_label.place(relx=0.05,rely=0.86)
-
-
-    size_key_label = tk.Label(master=lowerFrame,textvariable=size_value_var, font='Calibre 11')
-    size_key_label.place(relx=0.515,rely=0.64)
-
-
-    last_mod_key_label = tk.Label(master=lowerFrame,textvariable=last_mod_key_var, font='Calibre 11')
-    last_mod_key_label.place(relx=0.515,rely=0.75)
-
-
-    latest_ID_key_label = tk.Label(master=lowerFrame,textvariable=latest_ID_key_var, font='Calibre 11')
-    latest_ID_key_label.place(relx=0.515,rely=0.86)
 
 '''----------------------------------------LOWER FRAME ENDED----------------------------------'''
 
@@ -718,8 +712,8 @@ def show_stats():
 '''---------------------------------------STAMP STARTED -------------------------------------------------------'''
 
 
-latest_ID_key_label = tk.Label(master=lowerFrame,text='Dev.by Ashref Gwader', font='Calibre 6')
-latest_ID_key_label.place(relx=0.85,rely=0.92)
+latest_ID_key_label = tk.Label(master=lowerFrame,text='Copyright (C) 2023 Ashref Gwader', font='Calibre 6')
+latest_ID_key_label.place(relx=0.81,rely=0.92)
 
 '''---------------------------------------STAMP ENDED-------------------------------------------------------'''
 
