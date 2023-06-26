@@ -43,17 +43,17 @@ class Database():
         result = []
         for i, query in enumerate(querys):
             if not isinstance(query, str):
-                result.append({f'query{i+1}': (0.0, TypeError)})
+                result.append({f'query {i}': (0.0, TypeError)})
             try:
                 with self.conn:
                     self.c.execute(query)
                     if self.c.rowcount == 1:
-                        result.append({f'query{i+1}': self.c.fetchone()})
+                        result.append({f'query {i}': ['SUCCESS',self.c.fetchone()]})
                     else:
-                        result.append({f'query{i+1}': self.c.fetchall()})
+                        result.append({f'query {i}': ['SUCCESS',self.c.fetchall()]})
 
             except sqlite3.Error as e:
-                result.append({f'query{i+1}': (0, e.__str__())})
+                result.append({f'query {i}': ('FAILURE', e.__str__())})
         return result
 
     def addtable(self, optional_tablename=None):
