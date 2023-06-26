@@ -18,7 +18,6 @@ setup(
     packages=find_packages(exclude=['important', 'docker-build']),
     package_data={
         'AshCrypt': ['*'],
-        'unittestsAC': ['*'],
     },
     exclude_package_data={
         '': ['.gitignore','LICENSE','README'],
@@ -32,7 +31,7 @@ setup(
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
+        'License :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
