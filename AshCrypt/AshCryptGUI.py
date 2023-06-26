@@ -738,8 +738,10 @@ def path_name_wrapper():
     global db_enable_blocker,success_keysdb_connection_blocker,success_keysdb_connection_blocker
     if success_keysdb_connection_blocker and success_keysdb_connection_blocker:
         db_enable_blocker = 1
+        swich_db_toggle.state(['!disabled'])
     else:
         db_enable_blocker = 0
+        swich_db_toggle.state(['disabled'])
 
 
 
@@ -833,6 +835,41 @@ main_db_name_result_entry = tk.Label(master=lowerFrame ,
                         font='Calibre 13 bold',
                         bootstyle='light',
                         textvariable=main_db_name_result_var).place(relx=0.7, rely=0.205)
+
+
+def swich_db():
+    if swich_db_var.get() == 1:
+        switch_db_label_var.set('ON KEYS')
+        db_display_text.delete('1.0', tk.END)
+        db_display_text.insert(tk.END, f"Switched to keys database\n")
+
+    else:
+        switch_db_label_var.set('ON MAIN')
+        db_display_text.delete('1.0', tk.END)
+        db_display_text.insert(tk.END, f"Back to default main database\n")
+
+
+switch_db_label_var = tk.StringVar(value='SWITCH DATABASE')
+switch_db_label =  tk.Label(master=lowerFrame,
+                            textvariable=switch_db_label_var,
+                            bootstyle = 'light',
+                            font='Calibre 13 bold').place(relx=0.52,rely=0.39)
+
+
+
+swich_db_var = tk.IntVar(value=0)
+swich_db_toggle = tk.Checkbutton(bootstyle='light,squared-toggle',
+                        master=lowerFrame,
+                        variable=swich_db_var,
+                        offvalue=0,
+                        onvalue=1,
+                        command=swich_db)
+swich_db_toggle.state(['disabled'])
+
+
+
+
+swich_db_toggle.place(relx=0.47,rely=0.413)
 
 
 '''----------------------------------------LOWER FRAME ENDED----------------------------------'''
