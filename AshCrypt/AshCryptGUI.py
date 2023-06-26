@@ -1,5 +1,7 @@
+import atexit
 import os.path
 import time
+import json
 import AshCrypt.AshDatabase as AD
 
 
@@ -446,18 +448,112 @@ db_display_text.place(relx=0.015 ,rely=0.105)
 
 ###### FUNCTIONS ######
 def show_all_content():
-    pass
+    global db_enable_blocker, main_db_name_var, usable_real_path, main_db_conn,db_display_text
+    if db_enable_blocker != 0:
+        db_display_text.delete('1.0', tk.END)
+        db_display_text.insert(tk.END, f"Check 'output.json' in the chosen path : {usable_real_path}\n")
+        json_path = os.path.join(usable_real_path, 'output.json')
+        try:
+            with open(json_path, 'w') as f:
+                eBuffer = {}
+                for e in main_db_conn.content():
+                    eBuffer['ID_' + e[0].__str__()] = [{'Filename': e[1]}, {'Content': e[2].__str__()}, {'KeyRef': e[3]}]
+                eJSON = json.dumps(eBuffer, indent=2)
+                f.write(eJSON)
+                db_display_text.insert(tk.END,f"\nSuccessfully written all table content in output.json\n"
+                                              f"\nNote that this file will be deleted when the app is closed")
+        except:
+            db_display_text.insert(tk.END, f"Failed to write all table content in output.json\n")
 
-def show_content():
-    pass
+
+
+def show_content_by_id():
+    global db_enable_blocker, main_db_conn, content_id_entry_var, usable_real_path
+    idd = content_id_entry_var.get().strip()
+    last_id = checkid()
+    if db_enable_blocker != 0:
+        try:
+            if int(idd) > 0:
+                if last_id == -1:
+                    db_display_text.delete('1.0', tk.END)
+                    db_display_text.insert(tk.END, 'The table does not have any content to show')
+                elif last_id != -1:
+
+                    if int(idd) in range(1, last_id):
+                        db_display_text.delete('1.0', tk.END)
+                        to_json_path = os.path.join(usable_real_path, 'output.json')
+                        with open(to_json_path, 'w') as f:
+                            eBuffer = {}
+                            for e in main_db_conn.content_by_id(int(idd)):
+                                eBuffer['ID_' + e[0].__str__()] = [{'Filename': e[1]}, {'Content': e[2].__str__()},
+                                                                   {'KeyRef': e[3]}]
+                            eJSON = json.dumps(eBuffer, indent=2)
+                            f.write(eJSON)
+                        db_display_text.insert(tk.END, f"Successful fetch !\n\nCheck the 'output.json' file in the"
+                                                       f"the chosen path :\n\n'{usable_real_path}'")
+                    if int(idd) == last_id:
+                        db_display_text.delete('1.0', tk.END)
+                        db_display_text.insert(tk.END, 'Chosen last ID\n\n')
+                        to_json_path = os.path.join(usable_real_path,'output.json')
+                        with open(to_json_path, 'w') as f:
+                            eBuffer = {}
+                            for e in main_db_conn.content_by_id(int(idd)):
+                                eBuffer['ID_' + e[0].__str__()] = [{'Filename': e[1]}, {'Content': e[2].__str__()},
+                                                                   {'KeyRef': e[3]}]
+                            eJSON = json.dumps(eBuffer, indent=2)
+                            f.write(eJSON)
+                        db_display_text.insert(tk.END, f"Successful fetch !\n\nCheck the 'output.json' file in the"
+                                                       f"the chosen path :\n\n'{usable_real_path}'")
+                    elif int(idd) > last_id:
+                        db_display_text.delete('1.0', tk.END)
+                        db_display_text.insert(tk.END, 'Given ID is greater than the highest available ID')
+            else:
+                db_display_text.delete('1.0', tk.END)
+                db_display_text.insert(tk.END, 'ID must be strictly greater than 0')
+        except:
+            db_display_text.delete('1.0', tk.END)
+            db_display_text.insert(tk.END, 'ID value must be a valid integer')
 
 def show_all_tables():
     pass
-def drop_all_tables():
+def query():
     pass
 
-def drop_content():
-    pass
+def drop_content_by_id():
+    global db_enable_blocker,main_db_conn,content_id_entry_var
+    idd = content_id_entry_var.get().strip()
+    last_id = checkid()
+    if db_enable_blocker != 0:
+        try:
+            if int(idd) > 0:
+                if last_id == -1:
+                    db_display_text.delete('1.0', tk.END)
+                    db_display_text.insert(tk.END,'The table does not have any content to drop')
+                elif last_id != -1 :
+
+                    if int(idd) in range(1,last_id):
+                        db_display_text.delete('1.0', tk.END)
+                        db_display_text.insert(tk.END,'Valid ID')
+                        main_db_conn.drop_content(idd)
+                        db_display_text.insert(tk.END, f'\nDropping by ID {idd} Went successful')
+
+                    if int(idd) == last_id:
+                        db_display_text.delete('1.0', tk.END)
+                        db_display_text.insert(tk.END, 'Chosen last ID')
+                        main_db_conn.drop_content(idd)
+                        db_display_text.insert(tk.END, f'\nDropping by ID {idd} Went successful')
+
+                    elif int(idd) > last_id:
+                        db_display_text.delete('1.0', tk.END)
+                        db_display_text.insert(tk.END, 'Given ID is greater than the highest available ID')
+            else:
+                db_display_text.delete('1.0', tk.END)
+                db_display_text.insert(tk.END, 'ID must be strictly greater than 0')
+        except:
+            db_display_text.delete('1.0', tk.END)
+            db_display_text.insert(tk.END, 'ID value must be a valid integer')
+
+
 
 
 ########## FUNCTIONS DONE ###########
@@ -465,8 +561,6 @@ def drop_content():
 show_all_content_button = tk.Button(master=databaseFrame,text='SHOW ALL TABLE CONTENT',command=show_all_content,bootstyle='warning outline')
 show_all_content_button.place(relx=0.287,rely=0.87)
 
-# show_all_tables_button = tk.Button(master=databaseFrame,text='SHOW ALL TABLES',command=show_all_tables,bootstyle='warning outline')
-# show_all_tables_button.place(relx=0.342,rely=0.81)
 
 query_entry_var = tk.StringVar()
 query_entry = tk.Entry(master=databaseFrame ,
@@ -474,20 +568,20 @@ query_entry = tk.Entry(master=databaseFrame ,
                         font='Calibre 13 bold',
                         textvariable=query_entry_var).place(relx=0.043, rely=0.742)
 
-drop_all_tables_button = tk.Button(master=databaseFrame,text='RUN QUERY',command=drop_all_tables,bootstyle='warning outline')
-drop_all_tables_button.place(relx=0.39,rely=0.81)
+query_button = tk.Button(master=databaseFrame,text='RUN QUERY',command=query,bootstyle='warning outline')
+query_button.place(relx=0.39,rely=0.81)
 
 
 
-drop_content_button = tk.Button(master=databaseFrame,text='DROP CONTENT BY ID',command=drop_content,bootstyle='warning outline')
-drop_content_button.place(relx=0.08,rely=0.93)
+drop_content_by_id_button = tk.Button(master=databaseFrame,text='DROP CONTENT BY ID',command=drop_content_by_id,bootstyle='warning outline')
+drop_content_by_id_button.place(relx=0.08,rely=0.93)
 
 content_id_entry_var = tk.StringVar(value=' ID')
 content_id_entry = tk.Entry(master=databaseFrame,textvariable=content_id_entry_var,width=3,font='Calibre 11')
 content_id_entry.place(relx=0.45,rely=0.93)
 
-show_content_button = tk.Button(master=databaseFrame,text='SHOW CONTENT BY ID',command=show_content,bootstyle='warning outline')
-show_content_button.place(relx=0.562,rely=0.93)
+show_content_by_id_button = tk.Button(master=databaseFrame,text='SHOW CONTENT BY ID',command=show_content_by_id,bootstyle='warning outline')
+show_content_by_id_button.place(relx=0.562,rely=0.93)
 
 
 
@@ -666,14 +760,19 @@ size_button.place(relx=0.031,rely=0.58)
 def checkid():
     global db_enable_blocker,main_db_conn
     if db_enable_blocker != 0:
-        q = main_db_conn.query('SELECT ID FROM Classified')
-        idd = 0
-        for e in q:
-            for k, v in e.items():
-                idd += v[-1][0]
-        db_display_text.delete('1.0', tk.END)
-        db_display_text.insert(tk.END, f"Last inserted ID is : '{idd}'\n")
-
+        try:
+            q = main_db_conn.query('SELECT ID FROM Classified')
+            idd = 0
+            for e in q:
+                for k, v in e.items():
+                    idd += v[-1][0]
+            db_display_text.delete('1.0', tk.END)
+            db_display_text.insert(tk.END, f"Last inserted ID is : '{idd}'\n")
+            return(idd)
+        except:
+            db_display_text.delete('1.0', tk.END)
+            db_display_text.insert(tk.END, f"Last inserted ID is : '0'\n")
+            return (-1)
 
 
 
@@ -721,7 +820,14 @@ latest_ID_key_label.place(relx=0.81,rely=0.92)
 
 
 
-
+def rm_json():
+    global usable_real_path
+    file = os.path.join(usable_real_path,'output.json')
+    if os.path.exists(file):
+        os.remove(file)
+    else:
+        pass
+atexit.register(rm_json)
 
 
 
