@@ -1,7 +1,6 @@
 from setuptools import setup , find_packages
 
-
-with open('AshCrypt/README.md','r') as f :
+with open('AshCrypt/README.md','r') as f:
     readme = f.read()
 
 setup(
