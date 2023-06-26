@@ -516,8 +516,7 @@ def show_content_by_id():
 
 def show_all_tables():
     pass
-def query():
-    pass
+
 
 def drop_content_by_id():
     global db_enable_blocker,main_db_conn,content_id_entry_var
@@ -560,6 +559,37 @@ def drop_content_by_id():
 
 show_all_content_button = tk.Button(master=databaseFrame,text='SHOW ALL TABLE CONTENT',command=show_all_content,bootstyle='warning outline')
 show_all_content_button.place(relx=0.287,rely=0.87)
+
+
+query_clicks = 1
+def query():
+    global db_enable_blocker,main_db_conn, usable_real_path,query_clicks
+    if db_enable_blocker !=0 :
+        query_var = query_entry_var.get().strip()
+        if len(query_var) > 0:
+            try:
+                db_display_text.delete('1.0', tk.END)
+                json_file = os.path.join(usable_real_path,'output.json')
+                with open(json_file, 'w') as f:
+                    query_out = main_db_conn.query(query_var)
+                    main_db_conn.addtable()
+                    eJSON = json.dumps({f'query {query_clicks}': query_out}, indent=2)
+                    query_clicks += 1
+                    f.write(eJSON)
+                db_display_text.insert(tk.END, f"Ran query {query_clicks} !\n\n")
+                db_display_text.insert(tk.END, f"The result of the query is in 'output.json' file\n\n")
+            except:
+                db_display_text.delete('1.0', tk.END)
+                db_display_text.insert(tk.END, f"Failed to finish the query!\n\n")
+                db_display_text.insert(tk.END,'Detected object that is not JSON serializable\n\n')
+                db_display_text.insert(tk.END,'Use buttons instead if possible')
+        else:
+            db_display_text.delete('1.0', tk.END)
+            db_display_text.insert(tk.END, f"Can't query nothing\n\n")
+
+
+
+
 
 
 query_entry_var = tk.StringVar()
@@ -765,7 +795,7 @@ def checkid():
             idd = 0
             for e in q:
                 for k, v in e.items():
-                    idd += v[-1][0]
+                    idd += v[-1][-1][0]
             db_display_text.delete('1.0', tk.END)
             db_display_text.insert(tk.END, f"Last inserted ID is : '{idd}'\n")
             return(idd)
