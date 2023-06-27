@@ -159,8 +159,14 @@ def file_dec():
             if a == 0:
                 print('Error in the decryption process. Check if the the file is distorted or it might just be '
                       'decrypted already')
-            elif a == 4 :
+            if a == 4 :
                 print('Unknown Error has occurred\n')
+            if a == 5 :
+                print('ERROR : Key is Not 512-bit')
+            if a == 6:
+                print('ERROR : File is already decrypted')
+            elif a == 7:
+                print('ERROR : Given a directory instead of a file')
 
 
 def file_enc():
@@ -186,6 +192,12 @@ def file_enc():
                 print('Error in the encryption process. Check if the the file is distorted')
             elif a == 4 :
                 print('Unknown Error has occurred\n')
+            if a == 5 :
+                print('ERROR : Key is Not 512-bit')
+            if a == 6:
+                print('ERROR : File is already encrypted')
+            elif a == 7:
+                print('ERROR : Given a directory instead of a file')
 
 
 

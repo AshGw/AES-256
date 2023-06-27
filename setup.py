@@ -1,12 +1,11 @@
 from setuptools import setup , find_packages
 
-
-with open('AshCrypt/README.md','r') as f :
+with open('AshCrypt/README.md','r') as f:
     readme = f.read()
 
 setup(
     name='AshCrypt',
-    version='1.1.6',
+    version='1.1.7',
     author='Ashref Gwader',
     author_email='AshrefGw@proton.me',
     python_requires='>=3.7',
@@ -17,8 +16,7 @@ setup(
     url='https://github.com/AshGw/AES-256.git',
     packages=find_packages(exclude=['important', 'docker-build']),
     package_data={
-        'AshCrypt': ['*'],
-        'unittestsAC': ['*'],
+        'AshCrypt': ['**'],
     },
     exclude_package_data={
         '': ['.gitignore','LICENSE','README'],
@@ -32,7 +30,7 @@ setup(
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
+        'License :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',

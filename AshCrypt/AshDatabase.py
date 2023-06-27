@@ -43,17 +43,17 @@ class Database():
         result = []
         for i, query in enumerate(querys):
             if not isinstance(query, str):
-                result.append({f'query{i+1}': (0.0, TypeError)})
+                result.append({f'query {i}': (0.0, TypeError)})
             try:
                 with self.conn:
                     self.c.execute(query)
                     if self.c.rowcount == 1:
-                        result.append({f'query{i+1}': self.c.fetchone()})
+                        result.append({f'query {i}': ['SUCCESS',self.c.fetchone()]})
                     else:
-                        result.append({f'query{i+1}': self.c.fetchall()})
+                        result.append({f'query {i}': ['SUCCESS',self.c.fetchall()]})
 
             except sqlite3.Error as e:
-                result.append({f'query{i+1}': (0, e)})
+                result.append({f'query {i}': ('FAILURE', e.__str__())})
         return result
 
     def addtable(self, optional_tablename=None):
@@ -61,7 +61,7 @@ class Database():
             try:
                 with self.conn:
                     self.c.execute(f"CREATE TABLE IF NOT EXISTS {self.tablename} "
-                                   "(ID INTEGER PRIMARY KEY,Content BLOB ,Key TEXT )")
+                                   "(ID INTEGER PRIMARY KEY, Name Text , Content BLOB ,Key TEXT )")
                 return 11
             except sqlite3.Error as e:
                 return (0.0, e)
@@ -71,19 +71,21 @@ class Database():
                 with self.conn:
                     self.c.execute(f"CREATE TABLE IF NOT EXISTS {optional_tablename} "
                                    "(ID INTEGER PRIMARY KEY,"
+                                   "Name TEXT ,"
                                    "Content BLOB ,"
-                                   " Key TEXT )")
+                                   "Key TEXT )")
                     self.tablename = optional_tablename
                 return 1
 
             except sqlite3.Error as e:
                 return (0, e)
 
-    def insert(self, content, key, optional_table_name=None):
+    def insert(self, name , content, key, optional_table_name=None):
         if optional_table_name is None:
             try:
                 with self.conn:
-                    self.c.execute(f"INSERT INTO {self.tablename} (Content ,Key) VALUES (? , ?) ", (content, key))
+                    self.c.execute(f"INSERT INTO {self.tablename} (Name , Content ,Key) VALUES (? , ? , ?) "
+                                   , (name,content,key))
 
                 return 11
             except sqlite3.Error as e:
@@ -92,8 +94,8 @@ class Database():
         else:
             try:
                 with self.conn:
-                    self.c.execute(f"INSERT INTO {optional_table_name} (Content ,Key) VALUES (? , ?) ",
-                                   (content, key))
+                    self.c.execute(f"INSERT INTO {optional_table_name} (Name, Content ,Key) VALUES (? , ? , ?) ",
+                                   (name,content,key))
                 return 1
             except sqlite3.Error as e:
                 return (0, e)
@@ -134,6 +136,27 @@ class Database():
             try:
                 with self.conn:
                     self.c.execute(f'SELECT * FROM {optional_tablename} ')
+                    for row in self.c.fetchall():
+                        yield row
+
+            except sqlite3.Error as e:
+                return (0, e)
+
+    def content_by_id(self, id : int ,optional_tablename=None):
+        if optional_tablename is None:
+            try:
+                with self.conn:
+                    self.c.execute(f'SELECT * FROM {self.tablename} WHERE ID = ? ',(id,))
+                    for row in self.c.fetchall():
+                        yield row
+
+            except sqlite3.Error as e:
+                return (0.0, e)
+
+        else:
+            try:
+                with self.conn:
+                    self.c.execute(f'SELECT * FROM {optional_tablename} WHERE ID = ? ',(id,))
                     for row in self.c.fetchall():
                         yield row
 
@@ -222,12 +245,15 @@ class Database():
                 return (0, e)
 
 if __name__ == '__main__':
-    conn = Database('test.db')
+    conn = Database('post_test.db')
     conn.addtable()
-    key = '#5482A'
-    conn.insert('some encrypted content of bytes or strings',key)
+
+    key = '#5482AF'
+    conn.insert('My Accounts','some encrypted content of bytes or strings',key)
     for e in conn.show_tables():
         print(e)
     print(conn.size)
-    query1 = 'SELECT COUNT(*) AS cc ,content FROM DoesntExist WHERE key = "#5482A" ORDER BY cc DESC '
+    query1 = 'SELECT COUNT(*) AS cc ,content FROM Classified WHERE key = "#5482AF" ORDER BY cc DESC '
     print(conn.query(query1))
+
+
