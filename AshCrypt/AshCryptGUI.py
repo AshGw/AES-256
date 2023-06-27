@@ -360,6 +360,8 @@ def mainKeyWrapper():
         keySelectionFlag.set(1)
         if success_keysdb_connection_blocker and os.path.isfile(filenameStringVar.get().strip()):
             keys_db_conn.insert(filenameStringVar.get().strip(),mainkey,outputKeyref.get())
+        if success_keysdb_connection_blocker and not os.path.isfile(filenameStringVar.get().strip()):
+            keys_db_conn.insert('STANDALONE',mainkey,outputKeyref.get())
 
     else :
         keySelectionFlag.set(0)
@@ -448,15 +450,19 @@ db_display_text.place(relx=0.015 ,rely=0.105)
 
 ###### FUNCTIONS ######
 def show_all_content():
-    global db_enable_blocker, main_db_name_var, usable_real_path, main_db_conn,db_display_text
+    global db_enable_blocker, main_db_name_var, usable_real_path, main_db_conn,db_display_text,keys_db_conn
     if db_enable_blocker != 0:
         db_display_text.delete('1.0', tk.END)
         db_display_text.insert(tk.END, f"Check 'output.json' in the chosen path : {usable_real_path}\n")
         json_path = os.path.join(usable_real_path, 'output.json')
+        if swich_db_var.get() == 1:
+            conn = keys_db_conn
+        else:
+            conn = main_db_conn
         try:
             with open(json_path, 'w') as f:
                 eBuffer = {}
-                for e in main_db_conn.content():
+                for e in conn.content():
                     eBuffer['ID_' + e[0].__str__()] = [{'Filename': e[1]}, {'Content': e[2].__str__()}, {'KeyRef': e[3]}]
                 eJSON = json.dumps(eBuffer, indent=2)
                 f.write(eJSON)
@@ -468,10 +474,14 @@ def show_all_content():
 
 
 def show_content_by_id():
-    global db_enable_blocker, main_db_conn, content_id_entry_var, usable_real_path
+    global db_enable_blocker, main_db_conn,keys_db_conn, content_id_entry_var, usable_real_path
     idd = content_id_entry_var.get().strip()
     last_id = checkid()
     if db_enable_blocker != 0:
+        if swich_db_var.get() == 1:
+            conn = keys_db_conn
+        else:
+            conn = main_db_conn
         try:
             if int(idd) > 0:
                 if last_id == -1:
@@ -484,20 +494,20 @@ def show_content_by_id():
                         to_json_path = os.path.join(usable_real_path, 'output.json')
                         with open(to_json_path, 'w') as f:
                             eBuffer = {}
-                            for e in main_db_conn.content_by_id(int(idd)):
+                            for e in conn.content_by_id(int(idd)):
                                 eBuffer['ID_' + e[0].__str__()] = [{'Filename': e[1]}, {'Content': e[2].__str__()},
                                                                    {'KeyRef': e[3]}]
                             eJSON = json.dumps(eBuffer, indent=2)
                             f.write(eJSON)
                         db_display_text.insert(tk.END, f"Successful fetch !\n\nCheck the 'output.json' file in the"
-                                                       f"the chosen path :\n\n'{usable_real_path}'")
+                                                       f"chosen path :\n\n'{usable_real_path}'")
                     if int(idd) == last_id:
                         db_display_text.delete('1.0', tk.END)
                         db_display_text.insert(tk.END, 'Chosen last ID\n\n')
                         to_json_path = os.path.join(usable_real_path,'output.json')
                         with open(to_json_path, 'w') as f:
                             eBuffer = {}
-                            for e in main_db_conn.content_by_id(int(idd)):
+                            for e in conn.content_by_id(int(idd)):
                                 eBuffer['ID_' + e[0].__str__()] = [{'Filename': e[1]}, {'Content': e[2].__str__()},
                                                                    {'KeyRef': e[3]}]
                             eJSON = json.dumps(eBuffer, indent=2)
@@ -514,15 +524,16 @@ def show_content_by_id():
             db_display_text.delete('1.0', tk.END)
             db_display_text.insert(tk.END, 'ID value must be a valid integer')
 
-def show_all_tables():
-    pass
-
 
 def drop_content_by_id():
-    global db_enable_blocker,main_db_conn,content_id_entry_var
+    global db_enable_blocker,main_db_conn,keys_db_conn,content_id_entry_var
     idd = content_id_entry_var.get().strip()
     last_id = checkid()
     if db_enable_blocker != 0:
+        if swich_db_var.get() == 1:
+            conn = keys_db_conn
+        else:
+            conn = main_db_conn
         try:
             if int(idd) > 0:
                 if last_id == -1:
@@ -533,13 +544,13 @@ def drop_content_by_id():
                     if int(idd) in range(1,last_id):
                         db_display_text.delete('1.0', tk.END)
                         db_display_text.insert(tk.END,'Valid ID')
-                        main_db_conn.drop_content(idd)
+                        conn.drop_content(idd)
                         db_display_text.insert(tk.END, f'\nDropping by ID {idd} Went successful')
 
                     if int(idd) == last_id:
                         db_display_text.delete('1.0', tk.END)
                         db_display_text.insert(tk.END, 'Chosen last ID')
-                        main_db_conn.drop_content(idd)
+                        conn.drop_content(idd)
                         db_display_text.insert(tk.END, f'\nDropping by ID {idd} Went successful')
 
                     elif int(idd) > last_id:
@@ -563,16 +574,20 @@ show_all_content_button.place(relx=0.287,rely=0.87)
 
 query_clicks = 1
 def query():
-    global db_enable_blocker,main_db_conn, usable_real_path,query_clicks
+    global db_enable_blocker,main_db_conn,keys_db_conn ,usable_real_path,query_clicks
     if db_enable_blocker !=0 :
+        if swich_db_var.get() == 1:
+            conn = keys_db_conn
+        else:
+            conn = main_db_conn
         query_var = query_entry_var.get().strip()
         if len(query_var) > 0:
             try:
                 db_display_text.delete('1.0', tk.END)
                 json_file = os.path.join(usable_real_path,'output.json')
                 with open(json_file, 'w') as f:
-                    query_out = main_db_conn.query(query_var)
-                    main_db_conn.addtable()
+                    query_out = conn.query(query_var)
+                    conn.addtable()
                     eJSON = json.dumps({f'query {query_clicks}': query_out}, indent=2)
                     query_clicks += 1
                     f.write(eJSON)
@@ -625,17 +640,6 @@ show_content_by_id_button.place(relx=0.562,rely=0.93)
 lowerFrame = tk.Frame(master=object, width=1000 ,height=260)
 lowerFrame.place(x=500,y=540)           ##### MUST CHANGE ####
 
-def show_db_size():
-    pass
-
-def show_last_mod():
-    pass
-
-def show_current_IDs():
-    pass
-
-def show_cwd():
-    pass
 
 db_path_blocker = 0
 usable_real_path = ''
@@ -656,27 +660,30 @@ import re
 
 main_db_name_blocker = 0
 db_already_exists_blocker = 0
-
+maindbname = ''
 def main_db_name():
     global main_db_name_blocker,\
         db_already_exists_blocker,\
         usable_real_path,db_path_blocker,\
         success_maindb_connection_blocker,\
-        main_db_conn
+        main_db_conn,\
+        maindbname
+
     dbname = main_db_name_var.get().strip()
     if re.match(r'((^[\w(-.)?]+\.db$)|(^[\w?(-.)]\.db$))', dbname):
+        maindbname = dbname
         main_db_name_blocker = 1
         main_db_name_result_var.set('SET')
         if db_path_blocker == 1:
             fullpath = usable_real_path
-            conn_path_db = os.path.join(usable_real_path, dbname)
-            if os.path.isfile(fullpath + f'\\{dbname}') or os.path.isfile(fullpath + f'/{dbname}')  :
+            conn_path_db = os.path.join(usable_real_path, maindbname)
+            if os.path.isfile(fullpath + f'\\{maindbname}') or os.path.isfile(fullpath + f'/{maindbname}')  :
                 db_already_exists_blocker = 1
                 main_db_conn = AD.Database(conn_path_db)
                 main_db_conn.addtable()
                 main_db_name_result_var.set('CONNECTED')
                 db_display_text.delete('1.0', tk.END)
-                db_display_text.insert(tk.END, f'Connected to {dbname}..\n\n')
+                db_display_text.insert(tk.END, f'Connected to {maindbname}..\n\n')
                 success_maindb_connection_blocker = 1
                 encfiletoolbutt.state(['!disabled'])
                 decfiletoolbutt.state(['!disabled'])
@@ -685,7 +692,7 @@ def main_db_name():
                 main_db_conn = AD.Database(conn_path_db)
                 main_db_conn.addtable()
                 db_display_text.delete('1.0', tk.END)
-                db_display_text.insert(tk.END, f"Created and Connected to '{dbname}'.. in the directory '{fullpath}'\n\n")
+                db_display_text.insert(tk.END, f"Created and Connected to '{maindbname}'.. in the directory '{fullpath}'\n\n")
                 success_maindb_connection_blocker = 1
                 encfiletoolbutt.state(['!disabled'])
                 decfiletoolbutt.state(['!disabled'])
@@ -774,9 +781,13 @@ set_db_path_button = tk.Button(master=lowerFrame , text='SUBMIT PATH AND NAME',w
 set_db_path_button.place(relx=0.031,rely=0.38)
 
 def checksize():
-    global db_enable_blocker,main_db_conn
+    global db_enable_blocker,main_db_conn,keys_db_conn
     if db_enable_blocker != 0:
-        size = main_db_conn.size
+        if swich_db_var.get() == 1:
+            conn = keys_db_conn
+        else:
+            conn = main_db_conn
+        size = conn.size
         if size < 1024:
             db_display_text.delete('1.0', tk.END)
             db_display_text.insert(tk.END, f"Current size is {size:.5f} (MB)'\n\n")
@@ -790,10 +801,14 @@ size_button = tk.Button(master=lowerFrame , text='SIZE',width=22 ,command=checks
 size_button.place(relx=0.031,rely=0.58)
 
 def checkid():
-    global db_enable_blocker,main_db_conn
+    global db_enable_blocker,main_db_conn,keys_db_conn
     if db_enable_blocker != 0:
+        if swich_db_var.get() == 1:
+            conn = keys_db_conn
+        else:
+            conn = main_db_conn
         try:
-            q = main_db_conn.query('SELECT ID FROM Classified')
+            q = conn.query('SELECT ID FROM Classified')
             idd = 0
             for e in q:
                 for k, v in e.items():
@@ -813,10 +828,14 @@ id_button = tk.Button(master=lowerFrame , text='LAST ID',width=22 ,command=check
 id_button.place(relx=0.247,rely=0.58)
 
 def check_las_mod():
-    global db_enable_blocker,main_db_conn
+    global db_enable_blocker,main_db_conn,keys_db_conn
     if db_enable_blocker != 0:
+        if swich_db_var.get() == 1:
+            conn = keys_db_conn
+        else:
+            conn = main_db_conn
         db_display_text.delete('1.0', tk.END)
-        db_display_text.insert(tk.END, f"Last modification at : '{main_db_conn.last_mod}'\n")
+        db_display_text.insert(tk.END, f"Last modification at : '{conn.last_mod}'\n")
 
 
 las_mod_button = tk.Button(master=lowerFrame , text='LAST MODIFICATION',width=49 ,command=check_las_mod,bootstyle='warning outline')
@@ -836,17 +855,20 @@ main_db_name_result_entry = tk.Label(master=lowerFrame ,
                         bootstyle='light',
                         textvariable=main_db_name_result_var).place(relx=0.7, rely=0.205)
 
-
+current_working_db = maindbname
 def swich_db():
-    if swich_db_var.get() == 1:
-        switch_db_label_var.set('ON KEYS')
-        db_display_text.delete('1.0', tk.END)
-        db_display_text.insert(tk.END, f"Switched to keys database\n")
-
-    else:
-        switch_db_label_var.set('ON MAIN')
-        db_display_text.delete('1.0', tk.END)
-        db_display_text.insert(tk.END, f"Back to default main database\n")
+    global current_working_db
+    if db_enable_blocker != 0:
+        if swich_db_var.get() == 1:
+            switch_db_label_var.set('ON KEYS')
+            db_display_text.delete('1.0', tk.END)
+            db_display_text.insert(tk.END, f"Switched to keys database\n")
+            current_working_db = maindbname
+        else:
+            switch_db_label_var.set('ON MAIN')
+            db_display_text.delete('1.0', tk.END)
+            db_display_text.insert(tk.END, f"Back to default main database\n")
+            current_working_db = maindbname[:-3] + 'Keys.db'
 
 
 switch_db_label_var = tk.StringVar(value='SWITCH DATABASE')
