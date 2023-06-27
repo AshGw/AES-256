@@ -248,50 +248,65 @@ import AshCrypt.AshFileCrypt as AF
 def encFile():
     global fileaccessSemo ,add_enc_to_db ,main_db_conn,mainkey
     if 1 :
-        #           if AF.CryptFile.keyverify(mainkeyvar.get()) == 1 and keySelectionFlag.get() != 0:
         if keySelectionFlag.get() != 0:
             filename = filenameStringVar.get().strip()
             key = mainkey
             target = AF.CryptFile(filename, key)
             a = target.encrypt()
             if a == 1:
-                resultvarfile.set('            Encrypted Successfully')
+                filename = filename + '.crypt'
+                filenameStringVar.set(filename)
+                resultvarfile.set('    Encrypted Successfully / added .crypt')
                 if encfiletoolbuttvar.get() == 1:
                     with open(filename,'rb') as f:
                         file_content = f.read()
-                    main_db_conn.insert(filename + '.encrypted',file_content, outputKeyref.get().strip())
+                    main_db_conn.insert(filename,file_content, outputKeyref.get().strip())
             if a == 2:
                 resultvarfile.set('                 File is Empty')
             if a == 3:
                 resultvarfile.set("               File Doesn't Exist")
             if a == 0:
                 resultvarfile.set("                  Can't Encrypt")
-            elif a == 4:
+            if  a == 4:
                 resultvarfile.set('                     ERROR')
+            if a == 5 :
+                resultvarfile.set('          ERROR : Key is Not 512-bit')
+            if a == 6:
+                resultvarfile.set('       ERROR : File is already encrypted')
+            elif a == 7:
+                resultvarfile.set(' ERROR : Given a directory instead of a file')
 
 def decfile():
     global fileaccessSemo,add_dec_to_db,main_db_conn,mainkey
     if 1:
-        #  if AF.CryptFile.keyverify(mainkeyvar.get()) == 1 and keySelectionFlag.get() != 0:
         if keySelectionFlag.get() != 0:
-            filename = filenameStringVar.get().strip()
+            filename =filenameStringVar.get().strip()
             key = mainkey
             target = AF.CryptFile(filename, key)
             a = target.decrypt()
             if a == 1:
-                resultvarfile.set('            Decrypted Successfully')
+                filename = os.path.splitext(filename)[0]
+                filenameStringVar.set(filename)
+                resultvarfile.set('   Decrypted Successfully + removed .crypt')
                 if decfiletoolbuttvar.get() == 1:
                     with open(filename,'rb') as f:
                         file_content = f.read()
-                    main_db_conn.insert(filename + '.decrypted',file_content, outputKeyref.get().strip())
+                    main_db_conn.insert(filename,file_content, outputKeyref.get().strip())
             if a == 2:
                 resultvarfile.set('                 File is Empty')
             if a == 3:
                 resultvarfile.set("               File Doesn't Exist")
             if a == 0:
                 resultvarfile.set("                 Can't Decrypt")
-            elif a == 4:
+            if  a == 4:
                 resultvarfile.set('                     ERROR')
+            elif a == 5 :
+                resultvarfile.set('          ERROR : Key is Not 512-bit')
+            if a == 6:
+                resultvarfile.set('       ERROR : File is already decrypted')
+            elif a == 7:
+                resultvarfile.set(' ERROR : Given a directory instead of a file')
+
 
 
 
@@ -301,6 +316,7 @@ encryptionfilebutton = tk.Button(master=frameFile1 ,text='ENCRYPT FILE', command
 decryptionfilebutton = tk.Button(master=frameFile1 , text='DECRYPT FILE', command=decfile,bootstyle='warning outline').place(relx=0.55,rely=0.73)
 
 filenameStringVar = tk.StringVar(value='')
+
 filenametext = tk.Entry(master=frameFile1 ,
                         width=31,
                         font='Calibre 15 bold',
@@ -352,15 +368,15 @@ decfiletoolbutt.place(relx=0.717,rely=0.92)
 
 keySelectionFlag = tk.IntVar(value=0)
 def mainKeyWrapper():
-    global success_keysdb_connection_blocker,mainkey
+    global success_keysdb_connection_blocker,mainkey, filename
     if AF.CryptFile.keyverify(mainkeyvar.get().strip()) == 1 :
         mainkey = mainkeyvar.get().strip()
         keyrefGen()
         keyselectionvar.set('       SELECTED')
         keySelectionFlag.set(1)
-        if success_keysdb_connection_blocker and os.path.isfile(filenameStringVar.get().strip()):
-            keys_db_conn.insert(filenameStringVar.get().strip(),mainkey,outputKeyref.get())
-        if success_keysdb_connection_blocker and not os.path.isfile(filenameStringVar.get().strip()):
+        if success_keysdb_connection_blocker and os.path.isfile(filename):
+            keys_db_conn.insert(filename,mainkey,outputKeyref.get())
+        if success_keysdb_connection_blocker and not os.path.isfile(filename):
             keys_db_conn.insert('STANDALONE',mainkey,outputKeyref.get())
 
     else :
