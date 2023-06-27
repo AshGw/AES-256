@@ -311,15 +311,15 @@ decfiletoolbutt.place(relx=0.717,rely=0.92)
 
 keySelectionFlag = tk.IntVar(value=0)
 def mainKeyWrapper():
-    global success_keysdb_connection_blocker,mainkey, filename
+    global success_keysdb_connection_blocker,mainkey
     if AF.CryptFile.keyverify(mainkeyvar.get().strip()) == 1 :
         mainkey = mainkeyvar.get().strip()
         keyrefGen()
         keyselectionvar.set('       SELECTED')
         keySelectionFlag.set(1)
-        if success_keysdb_connection_blocker and os.path.isfile(filename):
-            keys_db_conn.insert(filename,mainkey,outputKeyref.get())
-        if success_keysdb_connection_blocker and not os.path.isfile(filename):
+        if success_keysdb_connection_blocker and os.path.isfile(filenameStringVar.get().strip()):
+            keys_db_conn.insert(filenameStringVar.get().strip(),mainkey,outputKeyref.get())
+        if success_keysdb_connection_blocker and not os.path.isfile(filenameStringVar.get().strip()):
             keys_db_conn.insert('STANDALONE',mainkey,outputKeyref.get())
 
     else :
@@ -419,7 +419,7 @@ def show_all_content():
             with open(json_path, 'w') as f:
                 eBuffer = {}
                 for e in conn.content():
-                    eBuffer['ID_' + e[0].__str__()] = [{'Filename': e[1]}, {'Content': e[2].__str__()}, {'KeyRef': e[3]}]
+                    eBuffer['ID ' + e[0].__str__()] = [{'Filename': e[1]}, {'Content': e[2].__str__()}, {'KeyRef': e[3]}]
                 eJSON = json.dumps(eBuffer, indent=2)
                 f.write(eJSON)
                 db_display_text.insert(tk.END,f"\nSuccessfully written all table content in output.json\n"
