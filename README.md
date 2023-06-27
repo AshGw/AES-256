@@ -20,26 +20,14 @@ sensitive data,  providing a hassle-free experience when dealing with cryptograp
 
 
 
-The project uses that same module to ensure secure data encryption and decryption for Files and Texts while keeping it very easy and simple to use .
+The project mainly includes a fully fledged application that integrates all the modules in the library merging them into a unified and powerful software solution for developers and for people with no programming knowledge whatsoever
+<br>check [GUI](https://github.com/AshGw/AES-256/AshCrypt#ashcryptgui) header for more info.
+
+
+### For Developers ###
+The project uses `Ash` module to ensure secure data encryption and decryption for Files and Texts while keeping it very easy and simple to use .
 view the headers for [AshFileCrypt](https://github.com/AshGw/AES-256/src#ashfilecrypt) and [AshTextCrypt](https://github.com/AshGw/AES-256/src#ashtextcrypt) to learn more.
 
-It also includes a simple graphical user interface (GUI) for easy interaction with the AshTextCrypt module.
-<br>If you're trying to either encrypt or decrypt some messages on the go ( 200 characters max ) you can use this GUI.
-<br>It also has a qr module associated with it to display the message.
-<br>check [GUI](https://github.com/AshGw/AES-256/src#ashcryptgui) header for more info.
-
-
-While The **GUI** is limited to 200 characters of text, if you want to be free over how much data or type of data you want to include, then u can use `CliCrypt.py` which is an innovative command line interface (CLI) designed to provide encryption and decryption capabilities for both text and file data with no constraints.
-
-**After the library is installed** 
-<br>To run the GUI 
-```shell
-python -m AshCrypt.AshCryptGUI
-```
-To run the CLI 
-```shell
-python -m AshCrypt.CliCrypt
-```
 
 It also incorporates a database module that serve the same purpose which is allowing for the management and storage of classified content in a secure, 
 safe and simple manner, you can use whichever you see fit.
@@ -102,6 +90,21 @@ pip install dataclasses
 <br>Now if none of this works you might just use the docker image for this purpose, so check this [directory](docker-build)
 </details>
 
+**After the library is installed** 
+<br>To run the GUI 
+```shell
+python -m AshCrypt.AshCryptGUI
+```
+
+**NOTE**:
+You  can use `CliCrypt.py` which is an innovative command line interface (CLI) designed to provide encryption and decryption capabilities for both text and file data with no constraints intended for use within containers or in systems where you can't use a GUI.
+
+
+To run the CLI 
+```shell
+python -m AshCrypt.CliCrypt
+```
+
 ## Ash Module ##
 The `Ash.py` Module is a comprehensive collection of carefully designed functions and code modules that facilitate optimal performance and reliability in data encryption and decryption operations  while ensuring the utmost security and 
 confidentiality.
@@ -109,7 +112,7 @@ confidentiality.
 <br>It uses primitives from the `cryptography.py` library with added security features while keeping it simple and highly flexible to provide a head-ache free solution for developers. 
 
 <br>You can check [Features](https://github.com/AshGw/AES-256#features) tag below to learn more about the security features.
-<br>You can check the [unittesting file](unittestsAC/unittestAsh.py) to verify how it works.
+<br>You can check the [unittesting file](AshCryt/unittests/unittestAsh.py) to verify how it works.
 
 ### Usage ##
 1) Generate a key if you don't have one already
@@ -182,6 +185,45 @@ Note that bcrypt is intentionally slow and computationally expensive, enhancing 
 <br>The bare minimum is 50, the max is 100 000, choose somewhere in between.
 <br>In my use case 50 takes around 0.5 secs while using the maximun number of iterations takes around 11 minutes to derive the keys and finish the cryptographic operations at hand.
 
+## AshCryptGUI ##
+![alt text](important/GUI.png)
+The GUI as mentioned above is a fully fledged application , you can use it to encrypt files , texts , keep track of files by storing them on demand to a main database , also on demand it can keep track of the keys used for cryptographic operations.
+### Usage ###
+1) Set the main key up. If you don't have one , press on the button `generate` to generate a secure safe key ready for use. 
+2) Now you're able to encrypt files or text (text is limited to 200 characters max)
+####  Text : 
+- You can insert some text in the entry right below the `TEXT ENCRYPTION` label.<br>The given text will be encrypted and you can choose if you want to have that text displayed as a qr code, a qr image will pop on the screen and you'll be able to scan it using your phone.
+- Insert some encrypted text below the `TEXT DECRYPTION` label.<br>The Given text will be decrypted and you'd have the option to display the "plaintext" as a qr code to be scanned by other devices.
+#### Files
+- Under the `FILE PATH` lable enter the file name (if it's in the current working directory) or submit the whole file path , the file can be of any type, click on `ENCRYPT FILE` Button to encrypt the given file , if the encryption turned out to be successful , you'll see a success message along with a `added .crypt extention to the file` message if the encryption wasn't successful you'll see an error message specifying the problem.<br>Note that you cannot re-encrypt a file that  has `.crypt` as extention.
+- The file name should be changed by now to `filename + '.crypt'` , if the file has .crypt extention you can go ahead and decrypt it , if the same key is used for both enc/dec operations then the result should be `success` + `removed .crypt extention` from the file.
+#### Database
+- Now you have some encrypted/decrypted files but you want to keep them stored somewhere safe, this is where the main database comes in , where you need to store your files + their content + reference to the key used for their encryption/decryption. you can specify your database by 
+1) Specify the actual path where you want your database to be 
+2) Give it a name.<br>
+If the database doesn't exist then a database with the name you've given will be created and automatically connected to.<br>If the given database already exists then it will automatically be connected.
+3) Did I mention the keys database ? well if you give a database it will also create a keys database with the same name as the database you chose plus `Keys` added to its name. This database holds the actual keys and the reference to these keys. 
+
+**Note** : You can actually share your main database in public no problems if it only contains encrypted content BUT NEVER EVER GET YOUR KEYS DATABASE COMPROMISED ! 
+<br>If anyone gets hold of your main database they would only see some encrypted content and some key refrence that is actually 100% independent of the actual key used for encryption so they have nothing , but if they get hold of the keys database they can look for matching refs and use the matching key to decrypt that binary encrypted data to its actual format.
+That's why I made two different databases not two tables within a single database. 
+
+**Info** Both databses have the same table called `Classified` that has 4 columns <br>`ID` which is auto generated & incremented for each piece of data that gets inserted<br>
+`Name` that holds the filename in both databases , although in the keys database if you haven't specified any file to operate on and keep selecting keys the keys name will be `STANDALONE` 
+<br>`Contnet` in the main db that holds the entire content of the given file, in keys db that holds the actual 512 bit long encryption key.
+<br>`Key` in  both db's that holds the `KeyRef` or key reference value
+#### Usage 
+The buttons are self-explanatory so do what you see fit. the result of any task related to the databases is displayed in `DATABASE OUTPUT CONSOLE` although you can run a query anytime by writing a query and using `query` button , the result will be displayed to an `output.json` file that auto-deletes when you exit the app.
+<br>Just click buttons and check the result in the output console, it will guide you the process.
+
+<br>To run the GUI anywhere
+```shell
+python -m AshCrypt.AshCryptGUI
+```
+
+
+
+
 ## AshFileCrypt ## 
 If you want to encrypt a file :
 1) Follow the steps above to set the key up.
@@ -246,14 +288,6 @@ in `AshFileCryt` & `AshTextCrypt` it's simpler if you attempt to decrypt an non-
 Error handling here has no Exceptions raised just `1`'s, `0`'s & `2`'s for feedback, just to make it simple and Non-Technical.
 
 
-## AshCryptGUI ##
-This is a fully fledged application that integrates all the modules in the library merging them into a unified and powerful software solution
-![alt text](important/GUI.png)
-
-<br>To run the GUI anywhere
-```shell
-python -m AshCrypt.AshCryptGUI
-```
 ### QR ## 
 The `qr.py` module is used to display a qr code of the encrypted/decrypted messages to be quickly scanned and transmitted , you can use qr versions from `1` to `40` , although I recommend using `40` since it can take the maximum number of characters for small files , and `10` if you're working with the GUI which is intended for text/short messages,
 
