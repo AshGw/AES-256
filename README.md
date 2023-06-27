@@ -74,7 +74,7 @@ This will run the commands in [setup.sh](important/setup.sh).
 
 <br>If you're testing how this works on a Debian based Docker container you can run this command to automatically set the environment before you run the command above
 ```bash
-curl -sSfL https://raw.githubusercontent.com/AshGw/AES-256/Apex/docker-build/env-setup.sh | bash
+curl -sSfL https://raw.githubusercontent.com/AshGw/AES-256/main/docker-build/env-setup.sh | bash
 ```
 Then run 
 ```bash
@@ -247,18 +247,9 @@ Error handling here has no Exceptions raised just `1`'s, `0`'s & `2`'s for feedb
 
 
 ## AshCryptGUI ##
-This is merely a GUI to encrypt and decrypt a text of a maximum of 200 characters and also display the qr representation of the text (encrypted/decrypted) .
-
+This is a fully fledged application that integrates all the modules in the library merging them into a unified and powerful software solution
 ![alt text](important/GUI.png)
 
-**NOTE** : The key is not specified in the GUI its hard-coded, if you want to change the key make sure to change it from within the file `AshCryptGUI.py` itself, it's just a security measure. By default it uses the following key in bytes :
-```python
-import ttkbootstrap as tk
-from AshTextCrypt import *
-import qr
-
-key = 'c3066e464350e68a144d6be3e35c879eac1b9f360139443ee3d9e1960725d6a4d3379af0a35b6a07d083ecc29c4ba03767ad6d48b8e9c20d319dd459da52a91a'
-```
 <br>To run the GUI anywhere
 ```shell
 python -m AshCrypt.AshCryptGUI

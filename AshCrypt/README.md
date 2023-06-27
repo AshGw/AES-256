@@ -183,20 +183,10 @@ Error handling here has no Exceptions raised just `1`'s, `0`'s & `2`'s for feedb
 
 
 ## AshCryptGUI ##
-This is merely a GUI to encrypt and decrypt a text of a maximum of 200 characters and also display the qr representation of the text (encrypted/decrypted) .
+This is a fully fledged application that integrates all the modules in the library merging them into a unified and powerful software solution. run this command and see for yourself !
 
-Run the command
-```bash
-python -m AshCryptGUI
-```
-
-**NOTE** : The key is not specified in the GUI its hard-coded, if you want to change the key make sure to change it from within the file `AshCryptGUI.py` itself, it's just a security measure. By default it uses the following key in bytes :
-```python
-import ttkbootstrap as tk
-from AshTextCrypt import *
-import qr
-
-key = 'c3066e464350e68a144d6be3e35c879eac1b9f360139443ee3d9e1960725d6a4d3379af0a35b6a07d083ecc29c4ba03767ad6d48b8e9c20d319dd459da52a91a'
+```shell
+python -m AshCrypt.AshCryptGUI
 ```
 ### QR ## 
 The `qr.py` module is used to display a qr code of the encrypted/decrypted messages to be quickly scanned and transmitted , you can use qr versions from `1` to `40` , although I recommend using `40` since it can take the maximum number of characters for small files , and `10` if you're working with the GUI which is intended for text/short messages,
