@@ -1,11 +1,16 @@
-import atexit
-import os.path
-import time
-import json
+import AshCrypt.AshTextCrypt as AT
+import AshCrypt.AshFileCrypt as AF
 import AshCrypt.AshDatabase as AD
-
-
 import ttkbootstrap as tk
+import AshCrypt.qr as qr
+import secrets
+import os.path
+import string
+import atexit
+import json
+import re
+
+
 '''--------------------------------------FRAMING STARTED-------------------------------------------------------------'''
 
 object = tk.Window(themename='vapor')
@@ -35,71 +40,10 @@ lowerFrame.place(x=500,y=540)
 
 '''--------------------------------------FRAMING DONE--------------------------------------------------------------'''
 
-'''---------------------------------------QR SETUP STARTED-----------------------------------------------------------'''
-#
-#
-# import qrcode
-# from typing import Union
-#
-# def encQR(text : str) -> Union [int,tuple] :
-#     try:
-#         x = text.strip()
-#         qr = qrcode.QRCode(version = 10,error_correction=qrcode.constants.ERROR_CORRECT_L,box_size=20,border=1)
-#         qr.add_data(x)
-#         qr.make(fit=True)
-#         img = qr.make_image(fill_color = "black", back_color="white")
-#         img.save(("encQR.png"))
-#         img.show()
-#         return 1
-#     except Exception as e :
-#         return (0,e)
-#
-# def decQR(text : str) -> Union [int,tuple] :
-#     try:
-#         x = text.strip()
-#         qr = qrcode.QRCode(version = 10,error_correction=qrcode.constants.ERROR_CORRECT_L,box_size=20,border=1)
-#         qr.add_data(x)
-#         qr.make(fit=True)
-#         img = qr.make_image(fill_color = "black", back_color="white")
-#         img.save(("decQR.png"))
-#         img.show()
-#         return 1
-#
-#     except Exception as e :
-#         return (0,e)
-
-'''---------------------------------------QR SETUP ENDED-----------------------------------------------------------'''
-
-
-
-'''----------------------------------------LOWER FRAME STARTED--------------------------------------------------------'''
-# from PIL import ImageTk , Image
-# theEncryptedQR = encImageHold.configure(height=220,width=220)
-# resizedImageEnc = theEncryptedQR
-# photoEncQR = ImageTk.PhotoImage(resizedImageEnc)
-# theEncryptedQRLabel = tk.Label(master=lowerFrame,image=photoEncQR)
-# theEncryptedQRLabel.place(x=1210 , y=10)
-
-
-
-'''----------------------------------------LOWER FRAME ENDED----------------------------------------------------------'''
-
-
-
-
-
-
-
-
-
-
 
 '''-------------------------------TEXT DECRYPTION/ENCRYPTION STARTED---------------------------------------------------'''
 
 
-
-import AshCrypt.AshTextCrypt as AT
-import AshCrypt.qr as qr
 
 
 def encryption():
@@ -243,7 +187,6 @@ resultLabelfile =  tk.Label(master= frameFile1,
                                                        rely= 0.55 ,
                                                        )
 
-import AshCrypt.AshFileCrypt as AF
 
 def encFile():
     global fileaccessSemo ,add_enc_to_db ,main_db_conn,mainkey
@@ -322,7 +265,7 @@ filenametext = tk.Entry(master=frameFile1 ,
                         font='Calibre 15 bold',
                         textvariable=filenameStringVar).place(relx=0.05, rely=0.30)
 
-#################################################################################"
+
 
 addtodbLabel = tk.Label(master=frameFile1,text='ADD TO DATABASE',font=('Calibre',11),bootstyle='warning')
 addtodbLabel.place(relx=0.35,rely=0.908)
@@ -363,7 +306,7 @@ decfiletoolbutt = tk.Checkbutton(bootstyle='warning , round-toggle',
 decfiletoolbutt.state(['disabled'])
 decfiletoolbutt.place(relx=0.717,rely=0.92)
 
-#####################################################################################
+
 
 
 keySelectionFlag = tk.IntVar(value=0)
@@ -400,8 +343,6 @@ mainkeyEntry = tk.Entry(master=frameFile2 ,
                         ).place(relx=0.09 ,rely=0.29)
 
 
-import string
-import secrets
 def keyrefGen():
     ref = '#'
     for _ in range(6):
@@ -426,7 +367,7 @@ keyselectionLabel = tk.Label(master=frameFile2 ,
                                         rely= 0.465,
                                         height= 50)
 
-###########################################################################################
+
 
 def genMainKey():
     keyGenVar.set(AF.CryptFile.genkey())
@@ -464,7 +405,6 @@ db_display_text = tk.ScrolledText(width=36 , height=30, font='Terminal 10',wrap=
 db_display_text.insert(tk.END,'Waiting to fetch..')
 db_display_text.place(relx=0.015 ,rely=0.105)
 
-###### FUNCTIONS ######
 def show_all_content():
     global db_enable_blocker, main_db_name_var, usable_real_path, main_db_conn,db_display_text,keys_db_conn
     if db_enable_blocker != 0:
@@ -582,7 +522,7 @@ def drop_content_by_id():
 
 
 
-########## FUNCTIONS DONE ###########
+
 
 show_all_content_button = tk.Button(master=databaseFrame,text='SHOW ALL TABLE CONTENT',command=show_all_content,bootstyle='warning outline')
 show_all_content_button.place(relx=0.287,rely=0.87)
@@ -654,7 +594,7 @@ show_content_by_id_button.place(relx=0.562,rely=0.93)
 
 
 lowerFrame = tk.Frame(master=object, width=1000 ,height=260)
-lowerFrame.place(x=500,y=540)           ##### MUST CHANGE ####
+lowerFrame.place(x=500,y=540)
 
 
 db_path_blocker = 0
@@ -672,7 +612,6 @@ def set_db_path():
         usable_real_path = ''
 
 
-import re
 
 main_db_name_blocker = 0
 db_already_exists_blocker = 0
@@ -749,8 +688,7 @@ def keyDBsetup():
             db_display_text.insert(tk.END, f"Created and Connected to '{keysDB}' ..\n\n")
             success_keysdb_connection_blocker = 1
 
-# keys_db_conn = None
-# main_db_conn = None
+
 success_maindb_connection_blocker = 0
 success_keysdb_connection_blocker = 0
 db_enable_blocker = 0
@@ -776,7 +714,6 @@ db_path_entry = tk.Entry(master=lowerFrame ,
                         font='Calibre 14 bold',
                         textvariable=db_path_var).place(relx=0.03, rely=0.005)
 
-# PATH SET NOT SET LABEL
 db_path_result_var = tk.StringVar(value="")
 db_path_result_entry = tk.Label(master=lowerFrame ,
                         font='Calibre 13 bold',
@@ -864,7 +801,7 @@ main_db_name_entry = tk.Entry(master=lowerFrame ,
                         font='Calibre 14 bold',
                         textvariable=main_db_name_var).place(relx=0.03, rely=0.192)
 
-# SET NOT SET LABEL
+
 main_db_name_result_var = tk.StringVar(value='')
 main_db_name_result_entry = tk.Label(master=lowerFrame ,
                         font='Calibre 13 bold',
@@ -916,8 +853,8 @@ swich_db_toggle.place(relx=0.47,rely=0.413)
 '''---------------------------------------STAMP STARTED -------------------------------------------------------'''
 
 
-latest_ID_key_label = tk.Label(master=lowerFrame,text='Copyright (C) 2023 Ashref Gwader', font='Calibre 6')
-latest_ID_key_label.place(relx=0.81,rely=0.92)
+latest_ID_key_label = tk.Label(master=lowerFrame,text='GitHub.com/AshGw/AES-256', font='Calibre 6')
+latest_ID_key_label.place(relx=0.84,rely=0.92)
 
 '''---------------------------------------STAMP ENDED-------------------------------------------------------'''
 
