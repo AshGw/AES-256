@@ -35,24 +35,31 @@ class CryptFile():
         if self.not_512_bit_key == 1:
             return 5
         try:
+            go_ahead_rename_crypt = 0
             if not os.path.exists(self.filename):
                 return 3
             else:
-                with open(self.filename, 'rb') as f:
-                    filecontent = f.read()
-                with open(self.filename, 'wb') as f:
-                    if filecontent:
-                        try:
-                            ins = Ash.Enc(message=filecontent, mainkey=self.key)
-                            new_content = ins.encToBytes()
-                            f.write(new_content)
-                            return 1
-                        except:
+                if os.path.splitext(self.filename[1]) == '.crypt':
+                    return 6
+                else:
+                    with open(self.filename, 'rb') as f:
+                        filecontent = f.read()
+                    with open(self.filename, 'wb') as f:
+                        if filecontent:
+                            try:
+                                ins = Ash.Enc(message=filecontent, mainkey=self.key)
+                                new_content = ins.encToBytes()
+                                f.write(new_content)
+                                go_ahead_rename_crypt = 1
+                            except:
+                                f.write(filecontent)
+                                return 0
+                        else:
                             f.write(filecontent)
-                            return 0
-                    else:
-                        f.write(filecontent)
-                        return 2
+                            return 2
+                    if go_ahead_rename_crypt == 1:
+                        os.rename(self.filename, self.filename + '.crypt')
+                        return 1
         except Exception:
             return 4
 
@@ -60,24 +67,31 @@ class CryptFile():
         if self.not_512_bit_key == 1:
             return 5
         try:
+            go_ahead_remove_crypt = 0
             if not os.path.exists(self.filename):
                 return 3
             else:
-                with open(self.filename, 'rb') as f:
-                    enc_content = f.read()
-                with open(self.filename, 'wb') as f:
-                    if enc_content:
-                        try:
-                            ins = Ash.Dec(message=enc_content, mainkey=self.key)
-                            a = ins.decToBytes()
-                            f.write(a)
-                            return 1
-                        except Exception:
+                if os.path.splitext(self.filename)[1] != '.crypt':
+                    return 6
+                else:
+                    with open(self.filename, 'rb') as f:
+                        enc_content = f.read()
+                    with open(self.filename, 'wb') as f:
+                        if enc_content:
+                            try:
+                                ins = Ash.Dec(message=enc_content, mainkey=self.key)
+                                a = ins.decToBytes()
+                                f.write(a)
+                                go_ahead_remove_crypt = 1
+                            except Exception:
+                                f.write(enc_content)
+                                return 0
+                        else:
                             f.write(enc_content)
-                            return 0
-                    else:
-                        f.write(enc_content)
-                        return 2
+                            return 2
+                    if go_ahead_remove_crypt == 1:
+                        os.rename(self.filename, os.path.splitext(self.filename)[0])
+                        return 1
         except Exception:
             return 4
 
@@ -89,6 +103,6 @@ class CryptFile():
 if __name__ == '__main__':
     print(CryptFile.genkey())
     key = 'd5d717f57933ad21725888d3451a9cd7a565dfda677fe92fd8ff9e9c3a36d1496af58c17de2b77d4d3ea6d8791b27350fea0af3ad2610d38c8cb12a29fda4bcf'
-    target = CryptFile('testfile.txt',key)  # if the file is in the current working directory
-    print(target.encrypt())
+    target = CryptFile('hello.txt.crypt',key)
+    print(target.decrypt())
 
