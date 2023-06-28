@@ -40,368 +40,6 @@ lowerFrame.place(x=500,y=540)
 
 '''--------------------------------------FRAMING DONE--------------------------------------------------------------'''
 
-
-'''-------------------------------TEXT DECRYPTION/ENCRYPTION STARTED---------------------------------------------------'''
-
-
-
-
-def encryption():
-    m = inputfield1_1.get()
-    if AF.CryptFile.keyverify(mainkeyvar.get()) == 1 and keySelectionFlag.get() == 1:
-        if len(m) > 200 :
-            outputvar1.set('Too Long')
-        else :
-            if inputfield1_1.get():
-                progressbar.start()
-                a = AT.Crypt(m, mainkeyvar.get())
-                b =  a.encrypt()[1]
-                outputvar1.set(b.__str__())
-                if var1.get() == 1:
-                    qr.tqr(b)
-
-
-def decryption():
-    n =inputfield2_1.get()
-    if AF.CryptFile.keyverify(mainkeyvar.get()) == 1 and keySelectionFlag.get() == 1:
-        if inputfield2_1.get():
-            progressbar2.start()
-            a = AT.Crypt(n, mainkeyvar.get())
-            b = a.decrypt()[1]
-            outputvar2.set(b.__str__())
-            if var2.get() == 1:
-                if not len(b) > 200:
-                    qr.tqr(b)
-
-def func1():
-    if var1.get() == 1 :
-        label1.config(text='QR ON')
-    else:
-        label1.config(text='QR OFF')
-
-def func2():
-    if var2.get() == 1 :
-        label2.config(text='QR ON')
-    else:
-        label2.config(text='QR OFF')
-
-
-button1 = tk.Button(master=textFrame1 ,text='ENCRYPT', command=encryption, bootstyle='light outline').place(relx=0.42, rely=0.73)
-button2 = tk.Button(master=textFrame2 , text='DECRYPT', command=decryption,bootstyle='light outline').place(relx=0.42,rely=0.8)
-
-inputfield1_1 = tk.StringVar()
-textfield1_1 = tk.Entry(master=textFrame1 ,
-                        width=20,
-                        font='Calibre 11 bold',
-                        textvariable=inputfield1_1).place(relx=0.29 , rely=0.30)
-
-inputfield2_1 = tk.StringVar(value='')
-textfield2_1 = tk.Entry(master=textFrame2 ,
-                        font='Calibre 11 bold',
-                        width=20,
-                        textvariable=inputfield2_1).place(relx=0.290 ,rely=0.38)
-
-namelabel1 = tk.Label(master=textFrame1 ,
-                      text='TEXT ENCRYPTION',
-                      font='Calibre 20 bold' ,
-                      )
-namelabel1.place(relx=0.190 ,rely=0.10)
-namelabel2 = tk.Label(master=textFrame2 ,
-                      text='TEXT DECRYPTION' ,
-                      font='Calibre 20 bold'  ,
-                      ).place(relx=0.190 ,rely=0.200)
-
-outputvar1 = tk.StringVar(value='')
-outputlabel1 =  tk.Entry(master= textFrame1,
-                         textvariable=outputvar1,
-                         font='terminal 11 bold').place(relx= 0.02,
-                                                       rely= 0.48 ,
-                                                       width= 480,
-                                                       height= 50)
-outputvar2 = tk.StringVar(value='')
-outputlabel2 = tk.Entry(master=textFrame2 ,
-                        textvariable= outputvar2 ,
-                        font='terminal 11 bold').place(relx= 0.02,
-                                                       rely= 0.55,
-                                                       width= 480,
-                                                       height= 50)
-
-
-
-label1 = tk.Label(master=textFrame1,text='QR',font=('terminal',17))
-label1.place(relx=0.2,rely=0.75)
-var1 = tk.IntVar()
-mytoolbutt3 = tk.Checkbutton(bootstyle='success , round-toggle',
-                        master=textFrame1,
-                        variable=var1,
-                        offvalue=0,
-                        command=func1)
-
-mytoolbutt3.place(relx=0.1,rely=0.77)
-
-
-
-
-label2 = tk.Label(master=textFrame2,text='QR',font=('terminal',17))
-label2.place(relx=0.2,rely=0.82)
-var2 = tk.IntVar()
-mytoolbutt6 = tk.Checkbutton(bootstyle='success , round-toggle',
-                        master=textFrame2,
-                        variable=var2,
-                        offvalue=0,
-                        command=func2)
-
-mytoolbutt6.place(relx=0.1,rely=0.84)
-
-
-progressbar = tk.Progressbar(master=textFrame1,mode='indeterminate',style='secondary',length=100,)
-progressbar.place(relx=0.05,rely=0.34)
-
-progressbar2 = tk.Progressbar(master=textFrame2,mode='indeterminate',style='secondary',length=100,)
-progressbar2.place(relx=0.05,rely=0.42)
-
-'''-------------------------------TEXT DECRYPTION/ENCRYPTION ENDED---------------------------------------------------'''
-
-
-
-
-
-
-
-
-
-'''-------------------------------FILE ENCRYPTION/DECRYPTION STARTED--------------------------------------------'''
-
-
-filepathlabel = tk.Label(master=frameFile1 ,
-                      text='FILE PATH',
-                      font='Calibre 20 bold' ,
-                      )
-filepathlabel.place(relx=0.335,rely=0.10)
-
-
-resultvarfile = tk.StringVar(value='                  ..RESULT..')
-resultLabelfile =  tk.Label(master= frameFile1,
-                         textvariable=resultvarfile,
-                         font='terminal 13 bold').place(
-                                                       rely= 0.55 ,
-                                                       )
-
-
-def encFile():
-    global fileaccessSemo ,add_enc_to_db ,main_db_conn,mainkey
-    if 1 :
-        if keySelectionFlag.get() != 0:
-            filename = filenameStringVar.get().strip()
-            key = mainkey
-            target = AF.CryptFile(filename, key)
-            a = target.encrypt()
-            if a == 1:
-                filename = filename + '.crypt'
-                filenameStringVar.set(filename)
-                resultvarfile.set('    Encrypted Successfully / added .crypt')
-                if encfiletoolbuttvar.get() == 1:
-                    with open(filename,'rb') as f:
-                        file_content = f.read()
-                    try:
-                        main_db_conn.insert(filename,file_content, outputKeyref.get().strip())
-                    except:
-                        db_display_text.delete('1.0', tk.END)
-                        db_display_text.insert(tk.END, f"ERROR \n\nDatabase might be distorted\n")
-            if a == 2:
-                resultvarfile.set('                 File is Empty')
-            if a == 3:
-                resultvarfile.set("               File Doesn't Exist")
-            if a == 0:
-                resultvarfile.set("                  Can't Encrypt")
-            if  a == 4:
-                resultvarfile.set('                     ERROR')
-            if a == 5 :
-                resultvarfile.set('          ERROR : Key is Not 512-bit')
-            if a == 6:
-                resultvarfile.set('       ERROR : File is already encrypted')
-            elif a == 7:
-                resultvarfile.set(' ERROR : Given a directory instead of a file')
-
-def decfile():
-    global fileaccessSemo,add_dec_to_db,main_db_conn,mainkey
-    if 1:
-        if keySelectionFlag.get() != 0:
-            filename =filenameStringVar.get().strip()
-            key = mainkey
-            target = AF.CryptFile(filename, key)
-            a = target.decrypt()
-            if a == 1:
-                filename = os.path.splitext(filename)[0]
-                filenameStringVar.set(filename)
-                resultvarfile.set('   Decrypted Successfully + removed .crypt')
-                if decfiletoolbuttvar.get() == 1:
-                    with open(filename,'rb') as f:
-                        file_content = f.read()
-                    try:
-                        main_db_conn.insert(filename,file_content, outputKeyref.get().strip())
-                    except:
-                        db_display_text.delete('1.0', tk.END)
-                        db_display_text.insert(tk.END, f"ERROR \n\nDatabase might be distorted\n")
-            if a == 2:
-                resultvarfile.set('                 File is Empty')
-            if a == 3:
-                resultvarfile.set("               File Doesn't Exist")
-            if a == 0:
-                resultvarfile.set("                 Can't Decrypt")
-            if  a == 4:
-                resultvarfile.set('                     ERROR')
-            elif a == 5 :
-                resultvarfile.set('          ERROR : Key is Not 512-bit')
-            if a == 6:
-                resultvarfile.set('       ERROR : File is already decrypted')
-            elif a == 7:
-                resultvarfile.set(' ERROR : Given a directory instead of a file')
-
-
-
-
-
-
-encryptionfilebutton = tk.Button(master=frameFile1 ,text='ENCRYPT FILE', command=encFile, bootstyle='warning outline').place(relx=0.25, rely=0.73)
-decryptionfilebutton = tk.Button(master=frameFile1 , text='DECRYPT FILE', command=decfile,bootstyle='warning outline').place(relx=0.55,rely=0.73)
-
-filenameStringVar = tk.StringVar(value='')
-
-filenametext = tk.Entry(master=frameFile1 ,
-                        width=31,
-                        font='Calibre 15 bold',
-                        textvariable=filenameStringVar).place(relx=0.05, rely=0.30)
-
-
-
-addtodbLabel = tk.Label(master=frameFile1,text='ADD TO DATABASE',font=('Calibre',11),bootstyle='warning')
-addtodbLabel.place(relx=0.35,rely=0.908)
-
-add_enc_to_db = 0
-def encToggleButtFunc():
-    global add_enc_to_db
-    if encfiletoolbuttvar == 1:
-        add_enc_to_db = 1
-    else:
-        add_enc_to_db = 0
-
-add_dec_to_db = 0
-def decToggleButtFunc():
-    global add_dec_to_db
-    if decfiletoolbuttvar == 1:
-        add_dec_to_db = 1
-    else:
-        add_dec_to_db = 0
-
-encfiletoolbuttvar = tk.IntVar()
-encfiletoolbutt = tk.Checkbutton(bootstyle='warning , round-toggle',
-                        master=frameFile1,
-                        variable=encfiletoolbuttvar,
-                        offvalue=0,
-                        onvalue=1,
-                        command=encToggleButtFunc)
-encfiletoolbutt.state(['disabled'])
-encfiletoolbutt.place(relx=0.25,rely=0.92)
-
-
-decfiletoolbuttvar = tk.IntVar()
-decfiletoolbutt = tk.Checkbutton(bootstyle='warning , round-toggle',
-                        master=frameFile1,
-                        variable=decfiletoolbuttvar,
-                        offvalue=0,
-                        command=decToggleButtFunc)
-decfiletoolbutt.state(['disabled'])
-decfiletoolbutt.place(relx=0.717,rely=0.92)
-
-
-
-
-keySelectionFlag = tk.IntVar(value=0)
-def mainKeyWrapper():
-    global success_keysdb_connection_blocker,mainkey
-    if AF.CryptFile.keyverify(mainkeyvar.get().strip()) == 1 :
-        mainkey = mainkeyvar.get().strip()
-        keyrefGen()
-        keyselectionvar.set('       SELECTED')
-        keySelectionFlag.set(1)
-        try:
-            if success_keysdb_connection_blocker and os.path.isfile(filenameStringVar.get().strip()):
-                keys_db_conn.insert(filenameStringVar.get().strip(),mainkey,outputKeyref.get())
-            if success_keysdb_connection_blocker and not os.path.isfile(filenameStringVar.get().strip()):
-                keys_db_conn.insert('STANDALONE',mainkey,outputKeyref.get())
-        except:
-            db_display_text.delete('1.0', tk.END)
-            db_display_text.insert(tk.END, f"Faulty Database\n")
-    else :
-        keySelectionFlag.set(0)
-        keyselectionvar.set('     NOT SELECTED')
-
-
-
-mainkeyLabel = tk.Label(master=frameFile2 ,
-                      text='MAIN KEY' ,
-                      font='Calibre 20 bold',
-                      bootstyle='info',
-                      ).place(relx=0.3 ,rely=0.075)
-
-
-mainkeyvar = tk.StringVar()
-mainkeyEntry = tk.Entry(master=frameFile2 ,
-                        font='Calibre 14 bold',
-                        textvariable=mainkeyvar,
-                        width=29
-                        ).place(relx=0.09 ,rely=0.29)
-
-
-def keyrefGen():
-    ref = '#'
-    for _ in range(6):
-        character = secrets.choice(string.ascii_letters + string.digits + '$' + '?' + '&' + '@' + '!' + '-' + '+')
-        ref += character
-    outputKeyref.set(ref)
-
-
-
-outputKeyref = tk.StringVar(value='#XXXXXX')
-keyrefLabel = tk.Label(master=frameFile2,textvariable=outputKeyref,bootstyle='secondary',font=('terminal',12))
-keyrefLabel.place(relx=0.712,rely=0.12)
-
-keySelectButton = tk.Button(master=frameFile2 ,text='SELECT KEY', command=mainKeyWrapper, bootstyle='info outline').place(relx=0.6725, rely=0.5)
-
-
-keyselectionvar = tk.StringVar(value='   KEY NOT SELECTED')
-keyselectionLabel = tk.Label(master=frameFile2 ,
-                        textvariable= keyselectionvar ,
-                        bootstyle='info',
-                        font='terminal 11 bold').place(relx= 0.15 ,
-                                        rely= 0.465,
-                                        height= 50)
-
-
-
-def genMainKey():
-    keyGenVar.set(AF.CryptFile.genkey())
-
-
-keyGenVar = tk.StringVar(value='')
-keyGenEntry = tk.Entry(master=frameFile2 ,
-                        font='terminal 15 bold',
-                        textvariable=keyGenVar,
-                        width=14,
-                        show='').place(relx=0.1 ,rely=0.69)
-
-keyButton = tk.Button(master=frameFile2 ,
-                      text='GENERATE',
-                      command=genMainKey,
-                      bootstyle='success outline').place(relx=0.671, rely=0.7)
-
-
-'''-------------------------------FILE ENCRYPTION/DECRYPTION ENDED--------------------------------------------'''
-
-
-
-
 '''--------------------------------------DATA BASE FRAME STARTED------------------------------------------------'''
 
 
@@ -872,6 +510,373 @@ swich_db_toggle.place(relx=0.47,rely=0.413)
 
 
 '''----------------------------------------LOWER FRAME ENDED----------------------------------'''
+
+
+
+
+
+
+'''-------------------------------TEXT DECRYPTION/ENCRYPTION STARTED---------------------------------------------------'''
+
+
+
+
+def encryption():
+    m = inputfield1_1.get()
+    if AF.CryptFile.keyverify(mainkeyvar.get()) == 1 and keySelectionFlag.get() == 1:
+        if len(m) > 200 :
+            outputvar1.set('Too Long')
+        else :
+            if inputfield1_1.get():
+                progressbar.start()
+                a = AT.Crypt(m, mainkeyvar.get())
+                b =  a.encrypt()[1]
+                outputvar1.set(b.__str__())
+                if var1.get() == 1:
+                    qr.tqr(b)
+
+
+def decryption():
+    n =inputfield2_1.get()
+    if AF.CryptFile.keyverify(mainkeyvar.get()) == 1 and keySelectionFlag.get() == 1:
+        if inputfield2_1.get():
+            progressbar2.start()
+            a = AT.Crypt(n, mainkeyvar.get())
+            b = a.decrypt()[1]
+            outputvar2.set(b.__str__())
+            if var2.get() == 1:
+                if not len(b) > 200:
+                    qr.tqr(b)
+
+def func1():
+    if var1.get() == 1 :
+        label1.config(text='QR ON')
+    else:
+        label1.config(text='QR OFF')
+
+def func2():
+    if var2.get() == 1 :
+        label2.config(text='QR ON')
+    else:
+        label2.config(text='QR OFF')
+
+
+button1 = tk.Button(master=textFrame1 ,text='ENCRYPT', command=encryption, bootstyle='light outline').place(relx=0.42, rely=0.73)
+button2 = tk.Button(master=textFrame2 , text='DECRYPT', command=decryption,bootstyle='light outline').place(relx=0.42,rely=0.8)
+
+inputfield1_1 = tk.StringVar()
+textfield1_1 = tk.Entry(master=textFrame1 ,
+                        width=20,
+                        font='Calibre 11 bold',
+                        textvariable=inputfield1_1).place(relx=0.29 , rely=0.30)
+
+inputfield2_1 = tk.StringVar(value='')
+textfield2_1 = tk.Entry(master=textFrame2 ,
+                        font='Calibre 11 bold',
+                        width=20,
+                        textvariable=inputfield2_1).place(relx=0.290 ,rely=0.38)
+
+namelabel1 = tk.Label(master=textFrame1 ,
+                      text='TEXT ENCRYPTION',
+                      font='Calibre 20 bold' ,
+                      )
+namelabel1.place(relx=0.190 ,rely=0.10)
+namelabel2 = tk.Label(master=textFrame2 ,
+                      text='TEXT DECRYPTION' ,
+                      font='Calibre 20 bold'  ,
+                      ).place(relx=0.190 ,rely=0.200)
+
+outputvar1 = tk.StringVar(value='')
+outputlabel1 =  tk.Entry(master= textFrame1,
+                         textvariable=outputvar1,
+                         font='terminal 11 bold').place(relx= 0.02,
+                                                       rely= 0.48 ,
+                                                       width= 480,
+                                                       height= 50)
+outputvar2 = tk.StringVar(value='')
+outputlabel2 = tk.Entry(master=textFrame2 ,
+                        textvariable= outputvar2 ,
+                        font='terminal 11 bold').place(relx= 0.02,
+                                                       rely= 0.55,
+                                                       width= 480,
+                                                       height= 50)
+
+
+
+label1 = tk.Label(master=textFrame1,text='QR',font=('terminal',17))
+label1.place(relx=0.2,rely=0.75)
+var1 = tk.IntVar()
+mytoolbutt3 = tk.Checkbutton(bootstyle='success , round-toggle',
+                        master=textFrame1,
+                        variable=var1,
+                        offvalue=0,
+                        command=func1)
+
+mytoolbutt3.place(relx=0.1,rely=0.77)
+
+
+
+
+label2 = tk.Label(master=textFrame2,text='QR',font=('terminal',17))
+label2.place(relx=0.2,rely=0.82)
+var2 = tk.IntVar()
+mytoolbutt6 = tk.Checkbutton(bootstyle='success , round-toggle',
+                        master=textFrame2,
+                        variable=var2,
+                        offvalue=0,
+                        command=func2)
+
+mytoolbutt6.place(relx=0.1,rely=0.84)
+
+
+progressbar = tk.Progressbar(master=textFrame1,mode='indeterminate',style='secondary',length=100,)
+progressbar.place(relx=0.05,rely=0.34)
+
+progressbar2 = tk.Progressbar(master=textFrame2,mode='indeterminate',style='secondary',length=100,)
+progressbar2.place(relx=0.05,rely=0.42)
+
+'''-------------------------------TEXT DECRYPTION/ENCRYPTION ENDED---------------------------------------------------'''
+
+
+
+
+
+
+
+
+
+'''-------------------------------FILE ENCRYPTION/DECRYPTION STARTED--------------------------------------------'''
+
+
+filepathlabel = tk.Label(master=frameFile1 ,
+                      text='FILE PATH',
+                      font='Calibre 20 bold' ,
+                      )
+filepathlabel.place(relx=0.335,rely=0.10)
+
+
+resultvarfile = tk.StringVar(value='                  ..RESULT..')
+resultLabelfile =  tk.Label(master= frameFile1,
+                         textvariable=resultvarfile,
+                         font='terminal 13 bold').place(
+                                                       rely= 0.55 ,
+                                                       )
+
+
+def encFile():
+    global fileaccessSemo ,add_enc_to_db ,main_db_conn,mainkey
+    if 1 :
+        if keySelectionFlag.get() != 0:
+            filename = filenameStringVar.get().strip()
+            key = mainkey
+            target = AF.CryptFile(filename, key)
+            a = target.encrypt()
+            if a == 1:
+                filename = filename + '.crypt'
+                filenameStringVar.set(filename)
+                resultvarfile.set('    Encrypted Successfully / added .crypt')
+                if encfiletoolbuttvar.get() == 1:
+                    with open(filename,'rb') as f:
+                        file_content = f.read()
+                    try:
+                        main_db_conn.insert(filename,file_content, outputKeyref.get().strip())
+                    except:
+                        db_display_text.delete('1.0', tk.END)
+                        db_display_text.insert(tk.END, f"ERROR \n\nDatabase might be distorted\n")
+            if a == 2:
+                resultvarfile.set('                 File is Empty')
+            if a == 3:
+                resultvarfile.set("               File Doesn't Exist")
+            if a == 0:
+                resultvarfile.set("                  Can't Encrypt")
+            if  a == 4:
+                resultvarfile.set('                     ERROR')
+            if a == 5 :
+                resultvarfile.set('          ERROR : Key is Not 512-bit')
+            if a == 6:
+                resultvarfile.set('       ERROR : File is already encrypted')
+            elif a == 7:
+                resultvarfile.set(' ERROR : Given a directory instead of a file')
+
+def decfile():
+    global fileaccessSemo,add_dec_to_db,main_db_conn,mainkey
+    if 1:
+        if keySelectionFlag.get() != 0:
+            filename =filenameStringVar.get().strip()
+            key = mainkey
+            target = AF.CryptFile(filename, key)
+            a = target.decrypt()
+            if a == 1:
+                filename = os.path.splitext(filename)[0]
+                filenameStringVar.set(filename)
+                resultvarfile.set('   Decrypted Successfully + removed .crypt')
+                if decfiletoolbuttvar.get() == 1:
+                    with open(filename,'rb') as f:
+                        file_content = f.read()
+                    try:
+                        main_db_conn.insert(filename,file_content, outputKeyref.get().strip())
+                    except:
+                        db_display_text.delete('1.0', tk.END)
+                        db_display_text.insert(tk.END, f"ERROR \n\nDatabase might be distorted\n")
+            if a == 2:
+                resultvarfile.set('                 File is Empty')
+            if a == 3:
+                resultvarfile.set("               File Doesn't Exist")
+            if a == 0:
+                resultvarfile.set("                 Can't Decrypt")
+            if  a == 4:
+                resultvarfile.set('                     ERROR')
+            elif a == 5 :
+                resultvarfile.set('          ERROR : Key is Not 512-bit')
+            if a == 6:
+                resultvarfile.set('       ERROR : File is already decrypted')
+            elif a == 7:
+                resultvarfile.set(' ERROR : Given a directory instead of a file')
+
+
+
+
+
+
+encryptionfilebutton = tk.Button(master=frameFile1 ,text='ENCRYPT FILE', command=encFile, bootstyle='warning outline').place(relx=0.25, rely=0.73)
+decryptionfilebutton = tk.Button(master=frameFile1 , text='DECRYPT FILE', command=decfile,bootstyle='warning outline').place(relx=0.55,rely=0.73)
+
+filenameStringVar = tk.StringVar(value='')
+
+filenametext = tk.Entry(master=frameFile1 ,
+                        width=31,
+                        font='Calibre 15 bold',
+                        textvariable=filenameStringVar).place(relx=0.05, rely=0.30)
+
+
+
+addtodbLabel = tk.Label(master=frameFile1,text='ADD TO DATABASE',font=('Calibre',11),bootstyle='warning')
+addtodbLabel.place(relx=0.35,rely=0.908)
+
+add_enc_to_db = 0
+def encToggleButtFunc():
+    global add_enc_to_db
+    if encfiletoolbuttvar == 1:
+        add_enc_to_db = 1
+    else:
+        add_enc_to_db = 0
+
+add_dec_to_db = 0
+def decToggleButtFunc():
+    global add_dec_to_db
+    if decfiletoolbuttvar == 1:
+        add_dec_to_db = 1
+    else:
+        add_dec_to_db = 0
+
+encfiletoolbuttvar = tk.IntVar()
+encfiletoolbutt = tk.Checkbutton(bootstyle='warning , round-toggle',
+                        master=frameFile1,
+                        variable=encfiletoolbuttvar,
+                        offvalue=0,
+                        onvalue=1,
+                        command=encToggleButtFunc)
+encfiletoolbutt.state(['disabled'])
+encfiletoolbutt.place(relx=0.25,rely=0.92)
+
+
+decfiletoolbuttvar = tk.IntVar()
+decfiletoolbutt = tk.Checkbutton(bootstyle='warning , round-toggle',
+                        master=frameFile1,
+                        variable=decfiletoolbuttvar,
+                        offvalue=0,
+                        command=decToggleButtFunc)
+decfiletoolbutt.state(['disabled'])
+decfiletoolbutt.place(relx=0.717,rely=0.92)
+
+
+
+
+keySelectionFlag = tk.IntVar(value=0)
+def mainKeyWrapper():
+    global success_keysdb_connection_blocker,mainkey
+    if AF.CryptFile.keyverify(mainkeyvar.get().strip()) == 1 :
+        mainkey = mainkeyvar.get().strip()
+        keyrefGen()
+        keyselectionvar.set('       SELECTED')
+        keySelectionFlag.set(1)
+        try:
+            if success_keysdb_connection_blocker and os.path.isfile(filenameStringVar.get().strip()):
+                keys_db_conn.insert(filenameStringVar.get().strip(),mainkey,outputKeyref.get())
+            if success_keysdb_connection_blocker and not os.path.isfile(filenameStringVar.get().strip()):
+                keys_db_conn.insert('STANDALONE',mainkey,outputKeyref.get())
+        except:
+            db_display_text.delete('1.0', tk.END)
+            db_display_text.insert(tk.END, f"Faulty Database\n")
+    else :
+        keySelectionFlag.set(0)
+        keyselectionvar.set('     NOT SELECTED')
+
+
+
+mainkeyLabel = tk.Label(master=frameFile2 ,
+                      text='MAIN KEY' ,
+                      font='Calibre 20 bold',
+                      bootstyle='info',
+                      ).place(relx=0.3 ,rely=0.075)
+
+
+mainkeyvar = tk.StringVar()
+mainkeyEntry = tk.Entry(master=frameFile2 ,
+                        font='Calibre 14 bold',
+                        textvariable=mainkeyvar,
+                        width=29
+                        ).place(relx=0.09 ,rely=0.29)
+
+
+def keyrefGen():
+    ref = '#'
+    for _ in range(6):
+        character = secrets.choice(string.ascii_letters + string.digits + '$' + '?' + '&' + '@' + '!' + '-' + '+')
+        ref += character
+    outputKeyref.set(ref)
+
+
+
+outputKeyref = tk.StringVar(value='#XXXXXX')
+keyrefLabel = tk.Label(master=frameFile2,textvariable=outputKeyref,bootstyle='secondary',font=('terminal',12))
+keyrefLabel.place(relx=0.712,rely=0.12)
+
+keySelectButton = tk.Button(master=frameFile2 ,text='SELECT KEY', command=mainKeyWrapper, bootstyle='info outline').place(relx=0.6725, rely=0.5)
+
+
+keyselectionvar = tk.StringVar(value='   KEY NOT SELECTED')
+keyselectionLabel = tk.Label(master=frameFile2 ,
+                        textvariable= keyselectionvar ,
+                        bootstyle='info',
+                        font='terminal 11 bold').place(relx= 0.15 ,
+                                        rely= 0.465,
+                                        height= 50)
+
+
+
+def genMainKey():
+    keyGenVar.set(AF.CryptFile.genkey())
+
+
+keyGenVar = tk.StringVar(value='')
+keyGenEntry = tk.Entry(master=frameFile2 ,
+                        font='terminal 15 bold',
+                        textvariable=keyGenVar,
+                        width=14,
+                        show='').place(relx=0.1 ,rely=0.69)
+
+keyButton = tk.Button(master=frameFile2 ,
+                      text='GENERATE',
+                      command=genMainKey,
+                      bootstyle='success outline').place(relx=0.671, rely=0.7)
+
+
+'''-------------------------------FILE ENCRYPTION/DECRYPTION ENDED--------------------------------------------'''
+
+
+
+
 
 
 '''---------------------------------------STAMP STARTED -------------------------------------------------------'''
