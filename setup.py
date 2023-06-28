@@ -41,7 +41,8 @@ setup(
         'Programming Language :: Python :: 3.11',
     ],
     keywords=[
-        'Cryptography',
+        'Cryptography application',
+        'cryptography library'
         'AES-256',
     ],
 )
