@@ -8,7 +8,7 @@ As a firm believer in **Freedom** , I have developed a set of tools in Python th
 
 My aim here is to make these tools accessible and user-friendly, even for individuals with limited programming knowledge. By providing these resources, I hope to contribute to the preservation of privacy and enable individuals to take control of their own data security, so feel free to explore these tools.
 ## Overview ## 
-The project incorporates a library I made called **[AshCrypt](https://github.com/AshGw/AES-256/tree/main/src)** : 
+The project incorporates a library I made called **[AshCrypt](https://github.com/AshGw/AES-256/AshCrypt)** : 
 
 <br>A simple, secure, and developer-oriented library for
 encryption and decryption with AES-256 (CBC) . 
@@ -21,18 +21,18 @@ sensitive data,  providing a hassle-free experience when dealing with cryptograp
 
 
 The project mainly includes a fully fledged application that integrates all the modules in the library merging them into a unified and powerful software solution for developers and for people with no programming knowledge whatsoever
-<br>check [GUI](https://github.com/AshGw/AES-256/AshCrypt#ashcryptgui) header for more info.
+<br>check [GUI](https://github.com/AshGw/AES-256#AshCryptGUI) header for more info.
 
 
 ### For Developers ###
 The project uses `Ash` module to ensure secure data encryption and decryption for Files and Texts while keeping it very easy and simple to use .
-view the headers for [AshFileCrypt](https://github.com/AshGw/AES-256/src#ashfilecrypt) and [AshTextCrypt](https://github.com/AshGw/AES-256/src#ashtextcrypt) to learn more.
+view the headers for [AshFileCrypt](https://github.com/AshGw/AES-256#ashfilecrypt) and [AshTextCrypt](https://github.com/AshGw/AES-256#ashtextcrypt) to learn more.
 
 
 It also incorporates a database module that serve the same purpose which is allowing for the management and storage of classified content in a secure, 
 safe and simple manner, you can use whichever you see fit.
 
-<br>The module has a simple straight forward apporach for dealing with sqlite3 databases, even if youre not familiar with Python itself you can still use this module to run SQL queries and built in functions to perform various operations on a given database.<br>Check [AshDatabase](https://github.com/AshGw/CryptographyAES-256#ashdatabase) header to learn more.
+<br>The module has a simple straight forward approach for dealing with sqlite3 databases, even if you're not familiar with Python itself you can still use this module to run SQL queries and built in functions to perform various operations on a given database.<br>Check [AshDatabase](https://github.com/AshGw#AshDatabase) header to learn more.
 
 ## Installation ##
 You can simply use **pip**
