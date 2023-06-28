@@ -20,6 +20,7 @@ AshCrypt/__pycache__/AshCryptGUI.cpython-310.pyc
 AshCrypt/__pycache__/AshDatabase.cpython-310.pyc
 AshCrypt/__pycache__/AshFileCrypt.cpython-310.pyc
 AshCrypt/__pycache__/AshTextCrypt.cpython-310.pyc
+AshCrypt/__pycache__/CliCrypt.cpython-310.pyc
 AshCrypt/__pycache__/__init__.cpython-310.pyc
 AshCrypt/__pycache__/qr.cpython-310.pyc
 AshCrypt/unittests/__init__.py
