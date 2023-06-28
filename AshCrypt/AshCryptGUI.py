@@ -813,7 +813,6 @@ def mainKeyWrapper():
         keyselectionvar.set('     NOT SELECTED')
 
 
-
 mainkeyLabel = tk.Label(master=frameFile2 ,
                       text='MAIN KEY' ,
                       font='Calibre 20 bold',
@@ -896,9 +895,16 @@ def rm_json():
     file = os.path.join(usable_real_path,'output.json')
     if os.path.exists(file):
         os.remove(file)
-    else:
-        pass
-atexit.register(rm_json)
+
+def rm_qr():
+    if os.path.exists('qrv10.png'):
+        os.remove('qrv10.png')
+
+def rm_all():
+    rm_qr()
+    rm_json()
+
+atexit.register(rm_all)
 
 
 
