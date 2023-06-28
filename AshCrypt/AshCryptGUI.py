@@ -203,7 +203,11 @@ def encFile():
                 if encfiletoolbuttvar.get() == 1:
                     with open(filename,'rb') as f:
                         file_content = f.read()
-                    main_db_conn.insert(filename,file_content, outputKeyref.get().strip())
+                    try:
+                        main_db_conn.insert(filename,file_content, outputKeyref.get().strip())
+                    except:
+                        db_display_text.delete('1.0', tk.END)
+                        db_display_text.insert(tk.END, f"ERROR \n\nDatabase might be distorted\n")
             if a == 2:
                 resultvarfile.set('                 File is Empty')
             if a == 3:
@@ -234,7 +238,11 @@ def decfile():
                 if decfiletoolbuttvar.get() == 1:
                     with open(filename,'rb') as f:
                         file_content = f.read()
-                    main_db_conn.insert(filename,file_content, outputKeyref.get().strip())
+                    try:
+                        main_db_conn.insert(filename,file_content, outputKeyref.get().strip())
+                    except:
+                        db_display_text.delete('1.0', tk.END)
+                        db_display_text.insert(tk.END, f"ERROR \n\nDatabase might be distorted\n")
             if a == 2:
                 resultvarfile.set('                 File is Empty')
             if a == 3:
@@ -317,11 +325,14 @@ def mainKeyWrapper():
         keyrefGen()
         keyselectionvar.set('       SELECTED')
         keySelectionFlag.set(1)
-        if success_keysdb_connection_blocker and os.path.isfile(filenameStringVar.get().strip()):
-            keys_db_conn.insert(filenameStringVar.get().strip(),mainkey,outputKeyref.get())
-        if success_keysdb_connection_blocker and not os.path.isfile(filenameStringVar.get().strip()):
-            keys_db_conn.insert('STANDALONE',mainkey,outputKeyref.get())
-
+        try:
+            if success_keysdb_connection_blocker and os.path.isfile(filenameStringVar.get().strip()):
+                keys_db_conn.insert(filenameStringVar.get().strip(),mainkey,outputKeyref.get())
+            if success_keysdb_connection_blocker and not os.path.isfile(filenameStringVar.get().strip()):
+                keys_db_conn.insert('STANDALONE',mainkey,outputKeyref.get())
+        except:
+            db_display_text.delete('1.0', tk.END)
+            db_display_text.insert(tk.END, f"Faulty Database\n")
     else :
         keySelectionFlag.set(0)
         keyselectionvar.set('     NOT SELECTED')
@@ -461,15 +472,20 @@ def show_content_by_id():
                         db_display_text.delete('1.0', tk.END)
                         db_display_text.insert(tk.END, 'Chosen last ID\n\n')
                         to_json_path = os.path.join(usable_real_path,'output.json')
-                        with open(to_json_path, 'w') as f:
-                            eBuffer = {}
-                            for e in conn.content_by_id(int(idd)):
-                                eBuffer['ID_' + e[0].__str__()] = [{'Filename': e[1]}, {'Content': e[2].__str__()},
-                                                                   {'KeyRef': e[3]}]
-                            eJSON = json.dumps(eBuffer, indent=2)
-                            f.write(eJSON)
-                        db_display_text.insert(tk.END, f"Successful fetch !\n\nCheck the 'output.json' file in the"
-                                                       f"the chosen path :\n\n'{usable_real_path}'")
+                        try:
+                            with open(to_json_path, 'w') as f:
+                                eBuffer = {}
+                                for e in conn.content_by_id(int(idd)):
+                                    eBuffer['ID_' + e[0].__str__()] = [{'Filename': e[1]}, {'Content': e[2].__str__()},
+                                                                       {'KeyRef': e[3]}]
+                                eJSON = json.dumps(eBuffer, indent=2)
+                                f.write(eJSON)
+                            db_display_text.insert(tk.END, f"Successful fetch !\n\nCheck the 'output.json' file in the"
+                                                           f"the chosen path :\n\n'{usable_real_path}'")
+                        except:
+                            db_display_text.delete('1.0', tk.END)
+                            db_display_text.insert(tk.END,"ERROR \n\nCheck the validity of 'output.json' file"
+                                                          "\n\nCheck if the database is faulty\n")
                     elif int(idd) > last_id:
                         db_display_text.delete('1.0', tk.END)
                         db_display_text.insert(tk.END, 'Given ID is greater than the highest available ID')
@@ -626,35 +642,39 @@ def main_db_name():
 
     dbname = main_db_name_var.get().strip()
     if re.match(r'((^[\w(-.)?]+\.db$)|(^[\w?(-.)]\.db$))', dbname):
-        maindbname = dbname
-        main_db_name_blocker = 1
-        main_db_name_result_var.set('SET')
-        if db_path_blocker == 1:
-            fullpath = usable_real_path
-            conn_path_db = os.path.join(usable_real_path, maindbname)
-            if os.path.isfile(fullpath + f'\\{maindbname}') or os.path.isfile(fullpath + f'/{maindbname}')  :
-                db_already_exists_blocker = 1
-                main_db_conn = AD.Database(conn_path_db)
-                main_db_conn.addtable()
-                main_db_name_result_var.set('CONNECTED')
-                db_display_text.delete('1.0', tk.END)
-                db_display_text.insert(tk.END, f'Connected to {maindbname}..\n\n')
-                success_maindb_connection_blocker = 1
-                encfiletoolbutt.state(['!disabled'])
-                decfiletoolbutt.state(['!disabled'])
-            else:
-                db_already_exists_blocker = 0
-                main_db_conn = AD.Database(conn_path_db)
-                main_db_conn.addtable()
-                db_display_text.delete('1.0', tk.END)
-                db_display_text.insert(tk.END, f"Created and Connected to '{maindbname}'.. in the directory '{fullpath}'\n\n")
-                success_maindb_connection_blocker = 1
-                encfiletoolbutt.state(['!disabled'])
-                decfiletoolbutt.state(['!disabled'])
+        try:
+            maindbname = dbname
+            main_db_name_blocker = 1
+            main_db_name_result_var.set('SET')
+            if db_path_blocker == 1:
+                fullpath = usable_real_path
+                conn_path_db = os.path.join(usable_real_path, maindbname)
+                if os.path.isfile(fullpath + f'\\{maindbname}') or os.path.isfile(fullpath + f'/{maindbname}')  :
+                    db_already_exists_blocker = 1
+                    main_db_conn = AD.Database(conn_path_db)
+                    main_db_conn.addtable()
+                    main_db_name_result_var.set('CONNECTED')
+                    db_display_text.delete('1.0', tk.END)
+                    db_display_text.insert(tk.END, f'Connected to {maindbname}..\n\n')
+                    success_maindb_connection_blocker = 1
+                    encfiletoolbutt.state(['!disabled'])
+                    decfiletoolbutt.state(['!disabled'])
+                else:
+                    db_already_exists_blocker = 0
+                    main_db_conn = AD.Database(conn_path_db)
+                    main_db_conn.addtable()
+                    db_display_text.delete('1.0', tk.END)
+                    db_display_text.insert(tk.END, f"Created and Connected to '{maindbname}'.. in the directory '{fullpath}'\n\n")
+                    success_maindb_connection_blocker = 1
+                    encfiletoolbutt.state(['!disabled'])
+                    decfiletoolbutt.state(['!disabled'])
 
-        else:
+            else:
+                db_display_text.delete('1.0', tk.END)
+                db_display_text.insert(tk.END, f"PATH : '{db_path_var.get().strip()}' is not a valid path\n\n")
+        except:
             db_display_text.delete('1.0', tk.END)
-            db_display_text.insert(tk.END, f"PATH : '{db_path_var.get().strip()}' is not a valid path\n\n")
+            db_display_text.insert(tk.END, f"The database might be distorted")
     else:
         main_db_name_result_var.set('NOT SET')
         main_db_name_blocker = 0
@@ -666,27 +686,31 @@ def keyDBsetup():
         keys_db_conn
     print(usable_real_path)
     if db_path_blocker == 1 and main_db_name_blocker == 1:
-        dbname = main_db_name_var.get().strip()
-        keysDB = dbname[:-3] + 'Keys.db'
-        dbnameKeysWindows = '\\' + keysDB
-        dbnameKeysUnix = '/' + keysDB
-        conn_path_keys = os.path.join(usable_real_path, keysDB)
-        if db_already_exists_blocker == 1 :
-            if os.path.isfile(usable_real_path + dbnameKeysWindows) or os.path.isfile(usable_real_path + dbnameKeysUnix):
-                keys_db_conn = AD.Database(conn_path_keys)
-                keys_db_conn.addtable()
-                db_display_text.insert(tk.END, f"Connected to '{keysDB}' ..\n\n")
-                success_keysdb_connection_blocker = 1
+        try:
+            dbname = main_db_name_var.get().strip()
+            keysDB = dbname[:-3] + 'Keys.db'
+            dbnameKeysWindows = '\\' + keysDB
+            dbnameKeysUnix = '/' + keysDB
+            conn_path_keys = os.path.join(usable_real_path, keysDB)
+            if db_already_exists_blocker == 1 :
+                if os.path.isfile(usable_real_path + dbnameKeysWindows) or os.path.isfile(usable_real_path + dbnameKeysUnix):
+                    keys_db_conn = AD.Database(conn_path_keys)
+                    keys_db_conn.addtable()
+                    db_display_text.insert(tk.END, f"Connected to '{keysDB}' ..\n\n")
+                    success_keysdb_connection_blocker = 1
+                else:
+                    keys_db_conn = AD.Database(conn_path_keys)
+                    keys_db_conn.addtable()
+                    db_display_text.insert(tk.END, f"'{keysDB}' NOT FOUND ! ==> Created and Connected to '{keysDB}' ..\n\n")
+                    success_keysdb_connection_blocker = 1
             else:
                 keys_db_conn = AD.Database(conn_path_keys)
                 keys_db_conn.addtable()
-                db_display_text.insert(tk.END, f"'{keysDB}' NOT FOUND ! ==> Created and Connected to '{keysDB}' ..\n\n")
+                db_display_text.insert(tk.END, f"Created and Connected to '{keysDB}' ..\n\n")
                 success_keysdb_connection_blocker = 1
-        else:
-            keys_db_conn = AD.Database(conn_path_keys)
-            keys_db_conn.addtable()
-            db_display_text.insert(tk.END, f"Created and Connected to '{keysDB}' ..\n\n")
-            success_keysdb_connection_blocker = 1
+        except:
+            db_display_text.delete('1.0', tk.END)
+            db_display_text.insert(tk.END, f"The database might be distorted\n")
 
 
 success_maindb_connection_blocker = 0
