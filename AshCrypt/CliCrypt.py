@@ -152,7 +152,7 @@ def file_dec():
             target = AF.CryptFile(filename, key)
             a = target.decrypt()
             if a == 1:
-                print('File successfully decrypted + removed .crypt extention')
+                print('File successfully decrypted + removed .crypt extension')
                 print(f'File is now named {os.path.splitext(filename)[0]}')
             if a == 2:
                 print('Cannot decrypt the file  when it is already empty')
@@ -185,7 +185,7 @@ def file_enc():
             target = AF.CryptFile(filename, key)
             a = target.encrypt()
             if a == 1:
-                print('File successfully encrypted + added .crypt extention')
+                print('File successfully encrypted + added .crypt extension')
                 print(f"File is now named : '{filename}.crypt' ")
             if a == 2:
                 print('Cannot encrypt the file  when it is already empty')

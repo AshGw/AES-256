@@ -9,8 +9,8 @@ setup(
     author='Ashref Gwader',
     author_email='AshrefGw@proton.me',
     python_requires='>=3.7',
-    description="Comprehensive AES-256 Cryptography library equipped with a file handling module along with"
-                " a text module w/ a user-friendly GUI and a database module to store encrypted content.",
+    description="Comprehensive AES-256 Cryptography App & library equipped with files & text handling modules along with"
+                " a database module to store encrypted content.",
     long_description_content_type='text/markdown',
     long_description=readme,
     url='https://github.com/AshGw/AES-256.git',

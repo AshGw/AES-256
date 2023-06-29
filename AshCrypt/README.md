@@ -1,4 +1,4 @@
-# Cryptography Library : AES-256
+# Cryptography App &  Library : AES-256
 ##  Objective ## 
 #### Enhanced Security, Simplicity & Ease of use For Everyone And Anyone Willing To Use AES 256 With No Unnecessary Complications.
 ## Overview ## 
@@ -131,20 +131,23 @@ The GUI as mentioned above is a fully fledged application , you can use it to en
 - You can insert some text in the entry right below the `TEXT ENCRYPTION` label.<br>The given text will be encrypted and you can choose if you want to have that text displayed as a qr code, a qr image will pop on the screen and you'll be able to scan it using your phone.
 - Insert some encrypted text below the `TEXT DECRYPTION` label.<br>The Given text will be decrypted and you'd have the option to display the "plaintext" as a qr code to be scanned by other devices.
 #### Files
-- Under the `FILE PATH` lable enter the file name (if it's in the current working directory) or submit the whole file path , the file can be of any type, click on `ENCRYPT FILE` Button to encrypt the given file , if the encryption turned out to be successful , you'll see a success message along with a `added .crypt extention to the file` message if the encryption wasn't successful you'll see an error message specifying the problem.<br>Note that you cannot re-encrypt a file that  has `.crypt` as extention.
+- Under the `FILE PATH` label enter the file name (if it's in the current working directory) or submit the whole file path , the file can be of any type, click on `ENCRYPT FILE` Button to encrypt the given file , if the encryption turned out to be successful , you'll see a success message along with a `added .crypt extention to the file` message if the encryption wasn't successful you'll see an error message specifying the problem.<br>Note that you cannot re-encrypt a file that  has `.crypt` as extention.
 - The file name should be changed by now to `filename + '.crypt'` , if the file has .crypt extention you can go ahead and decrypt it , if the same key is used for both enc/dec operations then the result should be `success` + `removed .crypt extention` from the file.
 #### Database
 - Now you have some encrypted/decrypted files but you want to keep them stored somewhere safe, this is where the main database comes in , where you need to store your files + their content + reference to the key used for their encryption/decryption. you can specify your database by 
 1) Specify the actual path where you want your database to be 
-2) Give it a name.<br>
+2) Give it a name, it must be a valid file name that ends with `.db` .<br>
 If the database doesn't exist then a database with the name you've given will be created and automatically connected to.<br>If the given database already exists then it will automatically be connected.
-3) Did I mention the keys database ? well if you give a database it will also create a keys database with the same name as the database you chose plus `Keys` added to its name. This database holds the actual keys and the reference to these keys. 
+3) Did I mention the keys database ? well if you give a database it will also create a keys database with the same name as the database you chose plus `Keys` added to its name. This database holds the actual keys and the reference to these keys.
+<br>The only common piece of data that the two separate databases have in common are the key reference values.  
 
-**Note** : You can actually share your main database in public no problems if it only contains encrypted content BUT NEVER EVER GET YOUR KEYS DATABASE COMPROMISED ! 
+**Note** : If your main database gets compromised , then the attacker wouldnt have anything useful , they can never know the actual key from the reference key so no problem with that if it only contains encrypted content BUT NEVER EVER GET YOUR KEYS DATABASE COMPROMISED ! 
 <br>If anyone gets hold of your main database they would only see some encrypted content and some key refrence that is actually 100% independent of the actual key used for encryption so they have nothing , but if they get hold of the keys database they can look for matching refs and use the matching key to decrypt that binary encrypted data to its actual format.
 That's why I made two different databases not two tables within a single database. 
+<br> So you keep your keys database safe and secure.
 
-**Info** Both databses have the same table called `Classified` that has 4 columns <br>`ID` which is auto generated & incremented for each piece of data that gets inserted<br>
+
+**Info** Both databases have the same table called `Classified` that has 4 columns <br>`ID` which is auto generated & incremented for each piece of data that gets inserted<br>
 `Name` that holds the filename in both databases , although in the keys database if you haven't specified any file to operate on and keep selecting keys the keys name will be `STANDALONE` 
 <br>`Contnet` in the main db that holds the entire content of the given file, in keys db that holds the actual 512 bit long encryption key.
 <br>`Key` in  both db's that holds the `KeyRef` or key reference value
@@ -156,6 +159,7 @@ The buttons are self-explanatory so do what you see fit. the result of any task 
 ```shell
 python -m AshCrypt.AshCryptGUI
 ```
+
 
 
 
@@ -186,8 +190,15 @@ target = CryptFile('/User/Desktop/MyProjects/SomeOtherfolder/myfile.txt',key)
 instance1 = CryptFile('qrv10.png',key)
 instance1.encrypt()
 ```
-you can apply `print()` on `instance1.encrypt()`to check the result, if it is `1` then everything went ok , if it's `3` then the file doesn't even exists otherwise some other Error has occurred (usually the file is distorted).
-
+you can apply `print()` on `instance1.encrypt()`to check the result :
+<br> 1 : File successfully encrypted/decrypted + added/removed .crypt extension 
+<br> 2 : File is empty
+<br> 3 : File doesn't exist
+<br> 4 : Unknown Error usually a system related one 
+<br> 5 : Key is denied for cryptographic use
+<br> 6 : File is already encrypted/decrypted
+<br> 7 : File is not a file it's a directory
+<br> 0 : Error in enc/dec probable file distortion or tampering or wrong key
 ```python
 instance1.encrypt()
 ```
@@ -282,20 +293,20 @@ print(connect.size) # Size of the Database in MB
 
 7) to run more complex queries I've dedicated a query function that takes in *queries and returns the result fetched 
 ```python
-query1 = 'SELECT COUNT(*) AS cc ,content FROM Classified WHERE key = "#5482A" ORDER BY cc DESC '
-print(connect.query(query1))
+query = 'SELECT COUNT(*) AS cc ,content FROM Classified WHERE key = "#5482A" ORDER BY cc DESC '
+print(connect.query(query))
 ```
 The result fetched should look like this : 
  ```python
-[{'query1': [(3, 'some encrypted content of bytes or strings')]}]
+[{'query 0': ['SUCCESS', [(1, 'some encrypted content of bytes or strings')]]}]
 ```
-If some error has occured while doing a query like : 
+If some error has occurred while doing a query like : 
 ```python
-query1 = 'SELECT COUNT(*) AS cc ,content FROM DoesntExist WHERE key = "#5482A" ORDER BY cc DESC '
+query = 'SELECT COUNT(*) AS cc ,content FROM DoesntExist WHERE key = "#5482A" ORDER BY cc DESC '
 ```
-The result fetched should look similair to this : 
+The result fetched should look similar to this : 
 ```python
-[{'query1': (0, OperationalError('no such table: DoesntExist'))}]
+[{'query 0': ('FAILURE', 'no such table: DoesntExist')}]
 ```
 Thats it so simple !
 
