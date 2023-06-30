@@ -3,5 +3,4 @@ cd AES-256
 pip install --upgrade pip
 pip install -r important/requirements.txt
 python setup.py develop
-cd AshCrypt
-python -m CliCrypt
+
