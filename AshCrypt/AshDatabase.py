@@ -104,8 +104,8 @@ class Database():
         if optional_table_name is None:
             try:
                 with self.conn:
-                    self.c.execute((f'UPDATE {self.tablename} SET ? = ? WHERE ID = ? '),
-                                   (column_name, new_column_val, ID))
+                    self.c.execute((f'UPDATE {self.tablename} SET {column_name} = ? WHERE ID = ? '),
+                                   (new_column_val, ID))
                     return 11
 
             except sqlite3.Error as e:
