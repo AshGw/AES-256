@@ -54,7 +54,7 @@ That's it.
 Now if you want to get the whole repo with no manual configurations
 <br>Run this command in the Terminal
 ```bash
-curl -sSfL https://raw.githubusercontent.com/AshGw/AES-256/main/important/setup.sh | bash
+curl -sSfL https://raw.githubusercontent.com/AshGw/AES-256/Apex/important/setup.sh | bash
 ```
 This will run the commands in [setup.sh](important/setup.sh).
 <br>It will clone & install all the dependencies needed on your machine and activate the development mode, inside the directory you're currently at.
