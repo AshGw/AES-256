@@ -1,5 +1,5 @@
-from AshCrypt import AshFileCrypt as AF
-from AshCrypt import AshTextCrypt as A
+from AshCrypt import FileCrypt as AF
+from AshCrypt import TextCrypt as A
 import os.path
 import sys
 

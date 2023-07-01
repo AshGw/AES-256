@@ -26,15 +26,17 @@ The project mainly includes a fully fledged application that integrates all the 
 
 ### For Developers ###
 The project uses `Ash` module to ensure secure data encryption and decryption for Files and Texts while keeping it very easy and simple to use .
-view the headers for [AshFileCrypt](https://github.com/AshGw/AES-256#ashfilecrypt) and [AshTextCrypt](https://github.com/AshGw/AES-256#ashtextcrypt) to learn more.
+view the headers for [FileCrypt](https://github.com/AshGw/AES-256#filecrypt) and [TextCrypt](https://github.com/AshGw/AES-256#textcrypt) to learn more.
 
 
 It also incorporates a database module that serve the same purpose which is allowing for the management and storage of classified content in a secure, 
 safe and simple manner, you can use whichever you see fit.
 
-<br>The module has a simple straight forward approach for dealing with sqlite3 databases, even if you're not familiar with Python itself you can still use this module to run SQL queries and built in functions to perform various operations on a given database.<br>Check [AshDatabase](https://github.com/AshGw#AshDatabase) header to learn more.
+<br>The module has a simple straight forward approach for dealing with sqlite3 databases, even if you're not familiar with Python itself you can still use this module to run SQL queries and built in functions to perform various operations on a given database.<br>Check [Database](https://github.com/AshGw#Database) header to learn more.
 
 ## Installation ##
+There are many ways to go by this : 
+### If you want to use it as a library ###
 You can simply use **pip**
 <br>First upgrade the package installer 
 ```bash
@@ -50,7 +52,12 @@ You can start using it in your code by importing its modules :
 from AshCrypt.Ash import *
 ```
 That's it.
+### Ready-to-go Executable files:
+If you want to use the App right away : 
+<br>**For Windows** : Download this repo as a ZIP file, extract the content
+<br>then click on `Executables > Win > AshCryptGUI.exe` This will automatically run the GUI
 
+### Whole repo installation 
 Now if you want to get the whole repo with no manual configurations
 <br>Run this command in the Terminal
 ```bash
@@ -59,15 +66,10 @@ curl -sSfL https://raw.githubusercontent.com/AshGw/AES-256/main/important/setup.
 This will run the commands in [setup.sh](important/setup.sh).
 <br>It will clone & install all the dependencies needed on your machine and activate the development mode, inside the directory you're currently at.
 
-<br>If you're testing how this works on a Debian based Docker container you can run this command to automatically set the environment before you run the command above
+you can use this command to automate the environment setup process if you haven't done it  already
 ```bash
 curl -sSfL https://raw.githubusercontent.com/AshGw/AES-256/main/Docker-build/env-setup.sh | bash
 ```
-Then run 
-```bash
-source vvv/bin/activate
-```
-
 <details>
 <summary>Got Errors ?</summary>
 
@@ -175,7 +177,7 @@ That simple, that's it.
 These focus on ease of use: 
 - No need to manipulate the input to fit, it accepts strings or bytes you can pass them right away
 - You can get a string or a bytes representation of either the encryption or the decryption result
-- In Ash module the key is flexible it doesn't have to be 512 bit long, it can actually be of any length but that's up to you to ensure it's security, or leave it as is and use the key generation function to get secure and random keys ( although in `AshTextCrypt` and `AshFileCrypt` you have to use a 512 bit long key )
+- In Ash module the key is flexible it doesn't have to be 512 bit long, it can actually be of any length but that's up to you to ensure it's security, or leave it as is and use the key generation function to get secure and random keys ( although in `TextCrypt` and `FileCrypt` you have to use a 512 bit long key )
 - Encrypting to a string has URL-safe string representation 
 ### Regarding KDFs
 Note that bcrypt is intentionally slow and computationally expensive, enhancing protection against brute-force attacks. The number of iterations, including salt and pepper, increases derivation time to strike a balance between security and performance. Use a suitable value based on your machine's capabilities and desired security level.
@@ -226,7 +228,7 @@ python -m AshCrypt.AshCryptGUI
 
 
 
-## AshFileCrypt ## 
+## FileCrypt ## 
 If you want to encrypt a file :
 1) Follow the steps above to set the key up.
 2) Create an instance of the class CryptFiles and pass 2 arguments, the first one being the target file and the second argument being the key :
@@ -273,7 +275,7 @@ instance1.decrypt()
 
 
 That's it, if you follow the steps above then everything should work just fine.
-## AshTextCrypt ## 
+## TextCrypt ## 
 Same steps above just the naming is different, and keep in mind both accept either strings or bytes 
 ```python
 instance1 = Crypt('Hello Wold !',key)
@@ -290,7 +292,7 @@ The result simply returns a tuple so index `[0]` is going to be the confirmation
 **Note**:
 <br>Unlike the `Ash` library where if you try to decrypt a non-encrypted message you get all kinds of errors.
 
-in `AshFileCryt` & `AshTextCrypt` it's simpler if you attempt to decrypt an non-encrypted message then you'll get the same message back along with an integer in this case `0` for failure.
+in `FileCryt` & `TextCrypt` it's simpler if you attempt to decrypt an non-encrypted message then you'll get the same message back along with an integer in this case `0` for failure.
 <br>`1`'s for success.
 <br>Non `1`'s for failure (`2`/`0.0`/`0`) each indicate different Errors. 
 
@@ -300,12 +302,12 @@ Error handling here has no Exceptions raised just `1`'s, `0`'s & `2`'s for feedb
 ### QR ## 
 The `qr.py` module is used to display a qr code of the encrypted/decrypted messages to be quickly scanned and transmitted , you can use qr versions from `1` to `40` , although I recommend using `40` since it can take the maximum number of characters for small files , and `10` if you're working with the GUI which is intended for text/short messages,
 
-## AshDatabase ##
+## Database ##
 To support efficient content management, I have integrated this database module to enable the storage and retrieval of encrypted content in a safe and secure manner using an sqlite3 database
 
 Ensuring that the encrypted data remains organized and readily accessible to anyone with the right key. Any content going in must be encrypted with a key that you must keep off grid.
 
-**Note** that in `AshDatabase.py` I'm using `dataclasses` module which was introduced in `python 3.7`, so make sure to install it if you have an older version.
+**Note** that in `Database.py` I'm using `dataclasses` module which was introduced in `python 3.7`, so make sure to install it if you have an older version.
 
 ### Usage ## 
 In the module I'm providing built-in functions to make it easier to perform usual queries on Sqlite tables , by default it creates a table `Classified` with two deafult columns :

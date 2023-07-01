@@ -1,6 +1,6 @@
-import AshCrypt.AshTextCrypt as AT
-import AshCrypt.AshFileCrypt as AF
-import AshCrypt.AshDatabase as AD
+import AshCrypt.TextCrypt as AT
+import AshCrypt.FileCrypt as AF
+import AshCrypt.Database as AD
 import ttkbootstrap as tk
 import AshCrypt.qr as qr
 import secrets
