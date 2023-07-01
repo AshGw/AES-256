@@ -1,6 +1,12 @@
+#!/bin/bash
+
 git clone https://github.com/AshGw/AES-256.git
-cd AES-256
-pip install --upgrade pip
+cd AES-256 || exit
+if [[ "$OSTYPE" == "win"* ]]; then
+  python.exe -m pip install --upgrade pip
+else
+  pip install --upgrade pip
+fi
 pip install -r important/requirements.txt
 python setup.py develop
 
