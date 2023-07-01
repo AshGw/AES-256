@@ -216,7 +216,7 @@ That's why I made two different databases not two tables within a single databas
 <br>`Key` in  both db's that holds the `KeyRef` or key reference value
 #### Usage 
 The buttons are self-explanatory so do what you see fit. the result of any task related to the databases is displayed in `DATABASE OUTPUT CONSOLE` although you can run a query anytime by writing a query and using `query` button , the result will be displayed to an `output.json` file that auto-deletes when you exit the app.
-<br>Just click buttons and check the result in the output console, it will guide you the process.
+<br>Just click buttons and check the result in the output console, it will guide you through the process.
 
 <br>To run the GUI anywhere
 ```shell
@@ -261,7 +261,7 @@ you can apply `print()` on `instance1.encrypt()`to check the result :
 <br> 5 : Key is denied for cryptographic use
 <br> 6 : File is already encrypted/decrypted
 <br> 7 : File is not a file it's a directory
-<br> 0 : Error in enc/dec probable file distortion or tampering or wrong key
+<br> 0 : Error in enc/dec probable file distortion, tampering or wrong key
 ```python
 instance1.encrypt()
 ```

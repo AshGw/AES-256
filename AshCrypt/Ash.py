@@ -131,11 +131,3 @@ class Dec:
 
     def decToStr(self) -> str:
         return (self.unpadded_m().decode('UTF-8'))
-
-
-
-if __name__ == '__main__':
-    message = 'Hello'
-    key = Enc.genMainkey()
-    instance1 = Enc(message = message,mainkey = key)
-    print(instance1.encToBytes())

@@ -243,17 +243,3 @@ class Database():
 
             except sqlite3.Error as e:
                 return (0, e)
-
-if __name__ == '__main__':
-    conn = Database('post_test.db')
-    conn.addtable()
-
-    key = '#5482AF'
-    conn.insert('My Accounts','some encrypted content of bytes or strings',key)
-    for e in conn.show_tables():
-        print(e)
-    print(conn.size)
-    query1 = 'SELECT COUNT(*) AS cc ,content FROM Classified WHERE key = "#5482AF" ORDER BY cc DESC '
-    print(conn.query(query1))
-
-
