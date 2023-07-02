@@ -14,7 +14,7 @@ setup(
     long_description_content_type='text/markdown',
     long_description=readme,
     url='https://github.com/AshGw/AES-256.git',
-    packages=find_packages(exclude=['important', 'Docker-build','Executables']),
+    packages=find_packages(exclude=['important', 'Docker-build','.github','Executables','demo']),
     package_data={
         'AshCrypt': ['**'],
     },
