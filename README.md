@@ -55,7 +55,7 @@ That's it.
 ### Ready-to-go Executable files:
 If you want to use the App right away : 
 <br>**For Windows** : Download this repo as a ZIP file, extract the content
-<br>then click on `Executables > Win > AshCryptGUI.exe` This will automatically run the GUI
+<br>then click on `Executables > AshCryptGUI.exe` This will automatically run the GUI
 
 ### Whole repo installation 
 Now if you want to get the whole repo with no manual configurations
