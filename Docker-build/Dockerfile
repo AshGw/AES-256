@@ -4,7 +4,6 @@ ENV DISPLAY=:0
 
 WORKDIR .
 
-RUN apt-get update -y
 RUN pip install --upgrade pip
 
 RUN pip install AshCrypt

@@ -5,6 +5,4 @@ test.db
 target.txt
 test1.py
 test2.py
-test3.py
-test4.py
 /__pycache__/

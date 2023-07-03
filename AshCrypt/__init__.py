@@ -1,1 +1,1 @@
-__all__ = ['Ash', 'TextCrypt.py', 'Database.py', 'FileCrypt.py', 'AshCryptGUI', 'qr', 'CliCrypt']
+__all__ = ['Ash', 'TextCrypt', 'Database', 'FileCrypt', 'AshCryptGUI', 'qr', 'CliCrypt']
