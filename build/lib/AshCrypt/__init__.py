@@ -1,1 +1,1 @@
-__all__ = ['Ash','AshTextCrypt','AshDatabase','AshFileCrypt','AshCryptGUI','qr','CliCrypt']
+__all__ = ['Ash', 'TextCrypt', 'Database', 'FileCrypt', 'AshCryptGUI', 'qr', 'CliCrypt']

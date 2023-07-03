@@ -4,8 +4,8 @@ import AshCrypt.Ash as Ash
 
 class AshModuleTesting(unittest.TestCase):
     def setUp(self) -> None:
-        self.message1 = 'Hello there testing ifl it works'
-        self.message2 = b'Hello this is bytes now'
+        self.message1 = 'Hello there testing if it works'
+        self.message2 = b'this is bytes now'
         self.mainkey = 'c3066e464350e68a144d6be3e35c879eac1b9f360139443ee3d9e1960725d6a4d3379af0a35b6a07d083ecc29c4ba03767ad6d48b8e9c20d319dd459da52a91a'
         self.ins1 = Ash.Enc(message=self.message1, mainkey=self.mainkey)
         self.string_message = self.ins1.encToStr()
