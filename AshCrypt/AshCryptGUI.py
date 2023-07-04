@@ -37,9 +37,6 @@ textFrame2.place(x=1000 , y=250)
 lowerFrame = tk.Frame(master=object, width=1000 ,height=260)
 lowerFrame.place(x=500,y=540)
 
-
-'''--------------------------------------FRAMING DONE--------------------------------------------------------------'''
-
 '''--------------------------------------DATABASE FRAME STARTED------------------------------------------------'''
 
 
@@ -237,10 +234,6 @@ content_id_entry.place(relx=0.45,rely=0.93)
 
 show_content_by_id_button = tk.Button(master=databaseFrame,text='SHOW CONTENT BY ID',command=show_content_by_id,bootstyle='warning outline')
 show_content_by_id_button.place(relx=0.562,rely=0.93)
-
-
-
-'''--------------------------------------DATABASE FRAME ENDED------------------------------------------------'''
 
 
 '''----------------------------------------LOWER FRAME STARTED----------------------------------'''
@@ -509,16 +502,7 @@ swich_db_toggle.state(['disabled'])
 swich_db_toggle.place(relx=0.47,rely=0.413)
 
 
-'''----------------------------------------LOWER FRAME ENDED----------------------------------'''
-
-
-
-
-
-
 '''-------------------------------TEXT DECRYPTION/ENCRYPTION STARTED---------------------------------------------------'''
-
-
 
 
 def encryption():
@@ -634,15 +618,6 @@ progressbar.place(relx=0.05,rely=0.34)
 
 progressbar2 = tk.Progressbar(master=textFrame2,mode='indeterminate',style='secondary',length=100,)
 progressbar2.place(relx=0.05,rely=0.42)
-
-'''-------------------------------TEXT DECRYPTION/ENCRYPTION ENDED---------------------------------------------------'''
-
-
-
-
-
-
-
 
 
 '''-------------------------------FILE ENCRYPTION/DECRYPTION STARTED--------------------------------------------'''
@@ -871,13 +846,6 @@ keyButton = tk.Button(master=frameFile2 ,
                       bootstyle='success outline').place(relx=0.671, rely=0.7)
 
 
-'''-------------------------------FILE ENCRYPTION/DECRYPTION ENDED--------------------------------------------'''
-
-
-
-
-
-
 '''---------------------------------------STAMP STARTED -------------------------------------------------------'''
 
 
@@ -885,10 +853,6 @@ latest_ID_key_label = tk.Label(master=lowerFrame,text='GitHub.com/AshGw/AES-256'
 latest_ID_key_label.place(relx=0.84,rely=0.92)
 
 '''---------------------------------------STAMP ENDED-------------------------------------------------------'''
-
-
-
-
 
 def rm_json():
     global usable_real_path
