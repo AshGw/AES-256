@@ -43,13 +43,18 @@ lowerFrame.place(x=500,y=540)
 databaseFrame = tk.Frame(master=object,height=800, width=500)
 databaseFrame.place(rely=0, relx=0)
 
-console_label = tk.Label(master=databaseFrame, text='DATABASE OUTPUT CONSOLE', font='terminal 15 bold')
+console_label = tk.Label(master=databaseFrame, text='DATABASE OUTPUT CONSOLE', font='Calibre 15 bold')
 console_label.place( relx=0.09,rely=0.04)
 
-
-db_display_text = tk.Text(width=38 , height=19, font='arial 13',wrap='word')
-db_display_text.place(relx=0.015 ,rely=0.105)
-db_display_text.insert(tk.END,'Waiting to fetch..')
+import platform
+if platform.system() == 'Windows':
+    db_display_text = tk.Text(width=38 , height=18, font='Calibre 13 bold',wrap='word')
+    db_display_text.place(relx=0.015 ,rely=0.105)
+    db_display_text.insert(tk.END,'Waiting to fetch..')
+else:
+    db_display_text = tk.Text(width=38, height=22, font='Calibre 13 bold', wrap='word')
+    db_display_text.place(relx=0.015, rely=0.105)
+    db_display_text.insert(tk.END, 'Waiting to fetch..')
 
 
 def show_all_content():
@@ -630,13 +635,17 @@ filepathlabel = tk.Label(master=frameFile1 ,
                       )
 filepathlabel.place(relx=0.335,rely=0.10)
 
-
-resultvarfile = tk.StringVar(value='                  ..RESULT..')
-resultLabelfile =  tk.Label(master= frameFile1,
-                         textvariable=resultvarfile,
-                         font='terminal 13 bold').place(
-                                                       rely= 0.55 ,
-                                                       )
+import platform
+if platform.system() == 'Windows':
+    resultvarfile = tk.StringVar(value='                  ..........')
+    resultLabelfile =  tk.Label(master= frameFile1,
+                             textvariable=resultvarfile,
+                             font='terminal 13 bold').place(rely= 0.55)
+else:
+    resultvarfile = tk.StringVar(value='                    ..........')
+    resultLabelfile = tk.Label(master=frameFile1,
+                               textvariable=resultvarfile,
+                               font='terminal 13 bold').place(rely=0.55)
 
 
 def encFile():
@@ -836,7 +845,7 @@ def genMainKey():
 
 keyGenVar = tk.StringVar(value='')
 keyGenEntry = tk.Entry(master=frameFile2 ,
-                        font='arial 12',
+                        font='Calibre 12 bold',
                         textvariable=keyGenVar,
                         width=23).place(relx=0.1 ,rely=0.69)
 

@@ -16,6 +16,7 @@ AshCrypt.egg-info/dependency_links.txt
 AshCrypt.egg-info/requires.txt
 AshCrypt.egg-info/top_level.txt
 AshCrypt/__pycache__/Ash.cpython-39.pyc
+AshCrypt/__pycache__/AshCryptGUI.cpython-39.pyc
 AshCrypt/__pycache__/Database.cpython-39.pyc
 AshCrypt/__pycache__/FileCrypt.cpython-39.pyc
 AshCrypt/__pycache__/TextCrypt.cpython-39.pyc
