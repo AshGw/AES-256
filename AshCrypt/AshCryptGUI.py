@@ -3,6 +3,7 @@ import AshCrypt.FileCrypt as AF
 import AshCrypt.Database as AD
 import ttkbootstrap as tk
 import AshCrypt.qr as qr
+import platform
 import secrets
 import os.path
 import string
@@ -659,7 +660,7 @@ def encFile():
             if a == 1:
                 filename = filename + '.crypt'
                 filenameStringVar.set(filename)
-                resultvarfile.set('    Encrypted Successfully / added .crypt')
+                resultvarfile.set('      Encrypted Successfully / added .crypt')
                 if encfiletoolbuttvar.get() == 1:
                     with open(filename,'rb') as f:
                         file_content = f.read()
@@ -668,20 +669,36 @@ def encFile():
                     except:
                         db_display_text.delete('1.0', tk.END)
                         db_display_text.insert(tk.END, f"ERROR \n\nDatabase might be distorted\n")
-            if a == 2:
-                resultvarfile.set('                 File is Empty')
-            if a == 3:
-                resultvarfile.set("               File Doesn't Exist")
-            if a == 0:
-                resultvarfile.set("                  Can't Encrypt")
-            if  a == 4:
-                resultvarfile.set('                     ERROR')
-            if a == 5 :
-                resultvarfile.set('          ERROR : Key is Not 512-bit')
-            if a == 6:
-                resultvarfile.set('       ERROR : File is already encrypted')
-            elif a == 7:
-                resultvarfile.set(' ERROR : Given a directory instead of a file')
+            if platform.system() == 'Windows':
+                if a == 2:
+                    resultvarfile.set('                 File is Empty')
+                if a == 3:
+                    resultvarfile.set("               File Doesn't Exist")
+                if a == 0:
+                    resultvarfile.set("                  Can't Encrypt")
+                if  a == 4:
+                    resultvarfile.set('                     ERROR')
+                if a == 5 :
+                    resultvarfile.set('          ERROR : Key is Not 512-bit')
+                if a == 6:
+                    resultvarfile.set('       ERROR : File is already encrypted')
+                elif a == 7:
+                    resultvarfile.set(' ERROR : Given a directory instead of a file')
+            else:
+                if a == 2:
+                    resultvarfile.set('                   File is Empty')
+                if a == 3:
+                    resultvarfile.set("                 File Doesn't Exist")
+                if a == 0:
+                    resultvarfile.set("                    Can't Encrypt")
+                if  a == 4:
+                    resultvarfile.set('                       ERROR')
+                if a == 5 :
+                    resultvarfile.set('            ERROR : Key is Not 512-bit')
+                if a == 6:
+                    resultvarfile.set('         ERROR : File is already encrypted')
+                elif a == 7:
+                    resultvarfile.set('   ERROR : Given a directory instead of a file')
 
 def decfile():
     global fileaccessSemo,add_dec_to_db,main_db_conn,mainkey
@@ -694,7 +711,7 @@ def decfile():
             if a == 1:
                 filename = os.path.splitext(filename)[0]
                 filenameStringVar.set(filename)
-                resultvarfile.set('   Decrypted Successfully + removed .crypt')
+                resultvarfile.set('     Decrypted Successfully + removed .crypt')
                 if decfiletoolbuttvar.get() == 1:
                     with open(filename,'rb') as f:
                         file_content = f.read()
@@ -703,20 +720,38 @@ def decfile():
                     except:
                         db_display_text.delete('1.0', tk.END)
                         db_display_text.insert(tk.END, f"ERROR \n\nDatabase might be distorted\n")
-            if a == 2:
-                resultvarfile.set('                 File is Empty')
-            if a == 3:
-                resultvarfile.set("               File Doesn't Exist")
-            if a == 0:
-                resultvarfile.set("                 Can't Decrypt")
-            if  a == 4:
-                resultvarfile.set('                     ERROR')
-            elif a == 5 :
-                resultvarfile.set('          ERROR : Key is Not 512-bit')
-            if a == 6:
-                resultvarfile.set('       ERROR : File is already decrypted')
-            elif a == 7:
-                resultvarfile.set(' ERROR : Given a directory instead of a file')
+            if platform.system() == 'Windows':
+                if a == 2:
+                    resultvarfile.set('                 File is Empty')
+                if a == 3:
+                    resultvarfile.set("               File Doesn't Exist")
+                if a == 0:
+                    resultvarfile.set("                 Can't Decrypt")
+                if  a == 4:
+                    resultvarfile.set('                     ERROR')
+                elif a == 5 :
+                    resultvarfile.set('          ERROR : Key is Not 512-bit')
+                if a == 6:
+                    resultvarfile.set('       ERROR : File is already decrypted')
+                elif a == 7:
+                    resultvarfile.set(' ERROR : Given a directory instead of a file')
+            else:
+                if a == 2:
+                    resultvarfile.set('                   File is Empty')
+                if a == 3:
+                    resultvarfile.set("                 File Doesn't Exist")
+                if a == 0:
+                    resultvarfile.set("                   Can't Decrypt")
+                if  a == 4:
+                    resultvarfile.set('                       ERROR')
+                elif a == 5 :
+                    resultvarfile.set('            ERROR : Key is Not 512-bit')
+                if a == 6:
+                    resultvarfile.set('         ERROR : File is already decrypted')
+                elif a == 7:
+                    resultvarfile.set('   ERROR : Given a directory instead of a file')
+
+
 
 
 
