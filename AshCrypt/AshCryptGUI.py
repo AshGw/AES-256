@@ -638,7 +638,7 @@ filepathlabel.place(relx=0.335,rely=0.10)
 
 import platform
 if platform.system() == 'Windows':
-    resultvarfile = tk.StringVar(value='                  ..........')
+    resultvarfile = tk.StringVar(value='                 ..........')
     resultLabelfile =  tk.Label(master= frameFile1,
                              textvariable=resultvarfile,
                              font='terminal 13 bold').place(rely= 0.55)

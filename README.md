@@ -8,7 +8,7 @@ As a firm believer in **Freedom** , I have developed a set of tools in Python th
 
 My aim here is to make these tools accessible and user-friendly, even for individuals with limited programming knowledge. By providing these resources, I hope to contribute to the preservation of privacy and enable individuals to take control of their own data security, so feel free to explore these tools.
 ## Overview ## 
-The project incorporates a library I made called **[AshCrypt](https://github.com/AshGw/AES-256/AshCrypt)** : 
+The project incorporates a library I made called **AshCrypt** : 
 
 <br>A simple, secure, and developer-oriented library for
 encryption and decryption with AES-256 (CBC) . 
@@ -32,7 +32,7 @@ view the headers for [FileCrypt](https://github.com/AshGw/AES-256#filecrypt) and
 It also incorporates a database module that serve the same purpose which is allowing for the management and storage of classified content in a secure, 
 safe and simple manner, you can use whichever you see fit.
 
-<br>The module has a simple straight forward approach for dealing with sqlite3 databases, even if you're not familiar with Python itself you can still use this module to run SQL queries and built in functions to perform various operations on a given database.<br>Check [Database](https://github.com/AshGw#Database) header to learn more.
+<br>The module has a simple straight forward approach for dealing with sqlite3 databases, even if you're not familiar with Python itself you can still use this module to run SQL queries and built in functions to perform various operations on a given database.<br>Check [Database](https://github.com/AshGw/AES-256#database-1) header to learn more.
 
 ## Installation ##
 There are many ways to go by this : 
@@ -113,7 +113,7 @@ confidentiality.
 <br>It uses primitives from the `cryptography.py` library with added security features while keeping it simple and highly flexible to provide a head-ache free solution for developers. 
 
 <br>You can check [Features](https://github.com/AshGw/AES-256#features) tag below to learn more about the security features.
-<br>You can check the [unittesting file](AshCryt/unittests/unittestAsh.py) to verify how it works.
+<br>You can check the [unittesting file](AshCrypt/unittests/unittestAsh.py) to verify how it works.
 
 ### Usage ##
 1) Generate a key if you don't have one already
