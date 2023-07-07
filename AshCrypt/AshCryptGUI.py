@@ -43,13 +43,14 @@ lowerFrame.place(x=500,y=540)
 databaseFrame = tk.Frame(master=object,height=800, width=500)
 databaseFrame.place(rely=0, relx=0)
 
-console_label = tk.Label(master=databaseFrame, text='DATABASE OUTPUT CONSOLE', font='Terminal 15 bold')
+console_label = tk.Label(master=databaseFrame, text='DATABASE OUTPUT CONSOLE', font='terminal 15 bold')
 console_label.place( relx=0.09,rely=0.04)
 
 
-db_display_text = tk.ScrolledText(width=36 , height=30, font='Terminal 10',wrap='word')
-db_display_text.insert(tk.END,'Waiting to fetch..')
+db_display_text = tk.Text(width=38 , height=19, font='arial 13',wrap='word')
 db_display_text.place(relx=0.015 ,rely=0.105)
+db_display_text.insert(tk.END,'Waiting to fetch..')
+
 
 def show_all_content():
     global db_enable_blocker, main_db_name_var, usable_real_path, main_db_conn,db_display_text,keys_db_conn
@@ -835,10 +836,9 @@ def genMainKey():
 
 keyGenVar = tk.StringVar(value='')
 keyGenEntry = tk.Entry(master=frameFile2 ,
-                        font='terminal 15 bold',
+                        font='arial 12',
                         textvariable=keyGenVar,
-                        width=14,
-                        show='').place(relx=0.1 ,rely=0.69)
+                        width=23).place(relx=0.1 ,rely=0.69)
 
 keyButton = tk.Button(master=frameFile2 ,
                       text='GENERATE',
