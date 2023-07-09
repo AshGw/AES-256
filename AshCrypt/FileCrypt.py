@@ -1,13 +1,15 @@
 from AshCrypt import Ash
 import os
 
+
 class KeyError(Exception):
     def __init__(self):
         self.display = 'Key must be 512 Bit long !'
         super().__init__(self.display)
 
+
 class CryptFile():
-    def __init__(self,filename,key):
+    def __init__(self, filename, key):
         self.filename = filename
         self.not_512_bit_key = 0
         if self.keyverify(key) == 1:
@@ -28,12 +30,12 @@ class CryptFile():
                     return 1
                 else:
                     return 0
-        except:
+        except BaseException:
             return 2
 
     def encrypt(self) -> int:
         if os.path.isdir(self.filename):
-            return  7
+            return 7
         if self.not_512_bit_key == 1:
             return 5
         try:
@@ -49,11 +51,12 @@ class CryptFile():
                     with open(self.filename, 'wb') as f:
                         if filecontent:
                             try:
-                                ins = Ash.Enc(message=filecontent, mainkey=self.key)
+                                ins = Ash.Enc(
+                                    message=filecontent, mainkey=self.key)
                                 new_content = ins.encToBytes()
                                 f.write(new_content)
                                 go_ahead_rename_crypt = 1
-                            except:
+                            except BaseException:
                                 f.write(filecontent)
                                 return 0
                         else:
@@ -67,7 +70,7 @@ class CryptFile():
 
     def decrypt(self) -> int:
         if os.path.isdir(self.filename):
-            return  7
+            return 7
         if self.not_512_bit_key == 1:
             return 5
         try:
@@ -83,7 +86,8 @@ class CryptFile():
                     with open(self.filename, 'wb') as f:
                         if enc_content:
                             try:
-                                ins = Ash.Dec(message=enc_content, mainkey=self.key)
+                                ins = Ash.Dec(
+                                    message=enc_content, mainkey=self.key)
                                 a = ins.decToBytes()
                                 f.write(a)
                                 go_ahead_remove_crypt = 1
@@ -94,14 +98,15 @@ class CryptFile():
                             f.write(enc_content)
                             return 2
                     if go_ahead_remove_crypt == 1:
-                        os.rename(self.filename, os.path.splitext(self.filename)[0])
+                        os.rename(
+                            self.filename, os.path.splitext(
+                                self.filename)[0])
                         return 1
         except Exception:
             return 4
 
     def __str__(self):
         return f'Encrypting/Decrypting File {self.filename} With {self.key} Key '
+
     def __repr__(self):
         return f'{self.__class__.__name__}({self.filename},{self.key})'
-
-

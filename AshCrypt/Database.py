@@ -1,8 +1,9 @@
-from dataclasses import dataclass,field
+from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Union
 import sqlite3
 import os
+
 
 @dataclass
 class Database():
@@ -19,7 +20,8 @@ class Database():
     def size(self):         # Size in MB #
         try:
             with self.conn:
-                self.c.execute('SELECT page_count * page_size FROM pragma_page_count() , pragma_page_size')
+                self.c.execute(
+                    'SELECT page_count * page_size FROM pragma_page_count() , pragma_page_size')
                 size_info = self.c.fetchone()
                 size = size_info[0] / 1024 / 1024
                 return size
@@ -48,9 +50,11 @@ class Database():
                 with self.conn:
                     self.c.execute(query)
                     if self.c.rowcount == 1:
-                        result.append({f'query {i}': ['SUCCESS',self.c.fetchone()]})
+                        result.append(
+                            {f'query {i}': ['SUCCESS', self.c.fetchone()]})
                     else:
-                        result.append({f'query {i}': ['SUCCESS',self.c.fetchall()]})
+                        result.append(
+                            {f'query {i}': ['SUCCESS', self.c.fetchall()]})
 
             except sqlite3.Error as e:
                 result.append({f'query {i}': ('FAILURE', e.__str__())})
@@ -60,8 +64,9 @@ class Database():
         if optional_tablename is None:
             try:
                 with self.conn:
-                    self.c.execute(f"CREATE TABLE IF NOT EXISTS {self.tablename} "
-                                   "(ID INTEGER PRIMARY KEY, Name Text , Content BLOB ,Key TEXT )")
+                    self.c.execute(
+                        f"CREATE TABLE IF NOT EXISTS {self.tablename} "
+                        "(ID INTEGER PRIMARY KEY, Name Text , Content BLOB ,Key TEXT )")
                 return 11
             except sqlite3.Error as e:
                 return (0.0, e)
@@ -69,23 +74,27 @@ class Database():
         else:
             try:
                 with self.conn:
-                    self.c.execute(f"CREATE TABLE IF NOT EXISTS {optional_tablename} "
-                                   "(ID INTEGER PRIMARY KEY,"
-                                   "Name TEXT ,"
-                                   "Content BLOB ,"
-                                   "Key TEXT )")
+                    self.c.execute(
+                        f"CREATE TABLE IF NOT EXISTS {optional_tablename} "
+                        "(ID INTEGER PRIMARY KEY,"
+                        "Name TEXT ,"
+                        "Content BLOB ,"
+                        "Key TEXT )")
                     self.tablename = optional_tablename
                 return 1
 
             except sqlite3.Error as e:
                 return (0, e)
 
-    def insert(self, name , content, key, optional_table_name=None):
+    def insert(self, name, content, key, optional_table_name=None):
         if optional_table_name is None:
             try:
                 with self.conn:
-                    self.c.execute(f"INSERT INTO {self.tablename} (Name , Content ,Key) VALUES (? , ? , ?) "
-                                   , (name,content,key))
+                    self.c.execute(
+                        f"INSERT INTO {self.tablename} (Name , Content ,Key) VALUES (? , ? , ?) ",
+                        (name,
+                         content,
+                         key))
 
                 return 11
             except sqlite3.Error as e:
@@ -94,18 +103,28 @@ class Database():
         else:
             try:
                 with self.conn:
-                    self.c.execute(f"INSERT INTO {optional_table_name} (Name, Content ,Key) VALUES (? , ? , ?) ",
-                                   (name,content,key))
+                    self.c.execute(
+                        f"INSERT INTO {optional_table_name} (Name, Content ,Key) VALUES (? , ? , ?) ",
+                        (name,
+                         content,
+                         key))
                 return 1
             except sqlite3.Error as e:
                 return (0, e)
 
-    def update(self, column_name: str, new_column_val: str, ID: int, optional_table_name=None):
+    def update(
+            self,
+            column_name: str,
+            new_column_val: str,
+            ID: int,
+            optional_table_name=None):
         if optional_table_name is None:
             try:
                 with self.conn:
-                    self.c.execute((f'UPDATE {self.tablename} SET {column_name} = ? WHERE ID = ? '),
-                                   (new_column_val, ID))
+                    self.c.execute(
+                        (f'UPDATE {self.tablename} SET {column_name} = ? WHERE ID = ? '),
+                        (new_column_val,
+                         ID))
                     return 11
 
             except sqlite3.Error as e:
@@ -114,8 +133,11 @@ class Database():
         else:
             try:
                 with self.conn:
-                    self.c.execute((f'UPDATE {optional_table_name} SET ? = ? WHERE ID = ? '),
-                                   (column_name, new_column_val, ID))
+                    self.c.execute(
+                        (f'UPDATE {optional_table_name} SET ? = ? WHERE ID = ? '),
+                        (column_name,
+                         new_column_val,
+                         ID))
                     return 1
 
             except sqlite3.Error as e:
@@ -142,11 +164,12 @@ class Database():
             except sqlite3.Error as e:
                 return (0, e)
 
-    def content_by_id(self, id : int ,optional_tablename=None):
+    def content_by_id(self, id: int, optional_tablename=None):
         if optional_tablename is None:
             try:
                 with self.conn:
-                    self.c.execute(f'SELECT * FROM {self.tablename} WHERE ID = ? ',(id,))
+                    self.c.execute(
+                        f'SELECT * FROM {self.tablename} WHERE ID = ? ', (id,))
                     for row in self.c.fetchall():
                         yield row
 
@@ -156,7 +179,8 @@ class Database():
         else:
             try:
                 with self.conn:
-                    self.c.execute(f'SELECT * FROM {optional_tablename} WHERE ID = ? ',(id,))
+                    self.c.execute(
+                        f'SELECT * FROM {optional_tablename} WHERE ID = ? ', (id,))
                     for row in self.c.fetchall():
                         yield row
 
@@ -188,7 +212,8 @@ class Database():
     def show_tables(self) -> tuple:
         try:
             with self.conn:
-                self.c.execute("SELECT name FROM sqlite_master WHERE type= 'table' ")
+                self.c.execute(
+                    "SELECT name FROM sqlite_master WHERE type= 'table' ")
                 for row in self.c.fetchall():
                     yield row
 
@@ -198,7 +223,8 @@ class Database():
     def dropall(self):
         try:
             with self.conn:
-                self.c.execute("SELECT name FROM sqlite_master WHERE type= 'table' ")
+                self.c.execute(
+                    "SELECT name FROM sqlite_master WHERE type= 'table' ")
                 for table in self.c.fetchall():
                     self.c.execute(f'DROP TABLE {table[0]}')
                 return 1
@@ -229,7 +255,8 @@ class Database():
         if optional_table_name is None:
             try:
                 with self.conn:
-                    self.c.execute(f'DELETE FROM {self.tablename} WHERE ID = {ID}')
+                    self.c.execute(
+                        f'DELETE FROM {self.tablename} WHERE ID = {ID}')
                 return 11
 
             except sqlite3.Error as e:
@@ -238,7 +265,8 @@ class Database():
         else:
             try:
                 with self.conn:
-                    self.c.execute(f'DELETE FROM {optional_table_name} WHERE ID = {ID}')
+                    self.c.execute(
+                        f'DELETE FROM {optional_table_name} WHERE ID = {ID}')
                 return 1
 
             except sqlite3.Error as e:
