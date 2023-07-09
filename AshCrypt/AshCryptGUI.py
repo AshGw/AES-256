@@ -109,7 +109,7 @@ def show_content_by_id():
                             eJSON = json.dumps(eBuffer, indent=2)
                             f.write(eJSON)
                         db_display_text.insert(tk.END, f"Successful fetch !\n\nCheck the 'output.json' file in the"
-                                                       f"chosen path :\n\n'{usable_real_path}'")
+                                                       f" chosen path :\n\n'{usable_real_path}'")
                     if int(idd) == last_id:
                         db_display_text.delete('1.0', tk.END)
                         db_display_text.insert(tk.END, 'Chosen last ID\n\n')
@@ -123,7 +123,7 @@ def show_content_by_id():
                                 eJSON = json.dumps(eBuffer, indent=2)
                                 f.write(eJSON)
                             db_display_text.insert(tk.END, f"Successful fetch !\n\nCheck the 'output.json' file in the"
-                                                           f"the chosen path :\n\n'{usable_real_path}'")
+                                                           f" the chosen path :\n\n'{usable_real_path}'")
                         except:
                             db_display_text.delete('1.0', tk.END)
                             db_display_text.insert(tk.END,"ERROR \n\nCheck the validity of 'output.json' file"
