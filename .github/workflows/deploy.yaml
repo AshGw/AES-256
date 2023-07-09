@@ -1,0 +1,43 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build-then-publish-pypi:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checking out
+        uses: actions/checkout@v2
+      - name: Environment setup
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: Setup
+        run: |
+          python -m pip install --upgrade pip
+          pip install wheel twine
+      - name: Build distribution
+        run: python setup.py bdist_wheel sdist
+      - name: Check distribution
+        run: twine check dist/*
+      - name: Publish
+        env:
+          TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+        run: twine upload dist/*
+
+  build-and-publish-docker:
+    needs: build-then-publish-pypi
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checking out repo
+        uses: actions/checkout@v2
+      - name: Build and tag image
+        run: docker build -t ashcrypt:latest Docker-build
+      - name: Login
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Pushing to the hub
+        run: docker push ashgw/ashcrypt:latest
