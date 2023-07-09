@@ -11,7 +11,8 @@ My aim here is to make these tools accessible and user-friendly, even for indivi
 ![alt text](important/GUI.png)
 The project incorporates an App & a library called **AshCrypt** : 
 
-**App :** Full fledged application that integrates all the modules in the library merging them into a unified and powerful software solution for developers and for people with no programming knowledge whatsoever
+**App :** 
+<br>Fully-fledged application that integrates all the modules in the library merging them into a unified and powerful software solution for developers and for people with no programming knowledge whatsoever
 <br>check [GUI](https://github.com/AshGw/AES-256#AshCryptGUI) header for more info.
 
 **Library :** 
